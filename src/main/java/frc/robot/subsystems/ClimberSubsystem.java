@@ -27,8 +27,9 @@ public class ClimberSubsystem extends SubsystemBase {
     stage = Stages.Extend;
   }
 
-  public void ratchet() {
-    // m_ratchet.set(0);
+  public void ratchet(boolean on) {
+    if(on) m_ratchet.set(0);
+    else m_ratchet.setAngle(45);
   }
 
   public void climb() {
@@ -44,7 +45,7 @@ public class ClimberSubsystem extends SubsystemBase {
         stage = Stages.Swing;
         break;
       case Swing:
-        ratchet();
+        // ratchet(true);
         // m_winch.set(ControlMode.PercentOutput, value); Release more
         m_grabber.set(false);
         break;

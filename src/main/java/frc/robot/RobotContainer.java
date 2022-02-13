@@ -6,9 +6,11 @@ package frc.robot;
 
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.ClimbCommand;
+import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.SpinCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ScottySubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
@@ -26,13 +28,16 @@ public class RobotContainer {
   ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
   ScottySubsystem m_scottySubsystem = new ScottySubsystem();
+  IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
 
   Joystick m_stick = new Joystick(0);
   Joystick m_climbStick = new Joystick(1);
   Joystick m_calibStick = new Joystick(5);
 
   // Driver 1
-  JoystickButton m_spinUp = new JoystickButton(m_stick, 2);
+  JoystickButton m_spinUp = new JoystickButton(m_stick, 3);
+  JoystickButton m_intake = new JoystickButton(m_stick, 1);
+  JoystickButton m_outake = new JoystickButton(m_stick, 2);
   // Driver 2
   JoystickButton m_climb = new JoystickButton(m_climbStick, 2);
 
@@ -46,6 +51,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Driver 1
     m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_stick.getThrottle()));
+    m_intake.whileHeld(new IntakeCommand(m_intakeSubsystem, 0.75));
+    m_outake.whileHeld(new IntakeCommand(m_intakeSubsystem, -0.75));
     // Driver 2
     m_climb.whenPressed(new ClimbCommand(m_climberSubsystem));
   }

@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.lib.Logger;
 import frc.robot.subsystems.ClimberSubsystem;
 
 public class ClimbCommand extends CommandBase {
@@ -17,6 +18,7 @@ public class ClimbCommand extends CommandBase {
 
   @Override
   public void initialize() {
+    Logger.Log("Climb Command", 1, "Initialized");
     m_climberSubsystem.climb();
     end = true;
   }

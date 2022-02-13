@@ -24,16 +24,20 @@ public class DriveSubsystem extends SubsystemBase {
   PIDController m_rightController;
 
   public DriveSubsystem() {
+    m_rightDriveFollower.setInverted(false);
+    m_leftDriveFollower.setInverted(true);
     m_leftDriveFollower.follow(m_leftDrive);
     m_rightDriveFollower.follow(m_rightDrive);
     
-    m_leftDriveFollower.setInverted(true);
-    m_rightDriveFollower.setInverted(false);
+    m_leftDrive.setInverted(true);
+    m_rightDrive.setInverted(false);
+    m_leftDrive.configOpenloopRamp(2d);
+    m_rightDrive.configOpenloopRamp(2d);
   }
 
   public void setPower (double left, double right) {
     m_leftDrive.set(ControlMode.PercentOutput, left);
-    m_rightDriveFollower.set(ControlMode.PercentOutput, right);
+    m_rightDrive.set(ControlMode.PercentOutput, right);
   }
 
   @Override

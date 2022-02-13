@@ -15,6 +15,7 @@ import frc.robot.Constants;
 public class IntakeSubsystem extends SubsystemBase {
   TalonSRX m_intake = new TalonSRX(Constants.k_intake);
   Solenoid m_deploy = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.k_deploy);
+  
   public IntakeSubsystem() {}
 
   public void deployIntake(boolean deploy) {

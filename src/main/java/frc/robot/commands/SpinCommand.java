@@ -7,6 +7,7 @@ package frc.robot.commands;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.lib.Logger;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class SpinCommand extends CommandBase {
@@ -24,7 +25,7 @@ public class SpinCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("Spin Up Command Initialized");
+    Logger.Log("Spin Up Command", 1, "Initialized");
   }
 
   // Called every time the scheduler runs while the command is scheduled.

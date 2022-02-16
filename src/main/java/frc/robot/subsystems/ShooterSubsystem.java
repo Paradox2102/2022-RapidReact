@@ -17,7 +17,10 @@ public class ShooterSubsystem extends SubsystemBase {
   TalonFX m_shooterFollower = new TalonFX(Constants.k_shooterFollower);
 
   public ShooterSubsystem() {
-    m_shooter.setInverted(true);
+    m_shooter.configFactoryDefault();
+    m_shooterFollower.configFactoryDefault();
+    m_shooter.setInverted(false);
+    m_shooterFollower.setInverted(true);
     m_shooterFollower.follow(m_shooter);
   }
 

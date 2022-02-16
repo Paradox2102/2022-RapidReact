@@ -26,6 +26,7 @@ public class ScottySubsystem extends SubsystemBase {
   double power;
 
   public ScottySubsystem() {
+    m_scotty.setInverted(false);
     state = States.None;
     run = false;
     // this.power = power;
@@ -37,42 +38,42 @@ public class ScottySubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    boolean bot = m_scotFar.get();
-    boolean mid = m_scotFar.get();
-    boolean top = m_scotFar.get();
+    // boolean bot = m_scotFar.get();
+    // boolean mid = m_scotFar.get();
+    // boolean top = m_scotFar.get();
 
-    switch(state) {
-      case None:
-        if(bot) {
-          run = true;
-          state = States.MoveOne;
-        }
-        break;
-      case MoveOne:
-        if(mid) {
-          run = false;
-          state = States.OneBall;
-        }
-        break;
-      case OneBall:
-        if(bot) {
-          run = true;
-          state = States.MoveTwo;
-        }
-        break;
-      case MoveTwo:
-        if(top) {
-          run = false;
-          state = States.Full;
-        }
-        break;
-      case Full:
-        if(bot) {
-          // Reverse intake
-        }
-        break;
-    }
-    if(top) run = false;
-    if(run) runScotty(power);
+    // switch(state) {
+    //   case None:
+    //     if(bot) {
+    //       run = true;
+    //       state = States.MoveOne;
+    //     }
+    //     break;
+    //   case MoveOne:
+    //     if(mid) {
+    //       run = false;
+    //       state = States.OneBall;
+    //     }
+    //     break;
+    //   case OneBall:
+    //     if(bot) {
+    //       run = true;
+    //       state = States.MoveTwo;
+    //     }
+    //     break;
+    //   case MoveTwo:
+    //     if(top) {
+    //       run = false;
+    //       state = States.Full;
+    //     }
+    //     break;
+    //   case Full:
+    //     if(bot) {
+    //       // Reverse intake
+    //     }
+    //     break;
+    // }
+    // if(top) run = false;
+    // if(run) runScotty(power);
   }
 }

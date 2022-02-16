@@ -4,41 +4,31 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.lib.Logger;
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.ScottySubsystem;
 
-public class SpinCommand extends CommandBase {
-
-  ShooterSubsystem m_shooterSubsystem;
+public class ScottyPowerCommand extends CommandBase {
+  ScottySubsystem m_scottySubsystem;
   double m_power;
-
-  public SpinCommand(ShooterSubsystem shooterSubsytem, double power) {
-    m_shooterSubsystem = shooterSubsytem;
+  public ScottyPowerCommand(ScottySubsystem scottySubsystem, double power) {
+    m_scottySubsystem = scottySubsystem;
     m_power = power;
-
-    addRequirements(m_shooterSubsystem);
+    addRequirements(scottySubsystem);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Logger.Log("Spin Up Command", 1, "Initialized");
-    m_shooterSubsystem.setShooterPower(m_power);
+    m_scottySubsystem.runScotty(m_power);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    System.out.println("Spin Up Command End");
-    m_shooterSubsystem.setShooterPower(0);
+    m_scottySubsystem.runScotty(0);
   }
 
   // Returns true when the command should end.

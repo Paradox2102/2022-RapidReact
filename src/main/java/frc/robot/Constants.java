@@ -12,19 +12,19 @@ package frc.robot;
 public final class Constants {
     // Talons
         // Drive FX
-        public static int k_driveRight = 1;
-        public static int k_driveRightFollower = 2;
-        public static int k_driveLeft = 3;
-        public static int k_driveLeftFollower = 4;
+        public static int k_driveRight = 2;
+        public static int k_driveRightFollower = 12;
+        public static int k_driveLeft = 5;
+        public static int k_driveLeftFollower = 0;
         // Shooter FX
-        public static int k_shooter = 5;
-        public static int k_shooterFollower = 6;
+        public static int k_shooter = 14;
+        public static int k_shooterFollower = 15;
         // Climber FX
         public static int k_climber = 7;
         // Scotty (throat) FX
-        public static int k_scotty = 8;
+        public static int k_scotty = 13;
         // Intake (spin) SRX
-        public static int k_intake = 9;
+        public static int k_intake = 1;
 
     // Sensors
         // Beambrake

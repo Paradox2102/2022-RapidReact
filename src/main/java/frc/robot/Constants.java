@@ -20,7 +20,7 @@ public final class Constants {
         public static int k_shooter = 14;
         public static int k_shooterFollower = 15;
         // Climber FX
-        public static int k_climber = 7;
+        public static int k_climber = 4;
         // Scotty (throat) FX
         public static int k_scotty = 13;
         // Intake (spin) SRX

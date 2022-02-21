@@ -60,7 +60,7 @@ public class RobotContainer {
     m_climb.whenPressed(new ClimbCommand(m_climberSubsystem));
     m_fire.whileHeld(new ScottyPowerCommand(m_scottySubsystem, 0.4));
     m_reverseScotty.whileHeld(new ScottyPowerCommand(m_scottySubsystem, -0.4));
-    m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, 0.7));
+    m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, 0.45));
   }
 
 

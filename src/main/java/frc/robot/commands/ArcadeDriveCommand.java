@@ -39,7 +39,7 @@ public class ArcadeDriveCommand extends CommandBase {
     double x = m_getX.getAsDouble();
     double y = m_getY.getAsDouble();
 
-    x = x * x * x;
+    x = x * x * x/2;
     y = y * y * y;
     y *= -1;
 

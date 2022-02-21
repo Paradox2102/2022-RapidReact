@@ -36,7 +36,7 @@ public class ClimberSubsystem extends SubsystemBase {
     switch(stage) {
       case Extend:
         m_piston.set(true);
-        // m_winch.set(ControlMode.PercentOutput, value); // Release at same time as piston goes up
+        // m_winch.set(ControlMode.PercentOutput, value); Release at same time as piston goes up
         stage = Stages.Grab;
         break;
       case Grab:
@@ -46,7 +46,7 @@ public class ClimberSubsystem extends SubsystemBase {
         break;
       case Swing:
         // ratchet(true);
-        // m_winch.set(ControlMode.PercentOutput, value); // Release more
+        // m_winch.set(ControlMode.PercentOutput, value); Release more
         m_grabber.set(false);
         break;
     }

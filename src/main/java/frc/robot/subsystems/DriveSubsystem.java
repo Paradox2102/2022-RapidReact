@@ -45,8 +45,8 @@ public class DriveSubsystem extends SubsystemBase {
     
     m_leftDrive.setInverted(true);
     m_rightDrive.setInverted(false);
-    m_leftDrive.configOpenloopRamp(2d);
-    m_rightDrive.configOpenloopRamp(2d);
+    m_leftDrive.configOpenloopRamp(1d);
+    m_rightDrive.configOpenloopRamp(1d);
 
     m_sensors = new Sensor(m_leftCoder, m_rightCoder, m_gyro, 720);
     m_posTracker = new PositionTracker(0, 0, false, m_sensors);

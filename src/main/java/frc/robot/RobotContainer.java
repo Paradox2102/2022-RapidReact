@@ -54,14 +54,15 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     // Driver 1
-    // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_stick.getThrottle()));
+    m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_stick.getThrottle()));
     m_intake.whileHeld(new IntakeCommand(m_intakeSubsystem, 0.60));
     m_outake.whileHeld(new IntakeCommand(m_intakeSubsystem, -0.60));
     // Driver 2
     m_climb.whenPressed(new ClimbCommand(m_climberSubsystem));
     m_fire.whileHeld(new ScottyPowerCommand(m_scottySubsystem, 0.4));
     m_reverseScotty.whileHeld(new ScottyPowerCommand(m_scottySubsystem, -0.4));
-    m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, 0.7));
+    m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_climbStick.getThrottle()));
+    //m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, 0.7));
   }
 
   public Command getAutonomousCommand() {

@@ -47,9 +47,10 @@ public class RobotContainer {
   public RobotContainer() {
     configureButtonBindings();
     m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(), 
-        () -> m_stick.getY()));
+        () -> m_stick.getY(), () -> m_stick.getThrottle())); 
   }
-
+  // m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(),
+  //       () -> (-m_stick.getY() - m_velocityStick.getY()), () -> m_stick.getThrottle()));
 
   private void configureButtonBindings() {
     // Driver 1

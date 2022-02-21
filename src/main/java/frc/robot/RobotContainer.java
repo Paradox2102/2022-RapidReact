@@ -54,7 +54,7 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     // Driver 1
-    m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_stick.getThrottle()));
+    // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_stick.getThrottle()));
     m_intake.whileHeld(new IntakeCommand(m_intakeSubsystem, 0.60));
     m_outake.whileHeld(new IntakeCommand(m_intakeSubsystem, -0.60));
     // Driver 2

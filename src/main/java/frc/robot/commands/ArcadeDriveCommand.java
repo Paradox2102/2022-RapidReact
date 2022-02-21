@@ -16,11 +16,15 @@ public class ArcadeDriveCommand extends CommandBase {
   DoubleSupplier m_getX;
   DoubleSupplier m_getY;
 
-  public ArcadeDriveCommand(DriveSubsystem driveSubsystem, DoubleSupplier joystickX, DoubleSupplier joystickY) {
+  DoubleSupplier m_getThrottle;
+
+  public ArcadeDriveCommand(DriveSubsystem driveSubsystem, DoubleSupplier joystickX, DoubleSupplier joystickY, DoubleSupplier getThrottle) {
     m_subsystem = driveSubsystem;
 
     m_getX = joystickX;
     m_getY = joystickY;
+
+    m_getThrottle = getThrottle;
 
     addRequirements(driveSubsystem);
   }
@@ -39,9 +43,9 @@ public class ArcadeDriveCommand extends CommandBase {
     y = y * y * y;
     y *= -1;
 
-    // if (m_getThrottle.getAsDouble() > 0) {
-    //   y *= -1;
-    // }
+    if (m_getThrottle.getAsDouble() > 0) {
+       y *= -1;
+    }
 
     m_subsystem.setPower(y + x, y - x);
     // m_subsystem.setPower(0.25, 0.25);

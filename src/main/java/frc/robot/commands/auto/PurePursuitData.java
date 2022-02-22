@@ -8,8 +8,8 @@ package frc.robot.commands.auto;
 public class PurePursuitData {
 
     public double k_maxSpeed = 6.000000;
-    public double k_maxAccel = 3.000000;
-    public double k_maxDecl = 3.000000;
+    public double k_maxAccel = 6.000000;
+    public double k_maxDecl = 6.000000;
     public double k_maxJerk = 100;
 
     PurePursuitData() {
@@ -20,7 +20,7 @@ public class PurePursuitData {
         k_maxSpeed = maxSpeed;
         k_maxAccel = maxAccel;
         k_maxDecl = maxDecl;
-        k_maxJerk = maxJerk;
+        k_maxJerk = maxJerk;    
     }
 
     PurePursuitData(double maxSpeed){

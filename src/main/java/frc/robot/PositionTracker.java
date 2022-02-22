@@ -98,6 +98,7 @@ public class PositionTracker implements Tracker{
 	
 	public void setAngle(double angle) {
 		synchronized (lock) {
+			m_sensors.getGyro().setYaw(angle);
 			m_lastAngle = angle;
 		}
 	}
@@ -109,15 +110,23 @@ public class PositionTracker implements Tracker{
 		}
 	}
 	
-	private double getLeftEncoderPos() {
+	public double getLeftEncoderPos() {
 		return m_sensors.getLeftEncoderPos();
 	}
 	
-	private double getRightEncoderPos() {
+	public double getRightEncoderPos() {
 		return m_sensors.getRightEncoderPos();
 	}
+
+	public double getLeftEncoderVel() {
+		return m_sensors.getLeftEncoderVel();
+	}
+
+	public double getRightEncoderVel() {
+		return m_sensors.getRightEncoderVel();
+	}
 	
-	private double getAngle() {
+	public double getAngle() {
 		return m_sensors.getAngle();
 	}
 	

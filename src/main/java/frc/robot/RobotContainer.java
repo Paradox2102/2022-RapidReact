@@ -10,11 +10,13 @@ import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.MeasureSpeedCommand;
 import frc.robot.commands.ScottyPowerCommand;
 import frc.robot.commands.SpinCommand;
+import frc.robot.commands.auto.TestCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ScottySubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -46,8 +48,11 @@ public class RobotContainer {
   JoystickButton m_fire = new JoystickButton(m_climbStick, 1);
   JoystickButton m_reverseScotty = new JoystickButton(m_climbStick, 6);
   JoystickButton m_spinUp = new JoystickButton(m_climbStick, 2);
+  // Calib
+  JoystickButton m_testPath = new JoystickButton(m_calibStick, 2);
 
   public RobotContainer() {
+    DriverStation.silenceJoystickConnectionWarning(true);
     SmartDashboard.putData(m_driveSubsystem); 
     configureButtonBindings();
     m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(), 
@@ -68,6 +73,8 @@ public class RobotContainer {
     m_reverseScotty.whileHeld(new ScottyPowerCommand(m_scottySubsystem, -0.4));
     m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_climbStick.getThrottle()));
     //m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, 0.7));
+    // Calib Driver
+    m_testPath.toggleWhenPressed(new TestCommand(m_driveSubsystem));
   }
 
   public Command getAutonomousCommand() {

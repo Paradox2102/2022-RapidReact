@@ -1,46 +1,43 @@
 package frc.robot;
 
-import com.ctre.phoenix.sensors.CANCoder;
+import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 public class Sensor implements SensorData{
-	private CANCoder m_leftSparkEncoder;
-	private CANCoder m_rightSparkEncoder;
+	private TalonFXSensorCollection m_leftSparkEncoder;
+	private TalonFXSensorCollection m_rightSparkEncoder;
 	private PigeonIMU m_gyro;
-	private double k_ticksFoot;
 	
-	public Sensor(CANCoder leftSparkEncoder, CANCoder rightSparkEncoder, PigeonIMU gyro, double ticksFoot) {
+	public Sensor(TalonFXSensorCollection leftSparkEncoder, TalonFXSensorCollection rightSparkEncoder, PigeonIMU gyro) {
 		m_leftSparkEncoder = leftSparkEncoder;
 		m_rightSparkEncoder = rightSparkEncoder;
 		
 		m_gyro = gyro;
-
-		k_ticksFoot = ticksFoot;
 	}
 	
 	public double getLeftEncoderPos() {
-		return ticksToFeet(m_leftSparkEncoder.getPosition());
+		return m_leftSparkEncoder.getIntegratedSensorPosition()*Constants.k_feetPerTick;
 	}
 	
 	public double getRightEncoderPos() {
-		return ticksToFeet(m_rightSparkEncoder.getPosition());
+		return m_rightSparkEncoder.getIntegratedSensorPosition()*Constants.k_feetPerTick;
 	}
 	
 	public double getLeftEncoderVel() {
-		return -ticksToFeet(m_leftSparkEncoder.getVelocity()/60.0);
+		return m_leftSparkEncoder.getIntegratedSensorVelocity()*10*Constants.k_feetPerTick;
 	}
 	
 	public double getRightEncoderVel() {
-		return ticksToFeet(m_rightSparkEncoder.getVelocity()/60.0);
+		return m_rightSparkEncoder.getIntegratedSensorVelocity()*10*Constants.k_feetPerTick;
+	}
+
+	public PigeonIMU getGyro() {
+		return m_gyro;
 	}
 	
 	public double getAngle() {
 		double[] data = new double[3];
 		m_gyro.getYawPitchRoll(data);
 		return data[0];
-	}
-		
-	private double ticksToFeet(double ticks) {
-		return ticks / k_ticksFoot;
 	}
 }

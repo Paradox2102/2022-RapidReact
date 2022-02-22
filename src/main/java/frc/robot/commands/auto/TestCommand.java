@@ -30,7 +30,7 @@ public class TestCommand extends SequentialCommandGroup {
   public TestCommand(DriveSubsystem driveSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new CreatePathCommand(driveSubsystem, k_path, true, false, "Forward 5ft"),
+    addCommands(new CreatePathCommand(driveSubsystem, k_path, true, false, "Forward 5ft", new PurePursuitData(5)),
                 new CreatePathCommand(driveSubsystem, k_reversePath, false, true, "Back 5ft", new PurePursuitData(3, 1.5, 1.5, 100)));
   }
 }

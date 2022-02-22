@@ -42,4 +42,7 @@ public final class Constants {
         public static int k_hood = 3;
     // Servo
     public static int k_servo = 0;
+
+    // Conversions
+    public static double k_feetPerTick = 12.58/188529;
 }

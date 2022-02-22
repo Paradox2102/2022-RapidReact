@@ -6,13 +6,13 @@ import frc.lib.Logger;
 // import java.util.function.DoubleSupplier;
 
 import frc.lib.CSVWriter.Field;
+import frc.robot.Navigator.NavigatorPos;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import frc.pathfinder.Pathfinder.Path;
 import frc.pathfinder.Pathfinder.Segment;
-import frc.robot.PositionTracker.PositionContainer;
 
 /**
  * 
@@ -76,10 +76,8 @@ public class PurePursuit {
 
 	private Thread m_thread = null;					// Thread for processing path
 	private long m_nextRun;							// Time for the next curvature calculation
-	
-	private Tracker m_tracker;
-	private SensorData m_sensor;
-	private PositionContainer m_pos;
+
+	private Navigator m_navigator;					// Navigator which gives robot position data
 	private SetSpeed m_setSpeed;					// Function to call to set the speed for the left and right motors in FPS
 
 	/*
@@ -100,9 +98,8 @@ public class PurePursuit {
 	 * @param setSpeed - Specifies the callback function used to set the robot's speed. This function should accept the speed in feet/second.
 	 * @param rate - Specifies the time between updates in milliseconds
 	 */
-	public PurePursuit(SensorData sensor, Tracker tracker, SetSpeed setSpeed, int rate) {
-		m_sensor = sensor;
-		m_tracker = tracker;
+	public PurePursuit(Navigator navigator, SetSpeed setSpeed, int rate) {
+		m_navigator = navigator;
 		m_setSpeed = setSpeed;
 		m_rate = rate;
 	}
@@ -269,9 +266,7 @@ public class PurePursuit {
 
 			Logger.Log("PurePursuit", 1, String.format("set: angle=%f, x=%f, y=%f", angle, first.x, first.y));
 
-			m_pos.x = first.x;
-			m_pos.x = first.y;
-			m_tracker.setAngle(angle);
+			m_navigator.reset(angle, first.x, first.y);
 		}
 		startLogging();				// Start logging if required
 		startThread();				// Start and/or enable the processing thread
@@ -316,7 +311,7 @@ public class PurePursuit {
 	 * This function computes the left and right motor speeds required to follow the path
 	 */
 	private SpeedContainer followPath() {
-		PositionContainer pos = m_tracker.getPos();
+		NavigatorPos pos = m_navigator.getPos();
 
 		synchronized (m_dataLock)
 		{
@@ -399,7 +394,7 @@ public class PurePursuit {
 		}
 
 		// Compute the 'curvature'
-		double angle = m_sensor.getAngle();
+		double angle = pos.yaw;
 		double theta = Math.atan2(nextPos.y - pos.y, nextPos.x - pos.x);
 		double dX = distance * Math.sin(theta - Math.toRadians(!m_isReversed ? angle : angle + 180));
 		double curvature = (2 * dX) / (distance * distance);
@@ -409,9 +404,9 @@ public class PurePursuit {
 		double leftSpeed = !m_isReversed ? velocity - speedDiff : velocity + speedDiff;
 		double rightSpeed = !m_isReversed ? velocity + speedDiff : velocity - speedDiff;
 
-		logData(m_sensor.getAngle(), velocity, (leftSpeed), (rightSpeed), m_sensor.getLeftEncoderVel(), m_sensor.getRightEncoderVel(), pos.x,
+		logData(pos.yaw, velocity, (leftSpeed), (rightSpeed), pos.leftVel, pos.rightVel, pos.x,
 				pos.y, closestPos.x, closestPos.y, nextPos.x, nextPos.y, distance, dX, theta, curvature, speedDiff,
-				closestPoint, m_sensor.getLeftEncoderPos(), m_sensor.getRightEncoderPos());	//, pos.updateCount, pos.errorCount);
+				closestPoint, (int) pos.leftPos, (int) pos.rightPos);	//, pos.updateCount, pos.errorCount);
 
 		return new SpeedContainer(leftSpeed, rightSpeed);
 	}
@@ -432,7 +427,7 @@ public class PurePursuit {
 	 *   It starts searching at the last closest point and will search a maximum of k_lookAheadPoints
 	 * 
 	 */
-	private int getClosestPoint(PositionContainer pos) {
+	private int getClosestPoint(NavigatorPos pos) {
 		double smallestDistance;
 		int closestIdx;
 
@@ -462,7 +457,7 @@ public class PurePursuit {
 	 *   It starts looking at the closest path point to the current robot position and continues until
 	 *   it finds a point that is the correct distance or until the end of the search is reached
 	 */
-	private int getLookAheadPoint(PositionContainer pos, double lookAheadFt, int closestPoint) {
+	private int getLookAheadPoint(NavigatorPos pos, double lookAheadFt, int closestPoint) {
 		int lookAheadPoints = closestPoint + k_maxLookAhead;
 		
 		if (lookAheadPoints > m_path.m_centerPath.length) {

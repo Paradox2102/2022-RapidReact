@@ -59,6 +59,7 @@ public class CreatePathCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     Logger.Log(m_name, 2, "end"); 
+    m_driveSubsystem.endPath();
   }
 
   // Returns true when the command should end.

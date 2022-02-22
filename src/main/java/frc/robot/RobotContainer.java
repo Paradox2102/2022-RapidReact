@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.MeasureSpeedCommand;
 import frc.robot.commands.ScottyPowerCommand;
 import frc.robot.commands.SpinCommand;
 import frc.robot.subsystems.ClimberSubsystem;
@@ -15,6 +16,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ScottySubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -38,6 +40,7 @@ public class RobotContainer {
   // Driver 1
   JoystickButton m_intake = new JoystickButton(m_stick, 1);
   JoystickButton m_outake = new JoystickButton(m_stick, 2);
+  JoystickButton m_testSpeed = new JoystickButton(m_stick, 10); 
   // Driver 2
   JoystickButton m_climb = new JoystickButton(m_climbStick, 7);
   JoystickButton m_fire = new JoystickButton(m_climbStick, 1);
@@ -45,6 +48,7 @@ public class RobotContainer {
   JoystickButton m_spinUp = new JoystickButton(m_climbStick, 2);
 
   public RobotContainer() {
+    SmartDashboard.putData(m_driveSubsystem); 
     configureButtonBindings();
     m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(), 
         () -> m_stick.getY(), () -> m_stick.getThrottle())); 
@@ -55,8 +59,9 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Driver 1
     // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_stick.getThrottle()));
-    m_intake.whileHeld(new IntakeCommand(m_intakeSubsystem, 0.60));
+    m_intake.whileHeld(new IntakeCommand(m_intakeSubsystem, 0.70));
     m_outake.whileHeld(new IntakeCommand(m_intakeSubsystem, -0.60));
+    m_testSpeed.whileHeld(new MeasureSpeedCommand(m_driveSubsystem)); 
     // Driver 2
     m_climb.whenPressed(new ClimbCommand(m_climberSubsystem));
     m_fire.whileHeld(new ScottyPowerCommand(m_scottySubsystem, 0.4));

@@ -27,17 +27,17 @@ public class MeasureSpeedCommand extends CommandBase {
   @Override
   public void initialize() {
     Logger.Log("MeasureSpeedCommand", 2, "initialize");
-    m_driveSubsystem.setPower(0.5, 0.5); 
-    m_driveSubsystem.setSpeed(5000, 5000); 
+    // m_driveSubsystem.setPower(0.5, 0.5); 
+    m_driveSubsystem.setSpeed(30, 700); 
     // SmartDashboard.putNumber("k_f", k_f);
     // SmartDashboard.putNumber("k_p", k_p);
     // SmartDashboard.putNumber("k_i", k_i);
     // SmartDashboard.putNumber("k_iZone", k_iZone);
-    k_f = SmartDashboard.getNumber("k_f", 0); 
-    k_p = SmartDashboard.getNumber("k_p", 0); 
-    k_i = SmartDashboard.getNumber("k_i", 0); 
-    k_iZone = SmartDashboard.getNumber("k_iZone", 0);
-    m_driveSubsystem.setPID(k_f, k_p, k_i, k_iZone); 
+    // k_f = SmartDashboard.getNumber("k_f", 0); 
+    // k_p = SmartDashboard.getNumber("k_p", 0); 
+    // k_i = SmartDashboard.getNumber("k_i", 0); 
+    // k_iZone = SmartDashboard.getNumber("k_iZone", 0);
+    // m_driveSubsystem.setPID(k_f, k_p, k_i, k_iZone); 
   }
 
   // Called every time the scheduler runs while the command is scheduled.

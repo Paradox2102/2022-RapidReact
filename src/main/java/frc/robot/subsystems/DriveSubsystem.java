@@ -11,10 +11,12 @@ import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.sensors.PigeonIMU;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.Logger;
 import frc.pathfinder.Pathfinder.Path;
 import frc.robot.Constants;
 import frc.robot.Navigator;
@@ -53,6 +55,14 @@ public class DriveSubsystem extends SubsystemBase {
   private final int k_timeout = 30; 
 
   public DriveSubsystem() {
+    // m_gyro.setYaw(90);
+    // try {
+    //   Thread.sleep(1000);
+    // } catch (InterruptedException e) {
+    //   // TODO Auto-generated catch block
+    //   e.printStackTrace();
+    // }
+    System.out.println("Yaw = " +m_gyro.getYaw());
     m_leftSensor = m_leftDrive.getSensorCollection();
     m_rightSensor = m_rightDrive.getSensorCollection();
     m_rightDriveFollower.setInverted(false);
@@ -68,7 +78,7 @@ public class DriveSubsystem extends SubsystemBase {
     m_sensors = new Sensor(m_leftSensor, m_rightSensor, m_gyro);
     m_posTracker = new PositionTracker(0, 0, false, m_sensors);
     m_navigator = new Navigator(m_posTracker);
-    m_pursuitFollower = new PurePursuit(m_navigator, (l, r) -> setSpeed(l, r), 50);
+    m_pursuitFollower = new PurePursuit(m_navigator, (l, r) -> setSpeedFPS(l, r), 50);
     m_pursuitFollower.enableLogging("/home/lvuser/logs");
 
     m_leftDrive.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, k_timeout); 
@@ -91,7 +101,7 @@ public class DriveSubsystem extends SubsystemBase {
   public void setSpeed(double left, double right) {
     synchronized(m_setLock) {
       m_leftDrive.set(TalonFXControlMode.Velocity, left);
-      m_rightDrive.set(TalonFXControlMode.Velocity, left);
+      m_rightDrive.set(TalonFXControlMode.Velocity, right);
     }
   }
 
@@ -108,6 +118,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Gyro", m_gyro.getYaw());
     //SmartDashboard.putNumber("LeftSpeed", m_leftDrive.getSelectedSensorVelocity());
     //SmartDashboard.putNumber("RightSpeed", m_rightDrive.getSelectedSensorVelocity());
     // SmartDashboard.putNumber("left", m_leftCoder.getPosition());
@@ -141,17 +152,19 @@ public class DriveSubsystem extends SubsystemBase {
   public void setSpeedFPS(double leftSpeed, double rightSpeed)
   {
     // // Change speed from FPS to -1 to 1 range
-    // leftSpeed = leftSpeed * k_ticksPerFoot / k_maxSpeed;
-    // rightSpeed =  rightSpeed * k_ticksPerFoot / k_maxSpeed;
+    leftSpeed = leftSpeed * 1/10 * 1/Constants.k_feetPerTick;
+    rightSpeed =  rightSpeed * 1/10 * 1/Constants.k_feetPerTick;
 
-    // // Logger.Log("DriveSubsystem", 1, String.format("setSpeedFPS: left=%f, right=%f", leftSpeed, rightSpeed));
+    // Logger.Log("DriveSubsystem", 1, String.format("ls=%f,rs=%s", leftSpeed, rightSpeed));
 
-    // setSpeed(leftSpeed, rightSpeed);
+    // Logger.Log("DriveSubsystem", 1, String.format("setSpeedFPS: left=%f, right=%f", leftSpeed, rightSpeed));
+
+    setSpeed(leftSpeed, rightSpeed);
   }
 
   @Override
   public void initSendable(SendableBuilder builder){
-    builder.setSmartDashboardType("driveSubsystem");
+    // builder.setSmartDashboardType("driveSubsystem");
     builder.addDoubleProperty("leftSpeed", ()->{return m_leftDrive.getSelectedSensorVelocity();}, null);
     builder.addDoubleProperty("rightSpeed", ()->{return m_rightDrive.getSelectedSensorVelocity();}, null);
     builder.addDoubleProperty("leftPosition", ()->{return m_leftDrive.getSelectedSensorPosition();}, null); 

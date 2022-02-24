@@ -16,21 +16,30 @@ public class TestCommand extends SequentialCommandGroup {
   0,0,90
   0,5,90
   */
-  private static final Waypoint[] k_path = {
-      new Waypoint(0, 0, Math.toRadians(90)),
-      new Waypoint(0, 5, Math.toRadians(90))
-  };
+//   private static final Waypoint[] k_path = {
+//       new Waypoint(0, 0, Math.toRadians(90)),
+//       new Waypoint(0,8, Math.toRadians(90))
+//   };
 
-  private static final Waypoint[] k_reversePath = {
-    new Waypoint(0, 5, Math.toRadians(-90)),
-    new Waypoint(0, 0, Math.toRadians(-90))
+//   private static final Waypoint[] k_reversePath = {
+//     new Waypoint(0, 5, Math.toRadians(-90)),
+//     new Waypoint(0, 0, Math.toRadians(-90))
+// };
+/*
+0,0,90
+-8,8,180
+*/
+private static final Waypoint[] k_path = {
+    new Waypoint(0, 0, Math.toRadians(90)),
+    new Waypoint(-8, 8, Math.toRadians(180))
 };
+
 
   /** Creates a new TestCommand. */
   public TestCommand(DriveSubsystem driveSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new CreatePathCommand(driveSubsystem, k_path, true, false, "Forward 5ft", new PurePursuitData(5)),
-                new CreatePathCommand(driveSubsystem, k_reversePath, false, true, "Back 5ft", new PurePursuitData(3, 1.5, 1.5, 100)));
+    addCommands(new CreatePathCommand(driveSubsystem, k_path, true, false, "Forward 5ft", new PurePursuitData(5)));//,
+                // new CreatePathCommand(driveSubsystem, k_reversePath, false, true, "Back 5ft", new PurePursuitData(3, 1.5, 1.5, 100)));
   }
 }

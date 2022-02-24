@@ -72,13 +72,13 @@ public class DriveSubsystem extends SubsystemBase {
     
     m_leftDrive.setInverted(true);
     m_rightDrive.setInverted(false);
-    m_leftDrive.configOpenloopRamp(0.25);
-    m_rightDrive.configOpenloopRamp(0.25);
+    // m_leftDrive.configOpenloopRamp(0.25);
+    // m_rightDrive.configOpenloopRamp(0.25);
 
-    m_sensors = new Sensor(m_leftSensor, m_rightSensor, m_gyro);
+    m_sensors = new Sensor(() -> m_leftDrive.getSelectedSensorPosition(), () -> m_rightDrive.getSelectedSensorPosition(), () -> m_leftDrive.getSelectedSensorVelocity(), () -> m_rightDrive.getSelectedSensorVelocity(), m_gyro);
     m_posTracker = new PositionTracker(0, 0, false, m_sensors);
     m_navigator = new Navigator(m_posTracker);
-    m_pursuitFollower = new PurePursuit(m_navigator, (l, r) -> setSpeedFPS(l, r), 50);
+    m_pursuitFollower = new PurePursuit(m_navigator, (l, r) -> setSpeedFPS(l, r), 20);
     m_pursuitFollower.enableLogging("/home/lvuser/logs");
 
     m_leftDrive.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, k_timeout); 
@@ -119,9 +119,15 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Gyro", m_gyro.getYaw());
-    //SmartDashboard.putNumber("LeftSpeed", m_leftDrive.getSelectedSensorVelocity());
-    //SmartDashboard.putNumber("RightSpeed", m_rightDrive.getSelectedSensorVelocity());
+    SmartDashboard.putNumber("LeftSpeed", m_leftDrive.getSelectedSensorVelocity());
+    SmartDashboard.putNumber("RightSpeed", m_rightDrive.getSelectedSensorVelocity());
+    // SmartDashboard.putNumber("LeftSpeed", m_leftSensor.getIntegratedSensorVelocity());
+    // SmartDashboard.putNumber("RightSpeed", m_rightSensor.getIntegratedSensorVelocity());
+
     // SmartDashboard.putNumber("left", m_leftCoder.getPosition());
+    // System.out.println(String.format("Motors,%f,%f", m_leftDrive.getSelectedSensorVelocity(), m_rightDrive.getSelectedSensorVelocity()));
+    // System.out.println(String.format("Motors,%f,%f",m_leftSensor.getIntegratedSensorVelocity(), m_rightSensor.getIntegratedSensorVelocity()));
+    // System.out.println(String.format("Motors,%f,%f", m_leftDrive.getSelectedSensorPosition(), m_rightDrive.getSelectedSensorPosition()));
   }
 
   //Pure Pursuit
@@ -165,10 +171,10 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void initSendable(SendableBuilder builder){
     // builder.setSmartDashboardType("driveSubsystem");
-    builder.addDoubleProperty("leftSpeed", ()->{return m_leftDrive.getSelectedSensorVelocity();}, null);
-    builder.addDoubleProperty("rightSpeed", ()->{return m_rightDrive.getSelectedSensorVelocity();}, null);
-    builder.addDoubleProperty("leftPosition", ()->{return m_leftDrive.getSelectedSensorPosition();}, null); 
-    builder.addDoubleProperty("rightPosition", ()->{return m_rightDrive.getSelectedSensorPosition();}, null); 
+    // builder.addDoubleProperty("leftSpeed", ()->{return m_leftDrive.getSelectedSensorVelocity();}, null);
+    // builder.addDoubleProperty("rightSpeed", ()->{return m_rightDrive.getSelectedSensorVelocity();}, null);
+    // builder.addDoubleProperty("leftPosition", ()->{return m_leftDrive.getSelectedSensorPosition();}, null); 
+    // builder.addDoubleProperty("rightPosition", ()->{return m_rightDrive.getSelectedSensorPosition();}, null); 
   }
 
   public void setPID(double f, double p, double i, double iZone){

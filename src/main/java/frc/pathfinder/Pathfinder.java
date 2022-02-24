@@ -34,7 +34,7 @@ public class Pathfinder
 	private static double k_lookAheadTime = 0.75;		// Time along the path of the next target point	
 	private static double k_minLookAheadDist = 0.6;		// Minimum allowed look ahead distance (overrides look ahead time if necessary)
 	private static double k_maxSearchTime = 1;		// Max time along the path to search for the closest point to the current position
-	private static double k_minSpeed = 0.25;			// Minimum allowed speed
+	private static double k_minSpeed = 1;			// Minimum allowed speed
 	private static double k_extendedLookAheadDistance = .75;	// Distance to extend path if m_isExtended is true
 	private static double k_curvatureAdjust = 1;		// Adjusts the curvature to make the path following more or less aggressive
 														//   A value of 1 is normal, a value greater than 1 makes the 

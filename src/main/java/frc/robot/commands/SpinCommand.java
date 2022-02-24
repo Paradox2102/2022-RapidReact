@@ -13,9 +13,9 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class SpinCommand extends CommandBase {
 
   ShooterSubsystem m_shooterSubsystem;
-  DoubleSupplier m_power;
+  double m_power;
 
-  public SpinCommand(ShooterSubsystem shooterSubsytem, DoubleSupplier power) {
+  public SpinCommand(ShooterSubsystem shooterSubsytem, double power) {
     m_shooterSubsystem = shooterSubsytem;
     m_power = power;
 
@@ -26,13 +26,13 @@ public class SpinCommand extends CommandBase {
   @Override
   public void initialize() {
     Logger.Log("Spin Up Command", 1, "Initialized");
-   
+    m_shooterSubsystem.setShooterPower(m_power);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooterSubsystem.setShooterPower((m_power.getAsDouble() + 1) / 2);
+    // m_shooterSubsystem.setShooterPower((m_power.getAsDouble() + 1) / 2);
   }
 
   // Called once the command ends or is interrupted.

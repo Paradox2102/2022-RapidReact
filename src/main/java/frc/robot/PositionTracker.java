@@ -12,7 +12,7 @@ public class PositionTracker implements Tracker{
 	
 	private double m_lastAngle;
 	
-	private boolean m_runPositionThread;
+	private boolean m_runPositionThread = true;
 	
 	private Object lock = new Object();
 	
@@ -42,6 +42,8 @@ public class PositionTracker implements Tracker{
 		m_thread.start();
 	}
 	
+	int count = 0;
+
 	private void updatePos() {
 		double leftPos = getLeftEncoderPos();
 		double rightPos = getRightEncoderPos();
@@ -69,6 +71,12 @@ public class PositionTracker implements Tracker{
 		
 			m_x += (dist * Math.cos(meanAngle));
 			m_y += (dist * Math.sin(meanAngle));
+
+			// if ((count++ % 100) == 0)
+			// {
+			// 	System.out.println(String.format("PT: x=%f, y=%f, d=%f", m_x, m_y, dist));
+			// 	System.out.println(String.format("PT: l=%f, y=%f", leftPos, rightPos));
+			// }
 
 			// posWriter.write("Update", ticksToFeet(leftPos), ticksToFeet(m_prevLeft), ticksToFeet(rightPos), ticksToFeet(m_prevRight), ticksToFeet(m_x), ticksToFeet(m_y));
 			
@@ -141,7 +149,7 @@ public class PositionTracker implements Tracker{
 	
 	public class PositionThread extends Thread{
 		public void run() {
-			long step = 10;
+			long step = 20;
 			for(long nextRun = System.currentTimeMillis();;nextRun += step) {
 				if(m_runPositionThread) {
 					updatePos();

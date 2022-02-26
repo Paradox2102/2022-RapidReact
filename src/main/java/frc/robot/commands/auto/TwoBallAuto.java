@@ -4,7 +4,7 @@
 
 package frc.robot.commands.auto;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.pathfinder.Pathfinder.Waypoint;
 import frc.robot.commands.IntakeCommand;
@@ -18,7 +18,8 @@ import frc.robot.subsystems.ShooterSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class TwoBallAuto extends ParallelCommandGroup {
+public class TwoBallAuto extends ParallelRaceGroup {
+  
   private static final int k_nPoints = 1000;
 private static final double k_dt = 0.020000;
 private static final double k_maxSpeed = 4.500000;
@@ -27,21 +28,29 @@ private static final double k_maxDecl = 7.000000;
 private static final double k_maxJerk = 100.000000;
 private static final double k_wheelbase = 1.812500;
 /*
-0, 10, 0
-3.3, 10, 0
+3.75,7.75, 46.52
+6,10, 46.52
 */
-final static Waypoint[] k_firstBall = { new Waypoint(-7.7, 2.25, Math.toRadians(180)), new Waypoint(-11.1, 2.25, Math.toRadians(180)) };
-
-final static Waypoint[] k_driveShoot = { new Waypoint(-11.1, 2.25, Math.toRadians(0)), new Waypoint(-4, 1, Math.toRadians(-30)) };
-
-  public TwoBallAuto(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsytem, ScottySubsystem scottySubsystem, double intakePower, double shooterPower, double scottyPower) {
+private static final Waypoint[] k_firstBall = {
+    new Waypoint(3.75, 7.75, Math.toRadians( 46.52)),
+    new Waypoint(6, 10, Math.toRadians( 46.52))
+};
+/*
+6,10, 226.52
+1, 3, 248
+*/
+private static final Waypoint[] k_driveShoot = {
+    new Waypoint(6, 10, Math.toRadians( 226.52)),
+    new Waypoint(1.2,  3.5, Math.toRadians( 248))
+};
+  public TwoBallAuto(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, ScottySubsystem scottySubsystem, ShooterSubsystem shooterSubsytem, double intakePower, double shooterPower, double scottyPower) {
     addCommands(
-      new IntakeCommand(intakeSubsystem, intakePower),
+      new IntakeCommand(intakeSubsystem, scottySubsystem, intakePower),
       new SpinCommand(shooterSubsytem, shooterPower),
       new SequentialCommandGroup(
-        new CreatePathCommand(driveSubsystem, k_firstBall, true, true, "Backwards get first ball", new PurePursuitData(k_maxSpeed)),
-        new CreatePathCommand(driveSubsystem, k_driveShoot, false, false, "Drive up and shoot", new PurePursuitData(k_maxSpeed)),
-        new ScottyPowerCommand(scottySubsystem, scottyPower)
+        new CreatePathCommand(driveSubsystem, k_firstBall, true, true, "Drive to first ball", new PurePursuitData(k_maxSpeed)),
+        new CreatePathCommand(driveSubsystem, k_driveShoot, false, false, "Drive to hub", new PurePursuitData(k_maxSpeed)),
+        new FireAutoCommand(scottySubsystem, scottyPower, 1000)
       )
     );
   }

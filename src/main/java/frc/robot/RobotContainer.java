@@ -6,12 +6,14 @@ package frc.robot;
 
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.ClimbCommand;
+import frc.robot.commands.DefaultScottyCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.MeasureSpeedCommand;
 import frc.robot.commands.ScottyPowerCommand;
 import frc.robot.commands.SpinCommand;
 import frc.robot.commands.auto.TestCommand;
 import frc.robot.commands.auto.TwoBallAuto;
+import frc.robot.commands.auto.FourBallAuto;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -59,7 +61,8 @@ public class RobotContainer {
     SmartDashboard.putData(m_driveSubsystem); 
     configureButtonBindings();
     m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(), 
-        () -> m_stick.getY(), () -> m_stick.getThrottle())); 
+        () -> m_stick.getY(), () -> m_stick.getThrottle()));
+    m_scottySubsystem.setDefaultCommand(new DefaultScottyCommand(m_scottySubsystem, 0.4));
   }
   // m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(),
   //       () -> (-m_stick.getY() - m_velocityStick.getY()), () -> m_stick.getThrottle()));
@@ -67,8 +70,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Driver 1
     // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_stick.getThrottle()));
-    m_intake.whileHeld(new IntakeCommand(m_intakeSubsystem, 0.70));
-    m_outake.whileHeld(new IntakeCommand(m_intakeSubsystem, -0.60));
+    m_intake.whileHeld(new IntakeCommand(m_intakeSubsystem, m_scottySubsystem, 0.70));
+    m_outake.whileHeld(new IntakeCommand(m_intakeSubsystem, m_scottySubsystem, -0.60));
     m_testSpeed.whileHeld(new MeasureSpeedCommand(m_driveSubsystem)); 
     // Driver 2
     m_climb.whenPressed(new ClimbCommand(m_climberSubsystem));
@@ -77,7 +80,8 @@ public class RobotContainer {
     // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_climbStick.getThrottle()));
     m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, 0.52));
     // Calib Driver
-    m_testPath.toggleWhenPressed(new TwoBallAuto(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 0.52, 0.4));
+    // m_testPath.toggleWhenPressed(new FourBallAuto(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 0.52, 0.4));
+    m_testPath.toggleWhenPressed(new TwoBallAuto(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, 0.52, 0.6));
   }
 
   public Command getAutonomousCommand() {

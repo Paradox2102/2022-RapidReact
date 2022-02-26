@@ -8,12 +8,13 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-
-enum States {
-  None, MoveOne, OneBall, MoveTwo, Full
-}
+import frc.robot.States;
+import frc.robot.commands.IntakeCommand;
 
 public class ScottySubsystem extends SubsystemBase {
   TalonFX m_scotty = new TalonFX(Constants.k_scotty);
@@ -21,59 +22,40 @@ public class ScottySubsystem extends SubsystemBase {
   DigitalInput m_scotMid = new DigitalInput(Constants.k_scotMid);
   DigitalInput m_scotFar = new DigitalInput(Constants.k_scotFar);
 
-  States state;
-  boolean run;
-  double power;
+  States m_state;
+  boolean m_run;
 
   public ScottySubsystem() {
     m_scotty.setInverted(false);
-    state = States.None;
-    run = false;
-    // this.power = power;
+    m_state = getMidSensor() ? States.OneBall : States.None;
+    m_run = false;
   }
 
   public void runScotty(double power) {
     m_scotty.set(ControlMode.PercentOutput, power);
   }
 
+  public void setState(States state) {
+    m_state = state;
+  }
+  public States getState() {
+    return m_state;
+  }
+  public boolean getBotSensor() {
+    return !m_scotClose.get();
+  }
+  public boolean getMidSensor() {
+    return !m_scotMid.get();
+  }
+  public boolean getTopSensor() {
+    return !m_scotFar.get();
+  }
+
   @Override
   public void periodic() {
-    // boolean bot = m_scotFar.get();
-    // boolean mid = m_scotFar.get();
-    // boolean top = m_scotFar.get();
-
-    // switch(state) {
-    //   case None:
-    //     if(bot) {
-    //       run = true;
-    //       state = States.MoveOne;
-    //     }
-    //     break;
-    //   case MoveOne:
-    //     if(mid) {
-    //       run = false;
-    //       state = States.OneBall;
-    //     }
-    //     break;
-    //   case OneBall:
-    //     if(bot) {
-    //       run = true;
-    //       state = States.MoveTwo;
-    //     }
-    //     break;
-    //   case MoveTwo:
-    //     if(top) {
-    //       run = false;
-    //       state = States.Full;
-    //     }
-    //     break;
-    //   case Full:
-    //     if(bot) {
-    //       // Reverse intake
-    //     }
-    //     break;
-    // }
-    // if(top) run = false;
-    // if(run) runScotty(power);
+    SmartDashboard.putBoolean("Top Sensor", getTopSensor());
+    SmartDashboard.putBoolean("Mid Sensor", getMidSensor());
+    SmartDashboard.putBoolean("Bot Sensor", getBotSensor());
+    SmartDashboard.putString("Current State", m_state.toString());
   }
 }

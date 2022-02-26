@@ -5,6 +5,7 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.ProxyScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.pathfinder.Pathfinder.Waypoint;
 import frc.robot.commands.IntakeCommand;
@@ -41,7 +42,7 @@ private static final Waypoint[] k_firstBall = {
 */
 private static final Waypoint[] k_driveShoot = {
     new Waypoint(6, 10, Math.toRadians( 226.52)),
-    new Waypoint(1.2,  3.5, Math.toRadians( 248))
+    new Waypoint(1.5,  4.2, Math.toRadians( 248))
 };
   public TwoBallAuto(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, ScottySubsystem scottySubsystem, ShooterSubsystem shooterSubsytem, double intakePower, double shooterPower, double scottyPower) {
     addCommands(
@@ -50,7 +51,7 @@ private static final Waypoint[] k_driveShoot = {
       new SequentialCommandGroup(
         new CreatePathCommand(driveSubsystem, k_firstBall, true, true, "Drive to first ball", new PurePursuitData(k_maxSpeed)),
         new CreatePathCommand(driveSubsystem, k_driveShoot, false, false, "Drive to hub", new PurePursuitData(k_maxSpeed)),
-        new FireAutoCommand(scottySubsystem, scottyPower, 1000)
+        new ProxyScheduleCommand(new ScottyPowerCommand(scottySubsystem, scottyPower, 1000))
       )
     );
   }

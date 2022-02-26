@@ -80,8 +80,8 @@ public class RobotContainer {
     // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_climbStick.getThrottle()));
     m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, 0.52));
     // Calib Driver
-    // m_testPath.toggleWhenPressed(new FourBallAuto(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 0.52, 0.4));
-    m_testPath.toggleWhenPressed(new TwoBallAuto(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, 0.52, 0.6));
+    m_testPath.toggleWhenPressed(new FourBallAuto(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 0.52, 0.4));
+    // m_testPath.toggleWhenPressed(new TwoBallAuto(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, 0.52, 0.6));
   }
 
   public Command getAutonomousCommand() {

@@ -6,6 +6,7 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.ProxyScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.pathfinder.Pathfinder.Waypoint;
 import frc.robot.commands.IntakeCommand;
@@ -34,16 +35,44 @@ private static final double k_wheelbase = 1.812500;
 final static Waypoint[] k_firstBall = { new Waypoint(-7.7, 2.25, Math.toRadians(180)), new Waypoint(-11.1, 2.25, Math.toRadians(180)) };
 
 final static Waypoint[] k_driveShoot = { new Waypoint(-11.1, 2.25, Math.toRadians(0)), new Waypoint(-4, 1, Math.toRadians(-30)) };
+/*
+-4, 1, 150
+-6.7, 10.4, 90
+-9, 22, 120
+*/
+private static final double k_longSpeed = 8;
+
+// private static final Waypoint[] k_getTwoBalls = {
+//     new Waypoint(-4,  1, Math.toRadians( 150)),
+//     new Waypoint(-6.7,  10.4, Math.toRadians( 90)),
+//     new Waypoint(-8.5,  21.5, Math.toRadians( 120))
+// };
+private static final Waypoint[] k_getTwoBalls = {
+  new Waypoint(-4,  1, Math.toRadians(-30)),
+  new Waypoint(-6.7,  10.4, Math.toRadians(-90)),
+  new Waypoint(-8.5,  21.5, Math.toRadians(-60))
+};
+/*
+-8.5,21.5,-60
+-4, 1, -30
+*/
+private static final Waypoint[] k_driveShootLong = {
+    new Waypoint(-8.5, 21.5, Math.toRadians(-60)),
+    new Waypoint(-4,  1, Math.toRadians( -30))
+};
 
 
   public FourBallAuto(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsytem, ScottySubsystem scottySubsystem, double intakePower, double shooterPower, double scottyPower) {
     addCommands(
-      new IntakeCommand(intakeSubsystem, scottySubsystem, intakePower),
-      new SpinCommand(shooterSubsytem, shooterPower),
+      // new IntakeCommand(intakeSubsystem, scottySubsystem, intakePower),
+      // new SpinCommand(shooterSubsytem, shooterPower),
       new SequentialCommandGroup(
-        new CreatePathCommand(driveSubsystem, k_firstBall, true, true, "Backwards get first ball", new PurePursuitData(k_maxSpeed)),
-        new CreatePathCommand(driveSubsystem, k_driveShoot, false, false, "Drive up and shoot", new PurePursuitData(k_maxSpeed)),
-        new ScottyPowerCommand(scottySubsystem, scottyPower, 1000)
+      //   new CreatePathCommand(driveSubsystem, k_firstBall, true, true, "Backwards get first ball", new PurePursuitData(k_maxSpeed)),
+      //   new CreatePathCommand(driveSubsystem, k_driveShoot, false, false, "Drive up and shoot", new PurePursuitData(k_maxSpeed)),
+      //   new ProxyScheduleCommand(new ScottyPowerCommand(scottySubsystem, scottyPower, 1000)),
+        new CreatePathCommand(driveSubsystem, k_getTwoBalls, false, false, "Pickup two balls", new PurePursuitData(k_longSpeed))
+        // new CreatePathCommand(driveSubsystem, k_driveShootLong, false, false, "Drive Long and Shoot", new PurePursuitData(k_longSpeed)),
+        // new ProxyScheduleCommand(new ScottyPowerCommand(scottySubsystem, scottyPower, 1000))
       )
     );
   }

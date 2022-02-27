@@ -63,8 +63,8 @@ public class PurePursuit {
 	private double m_dt = 0.02;				// Time increment for points on path
 	private double m_wheelBase = 0.75;		// Width of the wheelbase
 
-	private final int k_lookAheadIdx = (int) (k_lookAheadTime / m_dt);		// Index increment to reach specified time							
-	private final int k_maxLookAhead = (int) (k_maxSearchTime / m_dt);	// Max index count to look ahead for closest point to current position
+	private int k_lookAheadIdx = (int) (k_lookAheadTime / m_dt);		// Index increment to reach specified time							
+	private int k_maxLookAhead = (int) (k_maxSearchTime / m_dt);	// Max index count to look ahead for closest point to current position
 
 	// private final int k_checkStall = 40;			// Distance from the end of the path to check for stall - MUSTFIX - with min speed is this really necessary?
 
@@ -130,6 +130,10 @@ public class PurePursuit {
 			k_minSpeed = path.m_minSpeed;
 			k_curvatureAdjust = path.m_curvatureAdjust;
 			k_extendedLookAhead = path.m_extendedLookAheadDistance;
+
+			k_lookAheadIdx = (int) (k_lookAheadTime / m_dt);		// Index increment to reach specified time							
+			k_maxLookAhead = (int) (k_maxSearchTime / m_dt);	// Max index count to look ahead for closest point to current position
+		
 		}
 	}
 

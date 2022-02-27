@@ -17,10 +17,10 @@ enum Stages {
 }
 
 public class ClimberSubsystem extends SubsystemBase {
-  TalonFX m_winch = new TalonFX(Constants.k_climber);
-  Servo m_ratchet = new Servo(Constants.k_servo);
-  Solenoid m_piston = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.k_piston);
-  Solenoid m_grabber = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.k_claw);
+  TalonFX m_winch = new TalonFX(Constants.c.k_climber);
+  Servo m_ratchet = new Servo(Constants.c.k_servo);
+  Solenoid m_piston = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.c.k_piston);
+  Solenoid m_grabber = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.c.k_claw);
   Stages stage;
 
   public ClimberSubsystem() {

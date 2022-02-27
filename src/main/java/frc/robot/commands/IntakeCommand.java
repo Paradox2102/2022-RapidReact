@@ -49,6 +49,7 @@ public class IntakeCommand extends CommandBase {
   }
   @Override
   public void end(boolean interrupted) {
+    Logger.Log("Intake Command", 1, "End");
     // m_intakeSubsystem.deployIntake(false);
     m_intakeSubsystem.runIntake(0);
   }

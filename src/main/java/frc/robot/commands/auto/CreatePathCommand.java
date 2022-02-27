@@ -23,7 +23,7 @@ public class CreatePathCommand extends CommandBase {
   private static final double k_wheelbase = 1.8125; 
 
   /** Creates a new CreatePathCommand. */
-  private void init(DriveSubsystem driveSubsystem, Waypoint[] waypoints, boolean setPosition, boolean reversed, String name, PurePursuitData data){
+  private void init(DriveSubsystem driveSubsystem, Waypoint[] waypoints, boolean setPosition, boolean reversed, String name, PurePursuitData data, double lookAheadTime){
     Logger.Log(name, 3, "CreatPathCommand");
     m_driveSubsystem = driveSubsystem; 
     m_setPosition = setPosition; 
@@ -31,17 +31,22 @@ public class CreatePathCommand extends CommandBase {
     m_name = name; 
     m_data = data;
 
-    m_path = Pathfinder.computePath(waypoints, k_nPoints, k_dt, data.k_maxSpeed, data.k_maxAccel, data.k_maxDecl, data.k_maxJerk, k_wheelbase); 
+    m_path = Pathfinder.computePath(waypoints, k_nPoints, k_dt, data.k_maxSpeed, data.k_maxAccel, data.k_maxDecl, data.k_maxJerk, k_wheelbase);
+    m_path.setLookAheadTime(lookAheadTime);
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(driveSubsystem);
   }
 
+  public CreatePathCommand(DriveSubsystem driveSubsystem, Waypoint[] waypoints, boolean setPosition, boolean reversed, String name, PurePursuitData data, double lookAheadTime) {
+    init(driveSubsystem, waypoints, setPosition, reversed, name, data, lookAheadTime);
+  }
+
   public CreatePathCommand(DriveSubsystem driveSubsystem, Waypoint[] waypoints, boolean setPosition, boolean reversed, String name, PurePursuitData data) {
-    init(driveSubsystem, waypoints, setPosition, reversed, name, data);
+    init(driveSubsystem, waypoints, setPosition, reversed, name, data, 1);
   }
 
   public CreatePathCommand(DriveSubsystem driveSubsystem, Waypoint[] waypoints, boolean setPosition, boolean reversed, String name){
-    init(driveSubsystem, waypoints, setPosition, reversed, name, new PurePursuitData());
+    init(driveSubsystem, waypoints, setPosition, reversed, name, new PurePursuitData(), 1);
   }
 
   // Called when the command is initially scheduled.

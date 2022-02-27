@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
-  TalonSRX m_intake = new TalonSRX(Constants.k_intake);
-  Solenoid m_deploy = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.k_deploy);
+  TalonSRX m_intake = new TalonSRX(Constants.c.k_intake);
+  Solenoid m_deploy = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.c.k_deploy);
   
   public IntakeSubsystem() {
     m_intake.configFactoryDefault();

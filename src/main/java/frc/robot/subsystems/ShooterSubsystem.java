@@ -13,8 +13,8 @@ import frc.robot.Constants;
 
 public class ShooterSubsystem extends SubsystemBase {
 
-  TalonFX m_shooter = new TalonFX(Constants.k_shooter);
-  TalonFX m_shooterFollower = new TalonFX(Constants.k_shooterFollower);
+  TalonFX m_shooter = new TalonFX(Constants.c.k_shooter);
+  TalonFX m_shooterFollower = new TalonFX(Constants.c.k_shooterFollower);
 
   public ShooterSubsystem() {
     m_shooter.configFactoryDefault();

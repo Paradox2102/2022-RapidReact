@@ -26,13 +26,13 @@ import frc.robot.Sensor;
 
 public class DriveSubsystem extends SubsystemBase {
   
-  TalonFX m_leftDrive = new TalonFX(Constants.k_driveLeft);
-  TalonFX m_leftDriveFollower = new TalonFX(Constants.k_driveLeftFollower);
+  TalonFX m_leftDrive = new TalonFX(Constants.c.k_driveLeft);
+  TalonFX m_leftDriveFollower = new TalonFX(Constants.c.k_driveLeftFollower);
   TalonFXSensorCollection m_leftSensor;
   // CANCoder m_leftCoder = new CANCoder(Constants.k_driveLeft);
 
-  TalonFX m_rightDrive = new TalonFX(Constants.k_driveRight);
-  TalonFX m_rightDriveFollower = new TalonFX(Constants.k_driveRightFollower);
+  TalonFX m_rightDrive = new TalonFX(Constants.c.k_driveRight);
+  TalonFX m_rightDriveFollower = new TalonFX(Constants.c.k_driveRightFollower);
   TalonFXSensorCollection m_rightSensor;
   // CANCoder m_rightCoder = new CANCoder(Constants.k_driveRight);
 
@@ -158,8 +158,8 @@ public class DriveSubsystem extends SubsystemBase {
   public void setSpeedFPS(double leftSpeed, double rightSpeed)
   {
     // // Change speed from FPS to -1 to 1 range
-    leftSpeed = leftSpeed * 1/10 * 1/Constants.k_feetPerTick;
-    rightSpeed =  rightSpeed * 1/10 * 1/Constants.k_feetPerTick;
+    leftSpeed = leftSpeed * 1/10 * 1/Constants.c.k_feetPerTick;
+    rightSpeed =  rightSpeed * 1/10 * 1/Constants.c.k_feetPerTick;
 
     // Logger.Log("DriveSubsystem", 1, String.format("ls=%f,rs=%s", leftSpeed, rightSpeed));
 

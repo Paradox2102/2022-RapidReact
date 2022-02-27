@@ -17,17 +17,16 @@ import frc.robot.States;
 import frc.robot.commands.IntakeCommand;
 
 public class ScottySubsystem extends SubsystemBase {
-  TalonFX m_scotty = new TalonFX(Constants.k_scotty);
-  DigitalInput m_scotClose = new DigitalInput(Constants.k_scotClose);
-  DigitalInput m_scotMid = new DigitalInput(Constants.k_scotMid);
-  DigitalInput m_scotFar = new DigitalInput(Constants.k_scotFar);
+  TalonFX m_scotty = new TalonFX(Constants.c.k_scotty);
+  DigitalInput m_scotClose = new DigitalInput(Constants.c.k_scotClose);
+  DigitalInput m_scotMid = new DigitalInput(Constants.c.k_scotMid);
+  DigitalInput m_scotFar = new DigitalInput(Constants.c.k_scotFar);
 
-  States m_state;
+  States m_state = States.None;
   boolean m_run;
 
   public ScottySubsystem() {
     m_scotty.setInverted(false);
-    m_state = getMidSensor() ? States.OneBall : States.None;
     m_run = false;
   }
 

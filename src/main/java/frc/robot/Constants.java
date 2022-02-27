@@ -1,48 +1,114 @@
 
 package frc.robot;
 
+import java.io.File;
+import java.nio.file.Path;
+
 /**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants. This class should not be used for any other purpose. All constants should be declared
- * globally (i.e. public static). Do not put anything functional in this class.
+ * The Constants class provides a convenient place for teams to hold robot-wide
+ * numerical or boolean
+ * constants. This class should not be used for any other purpose. All constants
+ * should be declared
+ * globally (i.e. public). Do not put anything functional in this class.
  *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
+ * <p>
+ * It is advised toally import this class (or one of its inner classes) wherever
+ * the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {
+public class Constants {
     // Talons
-        // Drive FX
-        public static int k_driveRight = 2;
-        public static int k_driveRightFollower = 12;
-        public static int k_driveLeft = 5;
-        public static int k_driveLeftFollower = 0;
-        // Shooter FX
-        public static int k_shooter = 14;
-        public static int k_shooterFollower = 15;
-        // Climber FX
-        public static int k_climber = 4;
-        // Scotty (throat) FX
-        public static int k_scotty = 13;
-        // Intake (spin) SRX
-        public static int k_intake = 1;
+    public static Constants c = null;
+
+    public static Constants getInstance() {
+        if (c == null)
+        {
+            File f = new File("/home/lvuser/Competition");
+    
+            // Checking if the specified file exists or not
+            if (f.exists())
+            {
+                c = new ConstantsCompetition();
+            }
+            else {
+                c = new Constants(); 
+            }
+        }
+
+        return c;
+    }
+    // Drive FX
+    public int k_driveRight = 2;
+    public int k_driveRightFollower = 12;
+    public int k_driveLeft = 5;
+    public int k_driveLeftFollower = 0;
+    // Shooter FX
+    public int k_shooter = 14;
+    public int k_shooterFollower = 15;
+    // Climber FX
+    public int k_climber = 4;
+    // Scotty (throat) FX
+    public int k_scotty = 13;
+    // Intake (spin) SRX
+    public int k_intake = 1;
 
     // Sensors
-        // Beambrake
-        public static int k_scotClose = 0;
-        public static int k_scotMid = 1;
-        public static int k_scotFar = 2;
-        
+    // Beambrake
+    public int k_scotClose = 0;
+    public int k_scotMid = 1;
+    public int k_scotFar = 2;
+
     // Pneumatics
-        // Climber
-        public static int k_piston = 0;
-        public static int k_claw = 1;
-        // Intake
-        public static int k_deploy = 2;
-        // Hood
-        public static int k_hood = 3;
+    // Climber
+    public int k_piston = 0;
+    public int k_claw = 1;
+    // Intake
+    public int k_deploy = 2;
+    // Hood
+    public int k_hood = 3;
     // Servo
-    public static int k_servo = 0;
+    public int k_servo = 0;
 
     // Conversions
-    public static double k_feetPerTick = 12.58/188529;
+    public double k_feetPerTick = 12.58 / 188529;
+}
+
+class ConstantsCompetition extends Constants {
+    // Talons
+    ConstantsCompetition() {
+        // Drive FX
+        k_driveRight = 2;
+        k_driveRightFollower = 12;
+        k_driveLeft = 5;
+        k_driveLeftFollower = 0;
+        // Shooter FX
+        k_shooter = 14;
+        k_shooterFollower = 15;
+        // Climber FX
+        k_climber = 4;
+        // Scotty (throat) FX
+        k_scotty = 13;
+        // Intake (spin) SRX
+        k_intake = 1;
+
+        // Sensors
+        // Beambrake
+        k_scotClose = 0;
+        k_scotMid = 1;
+        k_scotFar = 2;
+
+        // Pneumatics
+        // Climber
+        k_piston = 0;
+        k_claw = 1;
+        // Intake
+        k_deploy = 2;
+        // Hood
+        k_hood = 3;
+        // Servo
+        k_servo = 0;
+
+        // Conversions
+        k_feetPerTick = 12.58 / 188529;
+    }
 }

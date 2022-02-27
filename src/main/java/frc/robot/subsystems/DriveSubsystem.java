@@ -98,6 +98,10 @@ public class DriveSubsystem extends SubsystemBase {
 
   }
 
+  public double getYaw() {
+    return m_gyro.getYaw();
+  }
+
   public void setSpeed(double left, double right) {
     synchronized(m_setLock) {
       m_leftDrive.set(TalonFXControlMode.Velocity, left);

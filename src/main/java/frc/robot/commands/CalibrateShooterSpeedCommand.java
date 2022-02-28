@@ -6,42 +6,31 @@ package frc.robot.commands;
 
 import java.util.function.DoubleSupplier;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.lib.Logger;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class SpinCommand extends CommandBase {
-
+public class CalibrateShooterSpeedCommand extends CommandBase {
   ShooterSubsystem m_shooterSubsystem;
-  double m_power;
-
-  public SpinCommand(ShooterSubsystem shooterSubsytem, double power) {
-    m_shooterSubsystem = shooterSubsytem;
-    m_power = power;
-
-    addRequirements(m_shooterSubsystem);
+  DoubleSupplier m_speed;
+  public CalibrateShooterSpeedCommand(ShooterSubsystem shooterSubsystem, DoubleSupplier speed) {
+    m_shooterSubsystem = shooterSubsystem;
+    m_speed = speed;
+    addRequirements(shooterSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    Logger.Log("Spin Up Command", 1, "Initialized");
-    m_shooterSubsystem.setShooterSpeed(m_power);
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // m_shooterSubsystem.setShooterPower((m_power.getAsDouble() + 1) / 2);
+    double speed = m_speed.getAsDouble()*750 + 2250;
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    System.out.println("Spin Up Command End");
-    m_shooterSubsystem.setShooterPower(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

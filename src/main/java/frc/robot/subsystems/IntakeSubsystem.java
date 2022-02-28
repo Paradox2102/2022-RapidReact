@@ -18,6 +18,7 @@ public class IntakeSubsystem extends SubsystemBase {
   
   public IntakeSubsystem() {
     m_intake.configFactoryDefault();
+    m_intake.setInverted(true);
   }
 
   public void deployIntake(boolean deploy) {

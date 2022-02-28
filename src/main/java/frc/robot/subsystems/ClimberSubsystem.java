@@ -4,16 +4,18 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 enum Stages {
-  Extend, Grab, Swing
+  Extend, Grab, Swing, Climbing, Climbed
 }
 
 public class ClimberSubsystem extends SubsystemBase {
@@ -45,13 +47,23 @@ public class ClimberSubsystem extends SubsystemBase {
         stage = Stages.Swing;
         break;
       case Swing:
-        // ratchet(true);
         // m_winch.set(ControlMode.PercentOutput, value); // Release more
+        stage = Stages.Climbing;
+        break;
+      case Climbing:
         m_grabber.set(false);
+        // m_winch.set(ControlMode.PercentOutput, -value);
         break;
     }
   }
 
   @Override
-  public void periodic() { }
+  public void periodic() {
+    SmartDashboard.putString("Climber Stage", stage.toString());
+
+    if(stage == Stages.Climbing /* && isStalled */) {
+      ratchet(true);
+      stage = Stages.Climbed;
+    }
+  }
 }

@@ -61,7 +61,8 @@ public class ClimberSubsystem extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putString("Climber Stage", stage.toString());
 
-    if(stage == Stages.Climbing /* && isStalled */) {
+    // Check if final climbing and motor is stalled
+    if(stage == Stages.Climbing && m_winch.getMotorOutputPercent() > 0.1 && m_winch.getSelectedSensorVelocity() < 100) {
       ratchet(true);
       stage = Stages.Climbed;
     }

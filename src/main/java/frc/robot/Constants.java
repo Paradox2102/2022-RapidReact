@@ -105,14 +105,14 @@ class ConstantsCompetition extends Constants {
 
     // Pneumatics
         // Climber
-        k_piston = 0;
-        k_claw = 1;
+        k_piston = 2;
+        k_claw = 0;
         // Intake
-        k_deploy = 2;
+        k_deploy = 1;
         // Hood
         k_hood = 3;
-        // Servo
-        k_servo = 0;
+    // Servo
+        k_servo = 9;
 
     // Conversions
         k_feetPerTick = 12.58 / 188529;

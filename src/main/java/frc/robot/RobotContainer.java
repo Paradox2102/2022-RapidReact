@@ -14,6 +14,7 @@ import frc.robot.commands.SpinCommand;
 import frc.robot.commands.auto.TestCommand;
 import frc.robot.commands.auto.FE4;
 import frc.robot.commands.auto.ED;
+import frc.robot.commands.auto.A2B3;
 import frc.robot.commands.auto.A2B31B;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -71,8 +72,10 @@ public class RobotContainer {
     m_scottySubsystem.setDefaultCommand(new DefaultScottyCommand(m_scottySubsystem, 0.4));
 
     m_chooser.addOption("A2B31B (Four)", new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 7100, 0.5));
-    m_chooser.addOption("F4E (Two)", new FE4(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, 0.52, 0.3));
-    m_chooser.addOption("ED (One)", new ED(m_driveSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.52, 0.3));
+    m_chooser.addOption("F4E (Two)", new FE4(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, 7100, 0.5));
+    m_chooser.addOption("ED (One)", new ED(m_driveSubsystem, m_scottySubsystem, m_shooterSubsystem, 7100, 0.5));
+    m_chooser.addOption("A2B3 (Three)", new A2B3(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 7100, 0.5));
+ 
     SmartDashboard.putData(m_chooser);
   }
   // m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(),

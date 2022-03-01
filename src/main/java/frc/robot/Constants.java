@@ -91,13 +91,13 @@ class ConstantsCompetition extends Constants {
         // Intake (spin) SRX
         k_intake = 1;
 
-        // Sensors
+    // Sensors
         // Beambrake
         k_scotClose = 0;
         k_scotMid = 1;
         k_scotFar = 2;
 
-        // Pneumatics
+    // Pneumatics
         // Climber
         k_piston = 0;
         k_claw = 1;
@@ -108,7 +108,7 @@ class ConstantsCompetition extends Constants {
         // Servo
         k_servo = 0;
 
-        // Conversions
+    // Conversions
         k_feetPerTick = 12.58 / 188529;
     }
 }

@@ -40,9 +40,6 @@ public class DriveSubsystem extends SubsystemBase {
 
   Object m_setLock = new Object();
 
-  PIDController m_leftController;
-  PIDController m_rightController;
-
   private final PositionTracker m_posTracker;
   public final PurePursuit m_pursuitFollower;
   private final Sensor m_sensors;

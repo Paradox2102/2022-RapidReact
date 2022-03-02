@@ -6,7 +6,9 @@ package frc.robot.commands;
 
 import java.text.Normalizer;
 
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.lib.Logger;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class TurnToHeadingCommand extends CommandBase {
@@ -14,6 +16,9 @@ public class TurnToHeadingCommand extends CommandBase {
   double m_angle;
   boolean m_clockwise;
   double m_power;
+  double m_targetAngle;
+  final static double k_p = 1.0/180; 
+  final static double k_minPower = 0.1; 
   // final double k_turnP = ;
   public TurnToHeadingCommand(DriveSubsystem driveSubsystem,double angle, double power) {
     m_driveSubsystem = driveSubsystem;
@@ -22,7 +27,8 @@ public class TurnToHeadingCommand extends CommandBase {
     addRequirements(driveSubsystem);
   }
 
-  public double Normalize(double angle) {
+  //This function takes an angle and returns an angle between +180 and -180 
+  public double normalize(double angle) {
     
     angle = angle%360;
 
@@ -40,13 +46,42 @@ public class TurnToHeadingCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    double yaw = m_driveSubsystem.getYaw(); 
+    double delta = normalize (m_angle - yaw);
 
+    m_targetAngle = yaw + delta; 
+    
+    if (delta > 0) { 
+      m_clockwise = false;
+      //m_driveSubsystem.setPower(-m_power, m_power);  
+    }
+    else {
+      m_clockwise = true; 
+      //m_driveSubsystem.setPower(m_power, -m_power); 
+    }
+    Logger.Log("TurnToHeadingCommand", 3, String.format("yaw = %f, delta = %f, clockwise = %b, m_angle = %f", yaw, delta, m_clockwise, m_angle)); 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    double yaw = m_driveSubsystem.getYaw(); 
+    double delta = normalize (m_angle - yaw);
+    double power = k_p * m_power * Math.abs(delta); 
 
+    if (power > m_power){
+      power = m_power; 
+    }
+    else if (power < k_minPower){
+      power = k_minPower; 
+    }
+
+    if (m_clockwise){
+      m_driveSubsystem.setPower(power, -power); 
+    }
+    else {
+      m_driveSubsystem.setPower(-power, power); 
+    }
     // double delta = m_clockwise ? (m_angle - angle)%360 : ((angle - m_angle)%360)-360;
     // double power = delta * m_power;
 
@@ -55,12 +90,27 @@ public class TurnToHeadingCommand extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_driveSubsystem.stop(); 
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    double angle = m_driveSubsystem.getYaw();
+    double yaw = m_driveSubsystem.getYaw();
+    Logger.Log("TurneToHeadingCommand", 1, String.format("yaw = %f, targetAngle = %f", yaw, m_targetAngle)); 
+
+    if(m_clockwise){
+      if (yaw <= m_targetAngle) {
+        return true; 
+      }
+    }
+    else {
+      if (yaw >= m_targetAngle) {
+        return true; 
+      }
+    }
+
     return false;
   }
 }

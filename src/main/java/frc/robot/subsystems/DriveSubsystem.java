@@ -35,6 +35,8 @@ public class DriveSubsystem extends SubsystemBase {
   TalonFX m_rightDrive = new TalonFX(Constants.c.k_driveRight);
   TalonFX m_rightDriveFollower = new TalonFX(Constants.c.k_driveRightFollower);
   TalonFXSensorCollection m_rightSensor;
+
+
   // CANCoder m_rightCoder = new CANCoder(Constants.k_driveRight);
 
   PigeonIMU m_gyro = new PigeonIMU(0);
@@ -60,8 +62,7 @@ public class DriveSubsystem extends SubsystemBase {
     //   // TODO Auto-generated catch block
     //   e.printStackTrace();
     // }
-    m_leftDrive.setNeutralMode(NeutralMode.Brake);
-    m_rightDrive.setNeutralMode(NeutralMode.Brake);
+    setBrakeMode(true);
     System.out.println("Yaw = " +m_gyro.getYaw());
     m_leftSensor = m_leftDrive.getSensorCollection();
     m_rightSensor = m_rightDrive.getSensorCollection();
@@ -75,9 +76,11 @@ public class DriveSubsystem extends SubsystemBase {
     m_leftDrive.configOpenloopRamp(1.5);
     m_rightDrive.configOpenloopRamp(1.5);
 
+
     m_sensors = new Sensor(() -> m_leftDrive.getSelectedSensorPosition(), () -> m_rightDrive.getSelectedSensorPosition(), () -> m_leftDrive.getSelectedSensorVelocity(), () -> m_rightDrive.getSelectedSensorVelocity(), m_gyro);
     m_posTracker = new PositionTracker(0, 0, false, m_sensors);
     m_navigator = new Navigator(m_posTracker);
+    m_navigator.reset(0, 0, 0);
     m_pursuitFollower = new PurePursuit(m_navigator, (l, r) -> setSpeedFPS(l, r), 20);
     m_pursuitFollower.enableLogging("/home/lvuser/logs");
 
@@ -96,6 +99,15 @@ public class DriveSubsystem extends SubsystemBase {
     leftSensors.setIntegratedSensorPosition(0, k_timeout); 
     rightSensors.setIntegratedSensorPosition(0, k_timeout); 
 
+  }
+
+  public void setBrakeMode(boolean brake)
+  {
+    m_leftDrive.setNeutralMode(brake ? NeutralMode.Brake : NeutralMode.Coast);
+    m_leftDriveFollower.setNeutralMode(brake ? NeutralMode.Brake : NeutralMode.Coast);
+    m_rightDrive.setNeutralMode(brake ? NeutralMode.Brake : NeutralMode.Coast);
+    m_rightDriveFollower.setNeutralMode(brake ? NeutralMode.Brake : NeutralMode.Coast);
+  
   }
 
   public double getYaw() {

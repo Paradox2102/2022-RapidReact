@@ -6,7 +6,9 @@ package frc.robot.commands;
 
 import java.text.Normalizer;
 
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.lib.Logger;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class TurnToHeadingCommand extends CommandBase {
@@ -14,6 +16,7 @@ public class TurnToHeadingCommand extends CommandBase {
   double m_angle;
   boolean m_clockwise;
   double m_power;
+  double m_targetAngle; 
   // final double k_turnP = ;
   public TurnToHeadingCommand(DriveSubsystem driveSubsystem,double angle, double power) {
     m_driveSubsystem = driveSubsystem;
@@ -22,7 +25,8 @@ public class TurnToHeadingCommand extends CommandBase {
     addRequirements(driveSubsystem);
   }
 
-  public double Normalize(double angle) {
+  //This function takes an angle and returns an angle between +180 and -180 
+  public double normalize(double angle) {
     
     angle = angle%360;
 
@@ -40,7 +44,20 @@ public class TurnToHeadingCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    double yaw = m_driveSubsystem.getYaw(); 
+    double delta = normalize (m_angle - yaw);
 
+    m_targetAngle = yaw + delta; 
+    
+    if (delta > 0) { 
+      m_clockwise = false;
+      m_driveSubsystem.setPower(-m_power, m_power);  
+    }
+    else {
+      m_clockwise = true; 
+      m_driveSubsystem.setPower(m_power, -m_power); 
+    }
+    Logger.Log("TurnToHeadingCommand", 3, String.format("yaw = %f, delta = %f, clockwise = %b, m_angle = %f", yaw, delta, m_clockwise, m_angle)); 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -55,12 +72,27 @@ public class TurnToHeadingCommand extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_driveSubsystem.stop(); 
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    double angle = m_driveSubsystem.getYaw();
+    double yaw = m_driveSubsystem.getYaw();
+    Logger.Log("TurneToHeadingCommand", 1, String.format("yaw = %f, targetAngle = %f", yaw, m_targetAngle)); 
+
+    if(m_clockwise){
+      if (yaw <= m_targetAngle) {
+        return true; 
+      }
+    }
+    else {
+      if (yaw >= m_targetAngle) {
+        return true; 
+      }
+    }
+
     return false;
   }
 }

@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
@@ -34,6 +35,8 @@ public class DriveSubsystem extends SubsystemBase {
   TalonFX m_rightDrive = new TalonFX(Constants.c.k_driveRight);
   TalonFX m_rightDriveFollower = new TalonFX(Constants.c.k_driveRightFollower);
   TalonFXSensorCollection m_rightSensor;
+
+
   // CANCoder m_rightCoder = new CANCoder(Constants.k_driveRight);
 
   PigeonIMU m_gyro = new PigeonIMU(0);
@@ -71,6 +74,7 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightDrive.setInverted(false);
     m_leftDrive.configOpenloopRamp(0);
     m_rightDrive.configOpenloopRamp(0);
+
 
     m_sensors = new Sensor(() -> m_leftDrive.getSelectedSensorPosition(), () -> m_rightDrive.getSelectedSensorPosition(), () -> m_leftDrive.getSelectedSensorVelocity(), () -> m_rightDrive.getSelectedSensorVelocity(), m_gyro);
     m_posTracker = new PositionTracker(0, 0, false, m_sensors);

@@ -46,7 +46,7 @@ public class ED extends ParallelRaceGroup {
         new ParallelDeadlineGroup(new WaitCommand(1),
           new ScottyPowerCommand(scottySubsystem, scottyPower)),
         new CreatePathCommand(driveSubsystem, k_path, true, true, "ED", new PurePursuitData(k_maxSpeed), 0.3),
-        new TurnToHeadingCommand(driveSubsystem, 90, 0.3)
+        new TurnToHeadingCommand(driveSubsystem, 90, 0.6)
       )
     );
   }

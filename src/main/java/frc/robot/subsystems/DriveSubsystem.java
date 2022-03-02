@@ -62,8 +62,7 @@ public class DriveSubsystem extends SubsystemBase {
     //   // TODO Auto-generated catch block
     //   e.printStackTrace();
     // }
-    m_leftDrive.setNeutralMode(NeutralMode.Brake);
-    m_rightDrive.setNeutralMode(NeutralMode.Brake);
+    setBrakeMode(true);
     System.out.println("Yaw = " +m_gyro.getYaw());
     m_leftSensor = m_leftDrive.getSensorCollection();
     m_rightSensor = m_rightDrive.getSensorCollection();
@@ -81,6 +80,7 @@ public class DriveSubsystem extends SubsystemBase {
     m_sensors = new Sensor(() -> m_leftDrive.getSelectedSensorPosition(), () -> m_rightDrive.getSelectedSensorPosition(), () -> m_leftDrive.getSelectedSensorVelocity(), () -> m_rightDrive.getSelectedSensorVelocity(), m_gyro);
     m_posTracker = new PositionTracker(0, 0, false, m_sensors);
     m_navigator = new Navigator(m_posTracker);
+    m_navigator.reset(0, 0, 0);
     m_pursuitFollower = new PurePursuit(m_navigator, (l, r) -> setSpeedFPS(l, r), 20);
     m_pursuitFollower.enableLogging("/home/lvuser/logs");
 
@@ -99,6 +99,15 @@ public class DriveSubsystem extends SubsystemBase {
     leftSensors.setIntegratedSensorPosition(0, k_timeout); 
     rightSensors.setIntegratedSensorPosition(0, k_timeout); 
 
+  }
+
+  public void setBrakeMode(boolean brake)
+  {
+    m_leftDrive.setNeutralMode(brake ? NeutralMode.Brake : NeutralMode.Coast);
+    m_leftDriveFollower.setNeutralMode(brake ? NeutralMode.Brake : NeutralMode.Coast);
+    m_rightDrive.setNeutralMode(brake ? NeutralMode.Brake : NeutralMode.Coast);
+    m_rightDriveFollower.setNeutralMode(brake ? NeutralMode.Brake : NeutralMode.Coast);
+  
   }
 
   public double getYaw() {

@@ -62,6 +62,8 @@ public class DriveSubsystem extends SubsystemBase {
     //   // TODO Auto-generated catch block
     //   e.printStackTrace();
     // }
+    m_leftDrive.setNeutralMode(NeutralMode.Brake);
+    m_rightDrive.setNeutralMode(NeutralMode.Brake);
     System.out.println("Yaw = " +m_gyro.getYaw());
     m_leftSensor = m_leftDrive.getSensorCollection();
     m_rightSensor = m_rightDrive.getSensorCollection();

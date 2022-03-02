@@ -25,6 +25,8 @@ public class ShooterSubsystem extends SubsystemBase {
   double k_iZone = 100;
   int k_timeout = 30;
 
+  double m_shooterSetpoint = 0;
+
   public ShooterSubsystem() {
     m_shooter.configFactoryDefault();
     m_shooterFollower.configFactoryDefault();
@@ -40,12 +42,21 @@ public class ShooterSubsystem extends SubsystemBase {
     m_shooter.config_IntegralZone(0, k_iZone, k_timeout);
   }
 
+  public double getShooterSpeed() {
+    return m_shooter.getSelectedSensorVelocity();
+  }
+
+  public double getShooterSetpoint() {
+    return m_shooterSetpoint;
+  }
+
   public void setShooterPower(double power) {
     m_shooter.set(ControlMode.PercentOutput, power);
   }
 
   public void setShooterSpeed(double speed) {
     m_shooter.set(ControlMode.Velocity, speed);
+    m_shooterSetpoint = speed;
   }
 
   @Override

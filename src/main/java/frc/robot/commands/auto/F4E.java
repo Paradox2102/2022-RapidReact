@@ -19,7 +19,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class FE4 extends ParallelRaceGroup {
+public class F4E extends ParallelRaceGroup {
   
   private static final int k_nPoints = 1000;
 private static final double k_dt = 0.020000;
@@ -44,7 +44,7 @@ private static final Waypoint[] k_driveShoot = {
     new Waypoint(6, 10, Math.toRadians( 226.52)),
     new Waypoint(1.5,  4.2, Math.toRadians( 248))
 };
-  public FE4(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, ScottySubsystem scottySubsystem, ShooterSubsystem shooterSubsytem, double intakePower, double shooterPower, double scottyPower) {
+  public F4E(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, ScottySubsystem scottySubsystem, ShooterSubsystem shooterSubsytem, double intakePower, double shooterPower, double scottyPower) {
     addCommands(
       new IntakeCommand(intakeSubsystem, scottySubsystem, intakePower),
       new SpinCommand(shooterSubsytem, shooterPower),

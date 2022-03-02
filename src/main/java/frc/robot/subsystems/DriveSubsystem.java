@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
@@ -59,6 +60,8 @@ public class DriveSubsystem extends SubsystemBase {
     //   // TODO Auto-generated catch block
     //   e.printStackTrace();
     // }
+    m_leftDrive.setNeutralMode(NeutralMode.Brake);
+    m_rightDrive.setNeutralMode(NeutralMode.Brake);
     System.out.println("Yaw = " +m_gyro.getYaw());
     m_leftSensor = m_leftDrive.getSensorCollection();
     m_rightSensor = m_rightDrive.getSensorCollection();

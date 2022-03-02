@@ -8,6 +8,7 @@ import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.DefaultScottyCommand;
 import frc.robot.commands.DeployIntakeCommand;
+import frc.robot.commands.FireCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.MeasureSpeedCommand;
 import frc.robot.commands.ScottyPowerCommand;
@@ -15,7 +16,7 @@ import frc.robot.commands.ServoThrottleCommand;
 import frc.robot.commands.SpinCommand;
 import frc.robot.commands.WinchCommand;
 import frc.robot.commands.auto.TestCommand;
-import frc.robot.commands.auto.FE4;
+import frc.robot.commands.auto.F4E;
 import frc.robot.commands.auto.ED;
 import frc.robot.commands.auto.A2B3;
 import frc.robot.commands.auto.A2B31B;
@@ -59,13 +60,14 @@ public class RobotContainer {
   JoystickButton m_climb = new JoystickButton(m_climbStick, 7);
   JoystickButton m_winch = new JoystickButton(m_climbStick, 5);
   JoystickButton m_reverseWinch = new JoystickButton(m_climbStick, 6);
-  JoystickButton m_deployIntake = new JoystickButton(m_climbStick, 3);
+  // JoystickButton m_deployIntake = new JoystickButton(m_climbStick, 3);
   JoystickButton m_fire = new JoystickButton(m_climbStick, 1);
   // JoystickButton m_reverseScotty = new JoystickButton(m_climbStick, 6);
   JoystickButton m_spinUp = new JoystickButton(m_climbStick, 2);
   // Calib
   JoystickButton m_testPath = new JoystickButton(m_calibStick, 2);
   JoystickButton m_calibRatchet = new JoystickButton(m_calibStick, 3);
+  JoystickButton m_deployIntake = new JoystickButton(m_calibStick, 4);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -79,7 +81,7 @@ public class RobotContainer {
     m_scottySubsystem.setDefaultCommand(new DefaultScottyCommand(m_scottySubsystem, 0.4));
 
     m_chooser.addOption("A2B31B (Four)", new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 7100, 0.5));
-    m_chooser.addOption("F4E (Two)", new FE4(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, 7100, 0.5));
+    m_chooser.addOption("F4E (Two)", new F4E(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, 7100, 0.5));
     m_chooser.addOption("ED (One)", new ED(m_driveSubsystem, m_scottySubsystem, m_shooterSubsystem, 7100, 0.5));
     m_chooser.addOption("A2B3 (Three)", new A2B3(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 7100, 0.5));
  
@@ -96,17 +98,18 @@ public class RobotContainer {
     m_testSpeed.whileHeld(new MeasureSpeedCommand(m_driveSubsystem)); 
     // Driver 2
     m_climb.whenPressed(new ClimbCommand(m_climberSubsystem));
-    m_fire.whileHeld(new ScottyPowerCommand(m_scottySubsystem, 0.4));
+    // m_fire.whileHeld(new ScottyPowerCommand(m_scottySubsystem, 0.4));
+    m_fire.whileHeld(new FireCommand(m_scottySubsystem, m_shooterSubsystem, 0.4));
     m_winch.whileHeld(new WinchCommand(m_climberSubsystem, 1.0));
     m_reverseWinch.whileHeld(new WinchCommand(m_climberSubsystem, -0.5));
 
     // m_reverseScotty.whileHeld(new ScottyPowerCommand(m_scottySubsystem, -0.4));
-    m_deployIntake.toggleWhenPressed(new DeployIntakeCommand(m_intakeSubsystem));
     // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_climbStick.getThrottle()));
     m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, 7100));
     // Calib Driver
     m_testPath.toggleWhenPressed(new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 7100, 0.3));
     m_calibRatchet.toggleWhenPressed(new ServoThrottleCommand(m_climberSubsystem, () -> m_calibStick.getThrottle()));
+    m_deployIntake.toggleWhenPressed(new DeployIntakeCommand(m_intakeSubsystem));
     // m_testPath.toggleWhenPressed(new TwoBallAuto(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, 0.52, 0.6));
   }
 

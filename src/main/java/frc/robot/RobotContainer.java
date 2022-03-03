@@ -80,10 +80,10 @@ public class RobotContainer {
         () -> m_stick.getY(), () -> m_stick.getThrottle()));
     m_scottySubsystem.setDefaultCommand(new DefaultScottyCommand(m_scottySubsystem, 0.4));
 
-    m_chooser.addOption("A2B31B (Four)", new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 7100, 0.5));
+    m_chooser.addOption("A2B31B (Four)", new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 7100, 0.35));
     m_chooser.addOption("F4E (Two)", new F4E(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, 7100, 0.5));
     m_chooser.addOption("ED (One)", new ED(m_driveSubsystem, m_scottySubsystem, m_shooterSubsystem, 7100, 0.5));
-    m_chooser.addOption("A2B3 (Three)", new A2B3(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 7100, 0.5));
+    m_chooser.addOption("A2B3 (Three)", new A2B3(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 7100, 0.35));
  
     SmartDashboard.putData(m_chooser);
   }
@@ -99,7 +99,7 @@ public class RobotContainer {
     // Driver 2
     m_climb.whenPressed(new ClimbCommand(m_climberSubsystem));
     // m_fire.whileHeld(new ScottyPowerCommand(m_scottySubsystem, 0.4));
-    m_fire.whileHeld(new FireCommand(m_scottySubsystem, m_shooterSubsystem, 0.4));
+    m_fire.whileHeld(new FireCommand(m_scottySubsystem, m_shooterSubsystem, 0.35));
     m_winch.whileHeld(new WinchCommand(m_climberSubsystem, 1.0));
     m_reverseWinch.whileHeld(new WinchCommand(m_climberSubsystem, -0.5));
 

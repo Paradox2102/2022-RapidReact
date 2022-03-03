@@ -20,7 +20,7 @@ public class ShooterSubsystem extends SubsystemBase {
   TalonFX m_shooterFollower = new TalonFX(Constants.c.k_shooterFollower);
 
   double k_f = 0.061;
-  double k_p = 0.5;
+  double k_p = 0.25;
   double k_i = 0.001;
   double k_iZone = 100;
   int k_timeout = 30;

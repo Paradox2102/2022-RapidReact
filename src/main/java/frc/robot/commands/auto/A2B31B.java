@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.ProxyScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.pathfinder.Pathfinder.Waypoint;
 import frc.robot.States;
+import frc.robot.commands.DeployIntakeCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ScottyPowerCommand;
 import frc.robot.commands.SetStateOneBall;
@@ -39,15 +40,15 @@ final static Waypoint[] k_firstBall = { new Waypoint(-7.7, 2.25, Math.toRadians(
 final static Waypoint[] k_driveShoot = { new Waypoint(-11.1, 2.25, Math.toRadians(0)), new Waypoint(-4, 1, Math.toRadians(-30)) };
 /*
 -4, 1, 150
--6.7, 10.4, 90
--9, 22, 120
+-7.2, 10.4, 90
+-8.3,20.6, 120
 */
-private static final double k_longSpeed = 10;
+private static final double k_longSpeed = 8;
 
 private static final Waypoint[] k_getTwoBalls = {
     new Waypoint(-4,  1, Math.toRadians( 150)),
-    new Waypoint(-6.7,  10.4, Math.toRadians( 90)),
-    new Waypoint(-8.5,  21.5, Math.toRadians( 120))
+    new Waypoint(-7.2,  10.4, Math.toRadians( 90)),
+    new Waypoint(-8.3,  20.6, Math.toRadians( 120))
 };
 // private static final Waypoint[] k_getTwoBalls = {
 //   new Waypoint(-4,  1, Math.toRadians(-30)),
@@ -59,7 +60,7 @@ private static final Waypoint[] k_getTwoBalls = {
 -3.6, 1.2, -30
 */
 private static final Waypoint[] k_driveShootLong = {
-    new Waypoint(-8.5, 21.5, Math.toRadians(-60)),
+    new Waypoint(-8.3, 20.6, Math.toRadians(-60)),
     new Waypoint(-3.6,  1.2, Math.toRadians( -30))
 };
 

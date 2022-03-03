@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.States;
 import frc.robot.subsystems.ScottySubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -29,6 +30,7 @@ public class FireCommand extends CommandBase {
   public void execute() {
     if(m_shooterSubsystem.getShooterSpeed() > m_shooterSubsystem.getShooterSetpoint() - k_deadZone) {
       m_scottySubsystem.runScotty(m_power);
+      m_scottySubsystem.setState(States.None);
     } else m_scottySubsystem.runScotty(0);
   }
 

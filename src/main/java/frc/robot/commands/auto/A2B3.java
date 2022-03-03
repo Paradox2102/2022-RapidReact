@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.ProxyScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.pathfinder.Pathfinder.Waypoint;
 import frc.robot.States;
+import frc.robot.commands.DeployIntakeCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ScottyPowerCommand;
 import frc.robot.commands.SetStateOneBall;
@@ -42,11 +43,11 @@ private static final double k_longSpeed = 7;
 
 /*
 -4, 1, 150
--6.7, 9, 90
+-7.2, 9, 90
 */
 private static final Waypoint[] k_getTwoBalls = {
     new Waypoint(-4,  1, Math.toRadians( 150)),
-    new Waypoint(-6.7,  9, Math.toRadians( 90))
+    new Waypoint(-7.2,  9, Math.toRadians( 90))
 };
 // private static final Waypoint[] k_getTwoBalls = {
 //   new Waypoint(-4,  1, Math.toRadians(-30)),

@@ -4,6 +4,8 @@ package frc.robot;
 import java.io.File;
 import java.nio.file.Path;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean
@@ -29,9 +31,11 @@ public class Constants {
             if (f.exists())
             {
                 c = new ConstantsCompetition();
+                SmartDashboard.putString("RobotType", "competition"); 
             }
             else {
                 c = new Constants(); 
+                SmartDashboard.putString("RobotType", "practice"); 
             }
         }
 
@@ -45,6 +49,7 @@ public class Constants {
     // Shooter FX
     public int k_shooter = 14;
     public int k_shooterFollower = 15;
+
     // Climber FX
     public int k_climber = 4;
     // Scotty (throat) FX
@@ -84,6 +89,7 @@ class ConstantsCompetition extends Constants {
         // Shooter FX
         k_shooter = 14;
         k_shooterFollower = 15;
+ 
         // Climber FX
         k_climber = 4;
         // Scotty (throat) FX
@@ -99,14 +105,14 @@ class ConstantsCompetition extends Constants {
 
     // Pneumatics
         // Climber
-        k_piston = 0;
-        k_claw = 1;
+        k_piston = 2;
+        k_claw = 0;
         // Intake
-        k_deploy = 2;
+        k_deploy = 1;
         // Hood
         k_hood = 3;
-        // Servo
-        k_servo = 0;
+    // Servo
+        k_servo = 9;
 
     // Conversions
         k_feetPerTick = 12.58 / 188529;

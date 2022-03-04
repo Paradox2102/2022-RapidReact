@@ -37,7 +37,7 @@ public class IntakeCommand extends CommandBase {
   @Override
   public void initialize() {
     Logger.Log("Intake Command", 1, "Initialized");
-    // m_intakeSubsystem.deployIntake(true);
+    m_intakeSubsystem.deployIntake(true);
     m_intakeSubsystem.runIntake(m_power);
     if(m_timing) m_timer = System.currentTimeMillis();
   }
@@ -50,7 +50,7 @@ public class IntakeCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     Logger.Log("Intake Command", 1, "End");
-    // m_intakeSubsystem.deployIntake(false);
+    m_intakeSubsystem.deployIntake(false);
     m_intakeSubsystem.runIntake(0);
   }
 

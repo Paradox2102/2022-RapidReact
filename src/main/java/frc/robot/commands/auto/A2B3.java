@@ -23,7 +23,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class A2B31B extends ParallelRaceGroup {
+public class A2B3 extends ParallelRaceGroup {
   private static final int k_nPoints = 1000;
 private static final double k_dt = 0.020000;
 private static final double k_maxSpeed = 4.500000;
@@ -38,34 +38,34 @@ private static final double k_wheelbase = 1.812500;
 final static Waypoint[] k_firstBall = { new Waypoint(-7.7, 2.25, Math.toRadians(180)), new Waypoint(-11.1, 2.25, Math.toRadians(180)) };
 
 final static Waypoint[] k_driveShoot = { new Waypoint(-11.1, 2.25, Math.toRadians(0)), new Waypoint(-4, 1, Math.toRadians(-30)) };
+
+private static final double k_longSpeed = 7;
+
 /*
 -4, 1, 150
--7.2, 10.4, 90
--8.3,20.6, 120
+-7.2, 9, 90
 */
-private static final double k_longSpeed = 8;
-
 private static final Waypoint[] k_getTwoBalls = {
     new Waypoint(-4,  1, Math.toRadians( 150)),
-    new Waypoint(-7.2,  10.4, Math.toRadians( 90)),
-    new Waypoint(-8.3,  20.6, Math.toRadians( 120))
+    new Waypoint(-7.2,  9, Math.toRadians( 90))
 };
 // private static final Waypoint[] k_getTwoBalls = {
 //   new Waypoint(-4,  1, Math.toRadians(-30)),
 //   new Waypoint(-6.7,  10.4, Math.toRadians(-90)),
 //   new Waypoint(-8.5,  21.5, Math.toRadians(-60))
 // };
+
 /*
--8.5,21.5,-60
+-6.7, 9, -90
 -3.6, 1.2, -30
 */
 private static final Waypoint[] k_driveShootLong = {
-    new Waypoint(-8.3, 20.6, Math.toRadians(-60)),
+    new Waypoint(-6.7,  9, Math.toRadians( -90)),
     new Waypoint(-3.6,  1.2, Math.toRadians( -30))
 };
 
 
-  public A2B31B(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsytem, ScottySubsystem scottySubsystem, double intakePower, double shooterPower, double scottyPower) {
+  public A2B3(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsytem, ScottySubsystem scottySubsystem, double intakePower, double shooterPower, double scottyPower) {
     addCommands(
       new IntakeCommand(intakeSubsystem, scottySubsystem, intakePower),
       new SpinCommand(shooterSubsytem, shooterPower),

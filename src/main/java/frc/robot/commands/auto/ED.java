@@ -28,14 +28,15 @@ public class ED extends ParallelRaceGroup {
   private static final double k_maxDecl = 8.000000;
   private static final double k_maxJerk = 100.000000;
   private static final double k_wheelbase = 1.812500;
-  /*
-  1.5,3.8,69,3.92,6.253
-  0, 22.5, 90
+
+  /*1.3,4.891,90
+  1.3,20,90
   */
   private static final Waypoint[] k_path = {
-      new Waypoint(1.5, 3.8, Math.toRadians(69), 3.92, 6.253),
-      new Waypoint(0,  22.5, Math.toRadians( 90))
-  };
+      new Waypoint(1.3, 4.891, Math.toRadians(90)),
+      new Waypoint(1.3, 20, Math.toRadians(90))
+};
+
   public ED(DriveSubsystem driveSubsystem, ScottySubsystem scottySubsystem, ShooterSubsystem shooterSubsytem, double shooterPower, double scottyPower) {
     addCommands(
       new SpinCommand(shooterSubsytem, shooterPower),
@@ -45,7 +46,7 @@ public class ED extends ParallelRaceGroup {
         new ParallelDeadlineGroup(new WaitCommand(1),
           new ScottyPowerCommand(scottySubsystem, scottyPower)),
         new CreatePathCommand(driveSubsystem, k_path, true, true, "ED", new PurePursuitData(k_maxSpeed), 0.3),
-        new TurnToHeadingCommand(driveSubsystem, -90, true, 0.4)
+        new TurnToHeadingCommand(driveSubsystem, 90, 0.6)
       )
     );
   }

@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 enum Stages {
-  Extend, Grab, Swing, Climbing, Climbed
+  Extend, Grab, Pull, Climbing
 }
 
 public class ClimberSubsystem extends SubsystemBase {
@@ -30,30 +30,37 @@ public class ClimberSubsystem extends SubsystemBase {
     stage = Stages.Extend;
   }
 
+  public void setWinchPower(double power) {
+    m_winch.set(ControlMode.PercentOutput, power);
+  }
+
+  public void setServo(double angle) {
+    m_ratchet.set(angle);
+  }
+
   public void ratchet(boolean on) {
-    if(on) m_ratchet.set(0);
-    else m_ratchet.setAngle(45);
+    if(on) m_ratchet.set(0.5);
+    else m_ratchet.set(0.25);
   }
 
   public void climb() {
     switch(stage) {
       case Extend:
+        ratchet(false);
         m_piston.set(true);
-        // m_winch.set(ControlMode.PercentOutput, value); // Release at same time as piston goes up
         stage = Stages.Grab;
         break;
       case Grab:
         m_grabber.set(true);
-        m_piston.set(false);
-        stage = Stages.Swing;
+        stage = Stages.Pull;
         break;
-      case Swing:
-        // m_winch.set(ControlMode.PercentOutput, value); // Release more
+      case Pull:
+        m_piston.set(false);
         stage = Stages.Climbing;
         break;
       case Climbing:
+        ratchet(true);
         m_grabber.set(false);
-        // m_winch.set(ControlMode.PercentOutput, -value);
         break;
     }
   }
@@ -64,9 +71,8 @@ public class ClimberSubsystem extends SubsystemBase {
     Shuffleboard.getTab("Driver Tab").add("Climber Stage", stage.toString());
 
     // Check if final climbing and motor is stalled
-    if(stage == Stages.Climbing && m_winch.getMotorOutputPercent() > 0.1 && m_winch.getSelectedSensorVelocity() < 100) {
-      ratchet(true);
-      stage = Stages.Climbed;
-    }
+    // if(stage == Stages.Climbing && m_winch.getMotorOutputPercent() > 0.1 && m_winch.getSelectedSensorVelocity() < 100) {
+    //   ratchet(true);
+    // }
   }
 }

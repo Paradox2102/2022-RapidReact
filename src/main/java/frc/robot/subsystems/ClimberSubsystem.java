@@ -28,7 +28,7 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public ClimberSubsystem() {
     stage = Stages.Extend;
-    Shuffleboard.getTab("Drive Tab").addString("Climb Stage", () -> stage.toString()).withSize(2, 1).withPosition(6, 2);
+    // Shuffleboard.getTab("Drive Tab").addString("Climb Stage", () -> stage.toString()).withSize(2, 1).withPosition(6, 2);
   }
 
   public void setWinchPower(double power) {
@@ -71,7 +71,7 @@ public class ClimberSubsystem extends SubsystemBase {
   public void periodic() {
     // SmartDashboard.putString("Climber Stage", stage.toString());
     // Check if final climbing and motor is stalled
-    // if(stage == Stages.Climbing && m_winch.getMotorOutputPercent() > 0.1 && m_winch.getSelectedSensorVelocity() < 100) {
+    // if(stage == Stages.Climbing && m_winch.getMotorOutputPercent() > 0.1 && m_winch.Velocity() < 100) {
     //   ratchet(true);
     // }
   }

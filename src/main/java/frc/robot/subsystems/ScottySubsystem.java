@@ -31,10 +31,10 @@ public class ScottySubsystem extends SubsystemBase {
     m_scotty.setInverted(false);
     m_run = false;
     ShuffleboardTab driveTab = Shuffleboard.getTab("Drive Tab");
-    driveTab.addString("Scotty State", () -> m_state.toString()).withSize(2, 1);
-    driveTab.addBoolean("Top Sensor", () -> getTopSensor()).withPosition(10, 1);
-    driveTab.addBoolean("Mid Sensor", () -> getMidSensor()).withPosition(10, 2);
-    driveTab.addBoolean("Bot Sensor", () -> getBotSensor()).withPosition(10, 3);
+    driveTab.addString("Scotty State", () -> m_state.toString()).withSize(2, 1).withPosition(6, 1);
+    driveTab.addBoolean("Top Sensor", () -> getTopSensor()).withPosition(9, 1);
+    driveTab.addBoolean("Mid Sensor", () -> getMidSensor()).withPosition(9, 2);
+    driveTab.addBoolean("Bot Sensor", () -> getBotSensor()).withPosition(9, 3);
   }
 
   public void runScotty(double power) {

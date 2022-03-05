@@ -91,7 +91,7 @@ public class RobotContainer {
     SmartDashboard.putData(m_chooser);
 
     ShuffleboardTab driverTab = Shuffleboard.getTab("Drive Tab");
-    driverTab.addCamera("Camera Viewer", "Front Camera", "http://10.21.2.2:1181/?action=stream").withSize(5, 4);
+    driverTab.addCamera("Camera Viewer", "Front Camera", "http://10.21.2.2:1181/?action=stream").withSize(5, 4).withPosition(1, 1);
     // driverTab.add(CameraServer.getServer().getSource());
   }
   // m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(),

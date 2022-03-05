@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
@@ -71,10 +72,15 @@ public class DriveSubsystem extends SubsystemBase {
     m_leftDriveFollower.follow(m_leftDrive);
     m_rightDriveFollower.follow(m_rightDrive);
     
+    m_leftDriveFollower.setStatusFramePeriod(StatusFrame.Status_1_General, 255);
+    m_leftDriveFollower.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 255);
+    m_rightDriveFollower.setStatusFramePeriod(StatusFrame.Status_1_General, 255);
+    m_rightDriveFollower.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 255);
+    
     m_leftDrive.setInverted(true);
     m_rightDrive.setInverted(false);
-    m_leftDrive.configOpenloopRamp(1.5);
-    m_rightDrive.configOpenloopRamp(1.5);
+    m_leftDrive.configOpenloopRamp(1);
+    m_rightDrive.configOpenloopRamp(1);
 
 
     m_sensors = new Sensor(() -> m_leftDrive.getSelectedSensorPosition(), () -> m_rightDrive.getSelectedSensorPosition(), () -> m_leftDrive.getSelectedSensorVelocity(), () -> m_rightDrive.getSelectedSensorVelocity(), m_gyro);

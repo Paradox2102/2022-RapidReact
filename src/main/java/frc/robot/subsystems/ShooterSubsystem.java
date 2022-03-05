@@ -4,17 +4,12 @@
 
 package frc.robot.subsystems;
 
-import java.util.Map;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -40,6 +35,9 @@ public class ShooterSubsystem extends SubsystemBase {
     m_shooterFollower.follow(m_shooter);
     m_shooter.setNeutralMode(NeutralMode.Coast);
     m_shooterFollower.setNeutralMode(NeutralMode.Coast);
+
+    m_shooterFollower.setStatusFramePeriod(StatusFrame.Status_1_General, 255);
+    m_shooterFollower.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 255);
 
     m_shooter.config_kF(0, k_f, k_timeout); 
     m_shooter.config_kP(0, k_p, k_timeout);

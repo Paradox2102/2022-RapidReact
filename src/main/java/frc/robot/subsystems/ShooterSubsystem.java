@@ -4,12 +4,16 @@
 
 package frc.robot.subsystems;
 
+import java.util.Map;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -26,6 +30,7 @@ public class ShooterSubsystem extends SubsystemBase {
   int k_timeout = 30;
 
   double m_shooterSetpoint = 0;
+  SimpleWidget m_amplifier;
 
   public ShooterSubsystem() {
     m_shooter.configFactoryDefault();
@@ -40,6 +45,11 @@ public class ShooterSubsystem extends SubsystemBase {
     m_shooter.config_kP(0, k_p, k_timeout);
     m_shooter.config_kI(0, k_i, k_timeout);
     m_shooter.config_IntegralZone(0, k_iZone, k_timeout);
+
+    // m_amplifier = Shuffleboard.getTab("Drive Tab")
+    //   .add("Shooter Amplifier", 0)
+    //   .withWidget(BuiltInWidgets.kNumberSlider);
+    // m_amplifier.withProperties(Map.of("min", -1000, "max", 1000));
   }
 
   public double getShooterSpeed() {
@@ -61,6 +71,6 @@ public class ShooterSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("ShooterSpeed", m_shooter.getSelectedSensorVelocity());
+    // SmartDashboard.putNumber("ShooterSpeed", m_shooter.getSelectedSensorVelocity());
   }
 }

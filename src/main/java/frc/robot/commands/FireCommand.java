@@ -23,15 +23,19 @@ public class FireCommand extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_scottySubsystem.runScotty(m_power);
+    m_scottySubsystem.setState(States.None);
+  }
+  
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(m_shooterSubsystem.getShooterSpeed() > m_shooterSubsystem.getShooterSetpoint() - k_deadZone) {
-      m_scottySubsystem.runScotty(m_power);
-      m_scottySubsystem.setState(States.None);
-    } else m_scottySubsystem.runScotty(0);
+    // if(m_shooterSubsystem.getShooterSpeed() > m_shooterSubsystem.getShooterSetpoint() - k_deadZone) {
+    //   m_scottySubsystem.runScotty(m_power);
+    //   m_scottySubsystem.setState(States.None);
+    // } else m_scottySubsystem.runScotty(0);
   }
 
   // Called once the command ends or is interrupted.

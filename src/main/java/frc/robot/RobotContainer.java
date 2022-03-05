@@ -76,7 +76,7 @@ public class RobotContainer {
 
   public RobotContainer() {
     DriverStation.silenceJoystickConnectionWarning(true);
-    SmartDashboard.putData(new PowerDistribution());
+    // SmartDashboard.putData(new PowerDistribution());
     SmartDashboard.putData(m_driveSubsystem);
     configureButtonBindings();
     m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(), 
@@ -91,8 +91,8 @@ public class RobotContainer {
     SmartDashboard.putData(m_chooser);
 
     ShuffleboardTab driverTab = Shuffleboard.getTab("Drive Tab");
-    driverTab.addCamera("Camera Viewer", "Front Camera", "http://10.21.2.2:1181/?action=stream");
-    driverTab.add(CameraServer.getServer().getSource());
+    driverTab.addCamera("Camera Viewer", "Front Camera", "http://10.21.2.2:1181/?action=stream").withSize(5, 4);
+    // driverTab.add(CameraServer.getServer().getSource());
   }
   // m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(),
   //       () -> (-m_stick.getY() - m_velocityStick.getY()), () -> m_stick.getThrottle()));
@@ -102,17 +102,17 @@ public class RobotContainer {
     // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_stick.getThrottle()));
     m_intake.whileHeld(new IntakeCommand(m_intakeSubsystem, m_scottySubsystem, 0.70));
     m_outake.whileHeld(new IntakeCommand(m_intakeSubsystem, m_scottySubsystem, -0.60));
-    m_testSpeed.whileHeld(new MeasureSpeedCommand(m_driveSubsystem)); 
+    // m_testSpeed.whileHeld(new MeasureSpeedCommand(m_driveSubsystem)); 
     // Driver 2
     m_climb.whenPressed(new ClimbCommand(m_climberSubsystem));
     // m_fire.whileHeld(new ScottyPowerCommand(m_scottySubsystem, 0.4));
-    m_fire.whileHeld(new FireCommand(m_scottySubsystem, m_shooterSubsystem, 0.35));
-    m_winch.whileHeld(new WinchCommand(m_climberSubsystem, 1.0));
+    m_fire.whileHeld(new FireCommand(m_scottySubsystem, m_shooterSubsystem, 0.3));
+    m_winch.whileHeld(new WinchCommand(m_climberSubsystem, 0.85));
     m_reverseWinch.whileHeld(new WinchCommand(m_climberSubsystem, -0.5));
 
     // m_reverseScotty.whileHeld(new ScottyPowerCommand(m_scottySubsystem, -0.4));
     // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_climbStick.getThrottle()));
-    m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, 7100));
+    m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, 7300));
     // Calib Driver
     m_testPath.toggleWhenPressed(new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 7100, 0.3));
     m_calibRatchet.toggleWhenPressed(new ServoThrottleCommand(m_climberSubsystem, () -> m_calibStick.getThrottle()));

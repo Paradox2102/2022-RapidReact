@@ -8,6 +8,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.ScheduleCommand;
@@ -28,6 +30,11 @@ public class ScottySubsystem extends SubsystemBase {
   public ScottySubsystem() {
     m_scotty.setInverted(false);
     m_run = false;
+    ShuffleboardTab driveTab = Shuffleboard.getTab("Drive Tab");
+    driveTab.addString("Scotty State", () -> m_state.toString()).withSize(2, 1);
+    driveTab.addBoolean("Top Sensor", () -> getTopSensor()).withPosition(10, 1);
+    driveTab.addBoolean("Mid Sensor", () -> getMidSensor()).withPosition(10, 2);
+    driveTab.addBoolean("Bot Sensor", () -> getBotSensor()).withPosition(10, 3);
   }
 
   public void runScotty(double power) {
@@ -52,9 +59,9 @@ public class ScottySubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putBoolean("Top Sensor", getTopSensor());
-    SmartDashboard.putBoolean("Mid Sensor", getMidSensor());
-    SmartDashboard.putBoolean("Bot Sensor", getBotSensor());
-    SmartDashboard.putString("Current State", m_state.toString());
+    // SmartDashboard.putBoolean("Top Sensor", getTopSensor());
+    // SmartDashboard.putBoolean("Mid Sensor", getMidSensor());
+    // SmartDashboard.putBoolean("Bot Sensor", getBotSensor());
+    // SmartDashboard.putString("Current State", m_state.toString());
   }
 }

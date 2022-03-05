@@ -134,9 +134,9 @@ public class DriveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Gyro", m_gyro.getYaw());
-    SmartDashboard.putNumber("LeftSpeed", m_leftDrive.getSelectedSensorVelocity());
-    SmartDashboard.putNumber("RightSpeed", m_rightDrive.getSelectedSensorVelocity());
+    // SmartDashboard.putNumber("Gyro", m_gyro.getYaw());
+    // SmartDashboard.putNumber("LeftSpeed", m_leftDrive.getSelectedSensorVelocity());
+    // SmartDashboard.putNumber("RightSpeed", m_rightDrive.getSelectedSensorVelocity());
     // SmartDashboard.putNumber("LeftSpeed", m_leftSensor.getIntegratedSensorVelocity());
     // SmartDashboard.putNumber("RightSpeed", m_rightSensor.getIntegratedSensorVelocity());
 

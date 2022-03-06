@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.pathfinder.Pathfinder.Waypoint;
 import frc.robot.States;
 import frc.robot.commands.DeployIntakeCommand;
+import frc.robot.commands.DisablePositionTrackerCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ScottyPowerCommand;
 import frc.robot.commands.SetStateOneBall;
@@ -76,7 +77,8 @@ private static final Waypoint[] k_driveShootLong = {
         new ProxyScheduleCommand(new ScottyPowerCommand(scottySubsystem, scottyPower, 1000)),
         new CreatePathCommand(driveSubsystem, k_getTwoBalls, false, true, "Pickup two balls", new PurePursuitData(k_longSpeed), 0.3),
         new CreatePathCommand(driveSubsystem, k_driveShootLong, false, false, "Drive Long and Shoot", new PurePursuitData(k_longSpeed)),
-        new ProxyScheduleCommand(new ScottyPowerCommand(scottySubsystem, scottyPower, 1000))
+        new ProxyScheduleCommand(new ScottyPowerCommand(scottySubsystem, scottyPower, 1000)),
+        new DisablePositionTrackerCommand(driveSubsystem)
       )
     );
   }

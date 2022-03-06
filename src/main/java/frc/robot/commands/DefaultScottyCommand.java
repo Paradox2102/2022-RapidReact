@@ -13,9 +13,11 @@ public class DefaultScottyCommand extends CommandBase {
   ScottySubsystem m_scottySubsystem;
   double m_power;
   boolean m_run = false;
+  double m_time;
   public DefaultScottyCommand(ScottySubsystem scottySubsystem, double power) {
     m_scottySubsystem = scottySubsystem;
     m_power = power;
+    m_time = -1;
     addRequirements(scottySubsystem);
   }
 
@@ -31,6 +33,13 @@ public class DefaultScottyCommand extends CommandBase {
     boolean bot = m_scottySubsystem.getBotSensor();
     boolean mid = m_scottySubsystem.getMidSensor();
     boolean top = m_scottySubsystem.getTopSensor();
+    if(bot && m_time == -1) {
+      bot = false;
+      m_time = System.currentTimeMillis();
+    } else if(bot && System.currentTimeMillis() - m_time >= 50) {
+      bot = true;
+      m_time = -1;
+    }
 
     States state = m_scottySubsystem.getState();
 

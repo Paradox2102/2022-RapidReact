@@ -204,18 +204,21 @@ public class PurePursuit {
 		}
 	}
 
+	boolean m_threadRun = false;
+
 	/*
 	 * Path following computation thread
 	 */
 	private void startThread() {
 		if (m_thread == null) {
-			
+			m_threadRun = true;
+
 			(m_thread = new Thread() {
 				public void run()
 				{
 					m_nextRun = System.currentTimeMillis() + m_rate;
 
-					while (true)
+					while (m_threadRun)
 					{
 						if (m_runThread.get()) {
 							SpeedContainer speedContainer = followPath();
@@ -237,11 +240,18 @@ public class PurePursuit {
 							e.printStackTrace();
 						}
 					}
+
+					m_thread = null;
 				}
 			}).start();
 		}
 
 		m_runThread.set(true);
+	}
+
+	public void killThread()
+	{
+		m_threadRun = false;
 	}
 
 	void stopThread()

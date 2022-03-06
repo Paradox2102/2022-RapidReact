@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.ProxyScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.pathfinder.Pathfinder.Waypoint;
 import frc.robot.commands.DeployIntakeCommand;
+import frc.robot.commands.DisablePositionTrackerCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ScottyPowerCommand;
 import frc.robot.commands.SpinCommand;
@@ -52,7 +53,8 @@ private static final Waypoint[] k_driveShoot = {
       new SequentialCommandGroup(
         new CreatePathCommand(driveSubsystem, k_firstBall, true, true, "Drive to first ball", new PurePursuitData(k_maxSpeed)),
         new CreatePathCommand(driveSubsystem, k_driveShoot, false, false, "Drive to hub", new PurePursuitData(k_maxSpeed)),
-        new ProxyScheduleCommand(new ScottyPowerCommand(scottySubsystem, scottyPower, 1000))
+        new ProxyScheduleCommand(new ScottyPowerCommand(scottySubsystem, scottyPower, 1000)),
+        new DisablePositionTrackerCommand(driveSubsystem)
       )
     );
   }

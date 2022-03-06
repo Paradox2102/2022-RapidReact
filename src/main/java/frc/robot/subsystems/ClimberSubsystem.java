@@ -4,9 +4,12 @@
 
 package frc.robot.subsystems;
 
+import java.sql.Driver;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -46,24 +49,29 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public void climb() {
-    switch(stage) {
-      case Extend:
-        ratchet(false);
-        m_piston.set(true);
-        stage = Stages.Grab;
-        break;
-      case Grab:
-        m_grabber.set(true);
-        stage = Stages.Pull;
-        break;
-      case Pull:
-        m_piston.set(false);
-        stage = Stages.Climbing;
-        break;
-      case Climbing:
-        ratchet(true);
-        m_grabber.set(false);
-        break;
+    if(DriverStation.getMatchTime() <= 30) {
+      switch(stage) {
+        case Extend:
+          m_grabber.set(true);
+          ratchet(false);
+          m_piston.set(true);
+          stage = Stages.Grab;
+          break;
+        case Grab:
+          m_grabber.set(false);
+          stage = Stages.Pull;
+          break;
+        case Pull:
+          m_piston.set(false);
+          stage = Stages.Climbing;
+          break;
+        case Climbing:
+          ratchet(true);
+          m_grabber.set(true);
+          break;
+      }
+    } else {
+      System.out.println("BAD!!! CANNOT CLIMB YET");
     }
   }
 

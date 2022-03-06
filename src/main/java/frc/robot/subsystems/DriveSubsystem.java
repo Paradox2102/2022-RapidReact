@@ -79,8 +79,8 @@ public class DriveSubsystem extends SubsystemBase {
     
     m_leftDrive.setInverted(true);
     m_rightDrive.setInverted(false);
-    m_leftDrive.configOpenloopRamp(1);
-    m_rightDrive.configOpenloopRamp(1);
+    m_leftDrive.configOpenloopRamp(0);
+    m_rightDrive.configOpenloopRamp(0);
 
 
     m_sensors = new Sensor(() -> m_leftDrive.getSelectedSensorPosition(), () -> m_rightDrive.getSelectedSensorPosition(), () -> m_leftDrive.getSelectedSensorVelocity(), () -> m_rightDrive.getSelectedSensorVelocity(), m_gyro);
@@ -118,6 +118,10 @@ public class DriveSubsystem extends SubsystemBase {
 
   public double getYaw() {
     return m_gyro.getYaw();
+  }
+
+  public void killPursuitThread() {
+    m_pursuitFollower.killThread();
   }
 
   public void setSpeed(double left, double right) {
@@ -159,6 +163,10 @@ public class DriveSubsystem extends SubsystemBase {
   public void startPath(Path path, boolean isReversed, boolean setPosition) {
     m_pursuitFollower.loadPath(path, isReversed, true, setPosition);
     m_pursuitFollower.startPath();
+  }
+
+  public void disablePositionTracker() {
+    m_posTracker.stopPosUpdate();
   }
 
   /*

@@ -7,6 +7,7 @@ package frc.robot.commands.auto;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.pathfinder.Pathfinder.Waypoint;
+import frc.robot.commands.DisablePositionTrackerCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ScottyPowerCommand;
 import frc.robot.commands.SpinCommand;
@@ -45,7 +46,8 @@ final static Waypoint[] k_driveShoot = {
       new SequentialCommandGroup(
         new CreatePathCommand(driveSubsystem, k_firstBall, true, true, "Backwards get first ball", new PurePursuitData(k_maxSpeed)),
         new CreatePathCommand(driveSubsystem, k_driveShoot, false, false, "Drive up and shoot", new PurePursuitData(k_maxSpeed)),
-        new ScottyPowerCommand(scottySubsystem, scottyPower)
+        new ScottyPowerCommand(scottySubsystem, scottyPower),
+        new DisablePositionTrackerCommand(driveSubsystem)
       )
     );
   }

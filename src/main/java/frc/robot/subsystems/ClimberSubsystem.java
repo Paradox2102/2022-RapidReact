@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import java.sql.Driver;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -31,6 +32,7 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public ClimberSubsystem() {
     stage = Stages.Extend;
+    m_winch.setNeutralMode(NeutralMode.Brake);
     // Shuffleboard.getTab("Drive Tab").addString("Climb Stage", () -> stage.toString()).withSize(2, 1).withPosition(6, 2);
   }
 

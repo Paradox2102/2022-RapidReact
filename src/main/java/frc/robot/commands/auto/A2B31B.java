@@ -42,14 +42,14 @@ final static Waypoint[] k_driveShoot = { new Waypoint(-11.1, 2.25, Math.toRadian
 /*
 -4, 1, 150
 -7.2, 10.4, 90
--8.5,20.8, 120
+-8.7,21.2, 120
 */
 private static final double k_longSpeed = 9;
 
 private static final Waypoint[] k_getTwoBalls = {
     new Waypoint(-4,  1, Math.toRadians( 150)),
     new Waypoint(-7.2,  10.4, Math.toRadians( 90)),
-    new Waypoint(-8.5,  20.8, Math.toRadians( 120))
+    new Waypoint(-8.7,  21.2, Math.toRadians( 120))
 };
 // private static final Waypoint[] k_getTwoBalls = {
 //   new Waypoint(-4,  1, Math.toRadians(-30)),
@@ -61,7 +61,7 @@ private static final Waypoint[] k_getTwoBalls = {
 -3.6, 1.2, -30
 */
 private static final Waypoint[] k_driveShootLong = {
-    new Waypoint(-8.5, 20.8, Math.toRadians(-60)),
+    new Waypoint(-8.7, 21.2, Math.toRadians(-60)),
     new Waypoint(-3.6,  1.2, Math.toRadians( -30))
 };
 

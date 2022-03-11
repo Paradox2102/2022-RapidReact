@@ -44,8 +44,9 @@ public class IntakeCommand extends CommandBase {
 
   @Override
   public void execute() {
-    if(m_scottySubsystem.getState() == States.Full && m_power > 0) m_intakeSubsystem.runIntake(0);
-    else m_intakeSubsystem.runIntake(m_power);
+    // if(m_scottySubsystem.getState() == States.Full && m_power > 0) m_intakeSubsystem.runIntake(0);
+    // else m_intakeSubsystem.runIntake(m_power);
+    m_intakeSubsystem.runIntake(m_power);
   }
   @Override
   public void end(boolean interrupted) {

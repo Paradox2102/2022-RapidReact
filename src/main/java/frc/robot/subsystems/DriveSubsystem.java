@@ -120,6 +120,10 @@ public class DriveSubsystem extends SubsystemBase {
     return m_gyro.getYaw();
   }
 
+  public PositionTracker getPosTracker() {
+    return m_posTracker;
+  }
+
   public void killPursuitThread() {
     m_pursuitFollower.killThread();
   }

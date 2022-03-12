@@ -106,6 +106,34 @@ public class Camera {
             }
         }
 
+        // Rapid React
+        public double getDistanceFromTarget() {
+            double top = getTopRegionHeight();
+            return 0.0000000599532664667691*top*top*top + -0.0000348088966123972*top*top + 0.0190355267046915*top + 2.2604381061641;
+        }
+        public double getTopRegionHeight() {
+            int topRegion = 0;
+            if(m_regions.GetRegionCount() > 0) {
+                for(int i = 0; i < m_regions.GetRegionCount(); i++) {
+                if(m_regions.GetRegion(i).m_bounds.m_top < m_regions.GetRegion(topRegion).m_bounds.m_top) {
+                    topRegion = i;
+                }
+                }
+            }
+            return m_regions.GetRegion(topRegion).m_bounds.m_top;
+        }
+        public PiCameraRegion getTopRegion() {
+            int topRegion = 0;
+            if(m_regions.GetRegionCount() > 0) {
+                for(int i = 0; i < m_regions.GetRegionCount(); i++) {
+                if(m_regions.GetRegion(i).m_bounds.m_top < m_regions.GetRegion(topRegion).m_bounds.m_top) {
+                    topRegion = i;
+                }
+                }
+            }
+            return m_regions.GetRegion(topRegion);
+        }
+
         public double ballCenterDiff(double centerLine, ArrayList<PiCameraRegion> regions) {
             PiCameraRegion region1 = m_regions.GetRegion(0);
             PiCameraRegion region2 = m_regions.GetRegion(1);

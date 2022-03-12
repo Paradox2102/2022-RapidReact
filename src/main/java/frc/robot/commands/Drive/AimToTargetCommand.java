@@ -43,7 +43,7 @@ public class AimToTargetCommand extends CommandBase {
     CameraData data = m_camera.createData();
 
     if(data.m_regions.GetRegionCount() > 0) {
-      PiCameraRegion top = m_shooterSubsytem.getTopRegion(data);
+      PiCameraRegion top = data.getTopRegion();
       double middle = (top.m_bounds.m_right + top.m_bounds.m_left)/2;
       double speed = m_speed * Math.abs(data.centerLine() - middle) * k_p;
       if(data.centerLine() > middle + k_deadzone) {

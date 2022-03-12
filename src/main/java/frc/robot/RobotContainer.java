@@ -18,6 +18,9 @@ import frc.robot.commands.Intake.IntakeCommand;
 import frc.robot.commands.Scotty.DefaultScottyCommand;
 import frc.robot.commands.Scotty.FireCommand;
 import frc.robot.commands.Scotty.ScottyPowerCommand;
+import frc.robot.commands.Shooter.CalibrateShooterSpeedCommand;
+import frc.robot.commands.Shooter.HoodCommand;
+import frc.robot.commands.Shooter.ShootByDistanceCommand;
 import frc.robot.commands.Shooter.SpinCommand;
 import frc.robot.commands.auto.TestCommand;
 import frc.robot.commands.auto.F4E;
@@ -77,7 +80,8 @@ public class RobotContainer {
   JoystickButton m_spinUp = new JoystickButton(m_climbStick, 2);
   // Calib
   // JoystickButton m_clibrateCamera = new JoystickButton(m_calibStick, 2);
-  JoystickButton m_testTargeting = new JoystickButton(m_calibStick, 2);
+  JoystickButton m_testTargeting = new JoystickButton(m_calibStick, 3);
+  JoystickButton m_calibrateShooter = new JoystickButton(m_calibStick, 2);
   // JoystickButton m_testPath = new JoystickButton(m_calibStick, 2);
   // JoystickButton m_calibRatchet = new JoystickButton(m_calibStick, 3);
   // JoystickButton m_deployIntake = new JoystickButton(m_calibStick, 4);
@@ -93,6 +97,7 @@ public class RobotContainer {
     m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(), 
         () -> m_stick.getY(), () -> m_stick.getThrottle()));
     m_scottySubsystem.setDefaultCommand(new DefaultScottyCommand(m_scottySubsystem, 0.3));
+    // m_shooterSubsystem.setDefaultCommand(new HoodCommand(m_shooterSubsystem, () -> m_climbStick.getThrottle()));
 
     m_chooser.addOption("A2B31B (Four)", new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 7100, 0.35));
     m_chooser.addOption("F4E (Two)", new F4E(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, 7100, 0.5));
@@ -125,9 +130,11 @@ public class RobotContainer {
 
     // m_reverseScotty.whileHeld(new ScottyPowerCommand(m_scottySubsystem, -0.4));
     // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_climbStick.getThrottle()));
-    m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, 7300));
+    // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, 7300));
+    m_spinUp.toggleWhenPressed(new ShootByDistanceCommand(m_shooterSubsystem, m_camera, 7300));
     // Calib Driver
     // m_clibrateCamera.toggleWhenPressed(new CalibrateCameraCommand(m_camera, m_driveSubsystem, 1000));
+    m_calibrateShooter.toggleWhenPressed(new CalibrateShooterSpeedCommand(m_shooterSubsystem, () -> m_calibStick.getThrottle()));
     m_testTargeting.toggleWhenPressed(new AimToTargetCommand(m_shooterSubsystem, m_driveSubsystem, m_camera, 1500));
     // m_testPath.toggleWhenPressed(new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 7100, 0.3));
     // m_calibRatchet.toggleWhenPressed(new ServoThrottleCommand(m_climberSubsystem, () -> m_calibStick.getThrottle()));

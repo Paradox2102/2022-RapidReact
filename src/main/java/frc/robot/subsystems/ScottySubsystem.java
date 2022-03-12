@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.States;
-import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.Intake.IntakeCommand;
 
 public class ScottySubsystem extends SubsystemBase {
   TalonFX m_scotty = new TalonFX(Constants.c.k_scotty);

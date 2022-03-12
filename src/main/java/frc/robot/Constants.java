@@ -111,7 +111,8 @@ class ConstantsCompetition extends Constants {
         k_deploy = 1;
         // Hood
         k_hood = 3;
-    // Servo
+    // Servos
+        k_hood = 0;
         k_servo = 9;
 
     // Conversions

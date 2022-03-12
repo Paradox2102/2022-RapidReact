@@ -6,7 +6,7 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.ClimbCommand;
+import frc.robot.commands.Climber.ClimbCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more

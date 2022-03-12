@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.PiCamera.PiCamera.PiCameraRegion;
@@ -21,6 +22,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
   TalonFX m_shooter = new TalonFX(Constants.c.k_shooter);
   TalonFX m_shooterFollower = new TalonFX(Constants.c.k_shooterFollower);
+
+  Servo m_hood = new Servo(Constants.c.k_hood);
 
   double k_f = 0.061;
   double k_p = 0.25;
@@ -87,6 +90,10 @@ public class ShooterSubsystem extends SubsystemBase {
   public void setShooterSpeed(double speed) {
     m_shooter.set(ControlMode.Velocity, speed);
     m_shooterSetpoint = speed;
+  }
+
+  public void setHoodAngle(double angle) {
+    m_hood.set(angle);
   }
 
   @Override

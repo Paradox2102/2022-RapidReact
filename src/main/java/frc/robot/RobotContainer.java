@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.lib.Camera;
+import frc.robot.commands.AimToTargetCommand;
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.CalibrateCameraCommand;
 import frc.robot.commands.ClimbCommand;
@@ -75,7 +76,8 @@ public class RobotContainer {
   // JoystickButton m_reverseScotty = new JoystickButton(m_climbStick, 6);
   JoystickButton m_spinUp = new JoystickButton(m_climbStick, 2);
   // Calib
-  JoystickButton m_clibrateCamera = new JoystickButton(m_calibStick, 2);
+  // JoystickButton m_clibrateCamera = new JoystickButton(m_calibStick, 2);
+  JoystickButton m_testTargeting = new JoystickButton(m_calibStick, 2);
   // JoystickButton m_testPath = new JoystickButton(m_calibStick, 2);
   // JoystickButton m_calibRatchet = new JoystickButton(m_calibStick, 3);
   // JoystickButton m_deployIntake = new JoystickButton(m_calibStick, 4);
@@ -98,11 +100,10 @@ public class RobotContainer {
     m_chooser.addOption("A2B3 (Three)", new A2B3(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 7100, 0.35));
  
     // SmartDashboard.putData(m_chooser);
-    Shuffleboard.getTab("Drive Tab").add(m_chooser).withSize(2, 1);
+    //Shuffleboard.getTab("Drive Tab").add(m_chooser).withSize(2, 1);
 
-    // ShuffleboardTab driverTab = Shuffleboard.getTab("Drive Tab");
-    // driverTab.addCamera("Camera Viewer", "Front Camera", "http://10.21.2.2:1181/?action=stream").withSize(5, 4).withPosition(1, 1);
-    // driverTab.add(CameraServer.getServer().getSource());
+    ShuffleboardTab driverTab = Shuffleboard.getTab("Drive Tab");
+    driverTab.addCamera("Camera Viewer", "Front Camera", "http://10.21.2.2:1181/?action=stream").withSize(5, 4).withPosition(1, 1);
   }
   // m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(),
   //       () -> (-m_stick.getY() - m_velocityStick.getY()), () -> m_stick.getThrottle()));
@@ -126,7 +127,8 @@ public class RobotContainer {
     // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_climbStick.getThrottle()));
     m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, 7300));
     // Calib Driver
-    m_clibrateCamera.toggleWhenPressed(new CalibrateCameraCommand(m_camera, m_driveSubsystem, 1000));
+    // m_clibrateCamera.toggleWhenPressed(new CalibrateCameraCommand(m_camera, m_driveSubsystem, 1000));
+    m_testTargeting.toggleWhenPressed(new AimToTargetCommand(m_shooterSubsystem, m_driveSubsystem, m_camera, 1500));
     // m_testPath.toggleWhenPressed(new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 7100, 0.3));
     // m_calibRatchet.toggleWhenPressed(new ServoThrottleCommand(m_climberSubsystem, () -> m_calibStick.getThrottle()));
     // m_deployIntake.toggleWhenPressed(new DeployIntakeCommand(m_intakeSubsystem));

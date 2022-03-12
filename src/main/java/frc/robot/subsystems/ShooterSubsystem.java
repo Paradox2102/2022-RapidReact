@@ -11,6 +11,10 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.PiCamera.PiCamera.PiCameraRegion;
+import frc.PiCamera.PiCamera.PiCameraRegions;
+import frc.lib.Camera;
+import frc.lib.Camera.CameraData;
 import frc.robot.Constants;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -56,6 +60,24 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public double getShooterSetpoint() {
     return m_shooterSetpoint;
+  }
+
+  public double getDistanceFromTarget(CameraData data) {
+
+    return 0;
+  }
+
+  public PiCameraRegion getTopRegion(CameraData data) {
+    PiCameraRegions regions = data.m_regions;
+    int topRegion = 0;
+    if(regions.GetRegionCount() > 0) {
+      for(int i = 0; i < regions.GetRegionCount(); i++) {
+        if(regions.GetRegion(i).m_bounds.m_top < regions.GetRegion(topRegion).m_bounds.m_top) {
+          topRegion = i;
+        }
+      }
+    }
+    return regions.GetRegion(topRegion);
   }
 
   public void setShooterPower(double power) {

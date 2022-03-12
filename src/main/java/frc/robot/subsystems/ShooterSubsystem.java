@@ -23,7 +23,8 @@ public class ShooterSubsystem extends SubsystemBase {
   TalonFX m_shooter = new TalonFX(Constants.c.k_shooter);
   TalonFX m_shooterFollower = new TalonFX(Constants.c.k_shooterFollower);
 
-  Servo m_hood = new Servo(Constants.c.k_hood);
+  Servo m_hood1 = new Servo(Constants.c.k_hood1);
+  Servo m_hood2 = new Servo(Constants.c.k_hood2);
 
   double k_f = 0.061;
   double k_p = 0.25;
@@ -73,9 +74,10 @@ public class ShooterSubsystem extends SubsystemBase {
     m_shooter.set(ControlMode.Velocity, speed);
     m_shooterSetpoint = speed;
   }
-
+  
   public void setHoodAngle(double angle) {
-    m_hood.set(angle);
+    m_hood1.set(angle);
+    m_hood2.set(angle);
   }
 
   @Override

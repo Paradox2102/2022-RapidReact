@@ -70,7 +70,8 @@ public class Constants {
     // Intake
     public int k_deploy = 2;
     // Hood
-    public int k_hood = 3;
+    public int k_hood1 = 5;
+    public int k_hood2 = 6;
     // Servo
     public int k_servo = 0;
 
@@ -110,9 +111,10 @@ class ConstantsCompetition extends Constants {
         // Intake
         k_deploy = 1;
         // Hood
-        k_hood = 3;
+        
     // Servos
-        k_hood = 0;
+        k_hood1 = 5;
+        k_hood2 = 6;
         k_servo = 9;
 
     // Conversions

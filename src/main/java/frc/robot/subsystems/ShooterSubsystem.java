@@ -65,24 +65,6 @@ public class ShooterSubsystem extends SubsystemBase {
     return m_shooterSetpoint;
   }
 
-  public double getDistanceFromTarget(CameraData data) {
-
-    return 0;
-  }
-
-  public PiCameraRegion getTopRegion(CameraData data) {
-    PiCameraRegions regions = data.m_regions;
-    int topRegion = 0;
-    if(regions.GetRegionCount() > 0) {
-      for(int i = 0; i < regions.GetRegionCount(); i++) {
-        if(regions.GetRegion(i).m_bounds.m_top < regions.GetRegion(topRegion).m_bounds.m_top) {
-          topRegion = i;
-        }
-      }
-    }
-    return regions.GetRegion(topRegion);
-  }
-
   public void setShooterPower(double power) {
     m_shooter.set(ControlMode.PercentOutput, power);
   }

@@ -42,9 +42,7 @@ public class ShootByDistanceCommand extends CommandBase {
     //             Speed, Angle
     double[] ans = { m_speed, 0d };
     if(data != null && data.canSee() && data.m_regions.GetRegionCount() > 0) {
-      PiCameraRegion topRegion = m_subsystem.getTopRegion(data);
-      double top = topRegion.m_bounds.m_top;
-      double distance = 0.0000000599532664667691*top*top*top + -0.0000348088966123972*top*top + 0.0190355267046915*top + 2.2604381061641;
+      double distance = data.getDistanceFromTarget();
       // SmartDashboard.putNumber("Distance", distance);
 
       // Clamp the speed and angle to the maximum and minimum values
@@ -54,7 +52,7 @@ public class ShootByDistanceCommand extends CommandBase {
       } else if(distance > table[table.length][0]) {
         ans[0] = table[table.length][1];
         ans[1] = table[table.length][2];
-      } else {
+      } else { // Interpolate between the two closest values
         for(int i = 1; i < table.length; i++) {
           if(distance >= table[i][0]) {
             ans[0] = interpolate(distance, table[i-1][0], table[i][0], table[i-1][1], table[i][1]);

@@ -57,12 +57,28 @@ private static final Waypoint[] k_getTwoBalls = {
 //   new Waypoint(-8.5,  21.5, Math.toRadians(-60))
 // };
 /*
--8.5,20.8,-60
+-8.7,21.2,-60
 -3.6, 1.2, -30
+// */
+// private static final Waypoint[] k_driveShootLong = {
+//     new Waypoint(-8.7, 21.2, Math.toRadians(-60)),
+//     new Waypoint(-3.6,  1.2, Math.toRadians( -30))
+//};
+/*
+-8.7,21.2,-60,4.785,6.88
+// -3.6, 1.2, -30
+// */
+// private static final Waypoint[] k_driveShootLong = {
+//     new Waypoint(-8.7, 21.2, Math.toRadians(-60), 4.785, 6.88),
+//     new Waypoint(-3.6,  1.2, Math.toRadians( -30))
+//};
+/*
+-8.7,21.2,-60,4.785,6.88
+-3.287,0.939, -20
 */
 private static final Waypoint[] k_driveShootLong = {
-    new Waypoint(-8.7, 21.2, Math.toRadians(-60)),
-    new Waypoint(-3.6,  1.2, Math.toRadians( -30))
+    new Waypoint(-8.7, 21.2, Math.toRadians(-60), 4.785, 6.88),
+    new Waypoint(-3.287, 0.939, Math.toRadians( -20))
 };
 
 
@@ -76,7 +92,7 @@ private static final Waypoint[] k_driveShootLong = {
         new CreatePathCommand(driveSubsystem, k_driveShoot, false, false, "Drive up and shoot", new PurePursuitData(k_maxSpeed)),
         new ProxyScheduleCommand(new ScottyPowerCommand(scottySubsystem, scottyPower, 1000)),
         new CreatePathCommand(driveSubsystem, k_getTwoBalls, false, true, "Pickup two balls", new PurePursuitData(k_longSpeed), 0.3),
-        new CreatePathCommand(driveSubsystem, k_driveShootLong, false, false, "Drive Long and Shoot", new PurePursuitData(k_longSpeed)),
+        new CreatePathCommand(driveSubsystem, k_driveShootLong, false, false, "Drive Long and Shoot", new PurePursuitData(k_longSpeed), 0.3),
         new ProxyScheduleCommand(new ScottyPowerCommand(scottySubsystem, scottyPower, 1000)),
         new DisablePositionTrackerCommand(driveSubsystem)
       )

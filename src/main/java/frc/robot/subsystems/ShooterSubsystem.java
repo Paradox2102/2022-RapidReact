@@ -8,23 +8,19 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.PiCamera.PiCamera.PiCameraRegion;
-import frc.PiCamera.PiCamera.PiCameraRegions;
-import frc.lib.Camera;
-import frc.lib.Camera.CameraData;
 import frc.robot.Constants;
 
 public class ShooterSubsystem extends SubsystemBase {
 
   TalonFX m_shooter = new TalonFX(Constants.c.k_shooter);
   TalonFX m_shooterFollower = new TalonFX(Constants.c.k_shooterFollower);
-
-  Servo m_hood1 = new Servo(Constants.c.k_hood1);
-  Servo m_hood2 = new Servo(Constants.c.k_hood2);
+  TalonSRX m_backWheel = new TalonSRX(Constants.c.k_backWheel);
 
   double k_f = 0.061;
   double k_p = 0.25;
@@ -68,20 +64,17 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void setShooterPower(double power) {
     m_shooter.set(ControlMode.PercentOutput, power);
+    m_backWheel.set(ControlMode.PercentOutput, power == 0 ? 0 : 0.5);
   }
 
   public void setShooterSpeed(double speed) {
     m_shooter.set(ControlMode.Velocity, speed);
+    m_backWheel.set(ControlMode.PercentOutput, speed == 0 ? 0 : 0.5);
     m_shooterSetpoint = speed;
-  }
-  
-  public void setHoodAngle(double angle) {
-    m_hood1.set(angle);
-    m_hood2.set(angle);
   }
 
   @Override
   public void periodic() {
-    // SmartDashboard.putNumber("ShooterSpeed", m_shooter.getSelectedSensorVelocity());
+    SmartDashboard.putNumber("ShooterSpeed", m_shooter.getSelectedSensorVelocity());
   }
 }

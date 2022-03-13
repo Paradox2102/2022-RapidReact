@@ -29,6 +29,7 @@ import frc.robot.commands.auto.A2B3;
 import frc.robot.commands.auto.A2B31B;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.HoodSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ScottySubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -59,6 +60,7 @@ public class RobotContainer {
   ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
   ScottySubsystem m_scottySubsystem = new ScottySubsystem();
   IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
+  HoodSubsystem m_hoodSubsystem = new HoodSubsystem();
 
   Joystick m_stick = new Joystick(0);
   Joystick m_climbStick = new Joystick(1);
@@ -97,14 +99,14 @@ public class RobotContainer {
     m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(), 
         () -> m_stick.getY(), () -> m_stick.getThrottle()));
     m_scottySubsystem.setDefaultCommand(new DefaultScottyCommand(m_scottySubsystem, 0.3));
-    // m_shooterSubsystem.setDefaultCommand(new HoodCommand(m_shooterSubsystem, () -> m_climbStick.getThrottle()));
+    m_hoodSubsystem.setDefaultCommand(new HoodCommand(m_hoodSubsystem, () -> m_climbStick.getThrottle()));
 
-    m_chooser.addOption("A2B31B (Four)", new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 7100, 0.35));
+    m_chooser.addOption("A2B31B (Four)", new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 5200, 0.35));
     m_chooser.addOption("F4E (Two)", new F4E(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, 7100, 0.5));
     m_chooser.addOption("ED (One)", new ED(m_driveSubsystem, m_scottySubsystem, m_shooterSubsystem, 7100, 0.5));
     m_chooser.addOption("A2B3 (Three)", new A2B3(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 7100, 0.35));
  
-    // SmartDashboard.putData(m_chooser);
+    SmartDashboard.putData(m_chooser);
     //Shuffleboard.getTab("Drive Tab").add(m_chooser).withSize(2, 1);
 
     ShuffleboardTab driverTab = Shuffleboard.getTab("Drive Tab");
@@ -130,8 +132,8 @@ public class RobotContainer {
 
     // m_reverseScotty.whileHeld(new ScottyPowerCommand(m_scottySubsystem, -0.4));
     // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_climbStick.getThrottle()));
-    // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, 7300));
-    m_spinUp.toggleWhenPressed(new ShootByDistanceCommand(m_shooterSubsystem, m_camera, 7300));
+    m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, 5200));
+    // m_spinUp.toggleWhenPressed(new ShootByDistanceCommand(m_shooterSubsystem, m_camera, 7300));
     // Calib Driver
     // m_clibrateCamera.toggleWhenPressed(new CalibrateCameraCommand(m_camera, m_driveSubsystem, 1000));
     m_calibrateShooter.toggleWhenPressed(new CalibrateShooterSpeedCommand(m_shooterSubsystem, () -> m_calibStick.getThrottle()));

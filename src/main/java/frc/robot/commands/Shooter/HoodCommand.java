@@ -6,32 +6,38 @@ package frc.robot.commands.Shooter;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.lib.Logger;
+import frc.robot.subsystems.HoodSubsystem;
 
 public class HoodCommand extends CommandBase {
-  ShooterSubsystem m_shooterSubsystem;
+  HoodSubsystem m_hoodSubystem;
   DoubleSupplier m_angle;
-  public HoodCommand(ShooterSubsystem shooterSubsystem, DoubleSupplier angle) {
-    m_shooterSubsystem = shooterSubsystem;
+  public HoodCommand(HoodSubsystem hoodSubsystem, DoubleSupplier angle) {
+    m_hoodSubystem = hoodSubsystem;
     m_angle = angle;
-    addRequirements(shooterSubsystem);
+    addRequirements(hoodSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    Logger.Log("Hood Command", 1, "Initialized");
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooterSubsystem.setHoodAngle((m_angle.getAsDouble()+1)/2);
+    m_hoodSubystem.setHoodAngle((m_angle.getAsDouble()+1)/2);
+    SmartDashboard.putNumber("Hood Value", (m_angle.getAsDouble()+1)/2);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_shooterSubsystem.setHoodAngle(0);
+    Logger.Log("Hood Command", 1, "End");
+    m_hoodSubystem.setHoodAngle(0);
   }
 
   // Returns true when the command should end.

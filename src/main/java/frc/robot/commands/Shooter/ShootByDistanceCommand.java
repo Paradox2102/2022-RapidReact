@@ -66,7 +66,7 @@ public class ShootByDistanceCommand extends CommandBase {
     // SmartDashboard.putNumber("Set Shooter Speed", ans[0]);
     // SmartDashboard.putNumber("Set Angle", ans[1]);
     m_subsystem.setShooterSpeed(ans[0]);
-    m_subsystem.setHoodAngle(ans[1]);
+    // m_subsystem.setHoodAngle(ans[1]);
   }
 
   private double interpolate(double x, double x1, double x2, double y1, double y2) {
@@ -79,7 +79,7 @@ public class ShootByDistanceCommand extends CommandBase {
     Logger.Log("Shoot Distance Command", 1, "Ended");
     m_camera.toggleLights(false);
     m_subsystem.setShooterPower(0);
-    m_subsystem.setHoodAngle(0);
+    // m_subsystem.setHoodAngle(0);
   }
 
   // Returns true when the command should end.

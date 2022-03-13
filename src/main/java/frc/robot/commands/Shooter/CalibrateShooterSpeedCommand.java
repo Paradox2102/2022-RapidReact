@@ -26,11 +26,14 @@ public class CalibrateShooterSpeedCommand extends CommandBase {
   @Override
   public void execute() {
     double speed = m_speed.getAsDouble()*750 + 2250;
+    m_shooterSubsystem.setShooterSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_shooterSubsystem.setShooterPower(0);
+  }
 
   // Returns true when the command should end.
   @Override

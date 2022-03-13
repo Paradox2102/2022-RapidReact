@@ -49,6 +49,7 @@ public class Constants {
     // Shooter FX
     public int k_shooter = 14;
     public int k_shooterFollower = 15;
+    public int k_backWheel = 6;
 
     // Climber FX
     public int k_climber = 4;
@@ -90,6 +91,7 @@ class ConstantsCompetition extends Constants {
         // Shooter FX
         k_shooter = 14;
         k_shooterFollower = 15;
+        k_backWheel = 6;
  
         // Climber FX
         k_climber = 4;

@@ -7,8 +7,8 @@ package frc.robot;
 import frc.lib.Camera;
 import frc.robot.commands.ServoThrottleCommand;
 import frc.robot.commands.Climber.ClimbCommand;
-import frc.robot.commands.Climber.RatchetCommand;
-import frc.robot.commands.Climber.WinchCommand;
+import frc.robot.commands.Climber.RotateCommand;
+import frc.robot.commands.Climber.BreakCommand;
 import frc.robot.commands.Drive.AimToTargetCommand;
 import frc.robot.commands.Drive.ArcadeDriveCommand;
 import frc.robot.commands.Drive.CalibrateCameraCommand;
@@ -72,10 +72,10 @@ public class RobotContainer {
   // JoystickButton m_testSpeed = new JoystickButton(m_stick, 10); 
   // Driver 2
   // JoystickButton m_climb = new JoystickButton(m_climbStick, 11);
-  JoystickButton m_ratchetOn = new JoystickButton(m_climbStick, 5);
-  JoystickButton m_ratchetOff = new JoystickButton(m_climbStick, 3);
-  JoystickButton m_winch = new JoystickButton(m_climbStick, 6);
-  JoystickButton m_reverseWinch = new JoystickButton(m_climbStick, 4);
+  JoystickButton m_climb = new JoystickButton(m_climbStick, 3);
+  JoystickButton m_rotate = new JoystickButton(m_climbStick, 4);
+  JoystickButton m_break = new JoystickButton(m_climbStick, 5);
+  
   // JoystickButton m_deployIntake = new JoystickButton(m_climbStick, 3);
   JoystickButton m_fire = new JoystickButton(m_climbStick, 1);
   // JoystickButton m_reverseScotty = new JoystickButton(m_climbStick, 6);
@@ -123,13 +123,16 @@ public class RobotContainer {
     // m_testSpeed.whileHeld(new MeasureSpeedCommand(m_driveSubsystem)); 
     // Driver 2
     // m_climb.whenPressed(new ClimbCommand(m_climberSubsystem));
-    m_ratchetOn.whenPressed(new RatchetCommand(m_climberSubsystem, true));
-    m_ratchetOff.whenPressed(new RatchetCommand(m_climberSubsystem, false));
+    m_climb.whileHeld(new ClimbCommand(m_climberSubsystem, () -> m_climbStick.getY()));
+    m_rotate.whenPressed(new RotateCommand(m_climberSubsystem));
+    m_break.whenPressed(new BreakCommand(m_climberSubsystem));
+    
     // m_fire.whileHeld(new ScottyPowerCommand(m_scottySubsystem, 0.4));
     m_fire.whileHeld(new FireCommand(m_scottySubsystem, m_shooterSubsystem, 0.3));
-    m_winch.whileHeld(new WinchCommand(m_climberSubsystem, 0.65));
-    m_reverseWinch.whileHeld(new WinchCommand(m_climberSubsystem, -0.5));
+    
+    
 
+    m_rotate.whenPressed(new RotateCommand(m_climberSubsystem));
     // m_reverseScotty.whileHeld(new ScottyPowerCommand(m_scottySubsystem, -0.4));
     // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_climbStick.getThrottle()));
     m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, 5200));

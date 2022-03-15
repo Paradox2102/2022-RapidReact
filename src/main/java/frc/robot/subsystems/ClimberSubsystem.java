@@ -19,62 +19,47 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-enum Stages {
-  Extend, Grab, Pull, Climbing
-}
-
 public class ClimberSubsystem extends SubsystemBase {
-  TalonFX m_winch = new TalonFX(Constants.c.k_climber);
-  Servo m_ratchet = new Servo(Constants.c.k_servo);
-  Solenoid m_piston = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.c.k_piston);
-  Solenoid m_grabber = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.c.k_claw);
-  Stages stage;
-
+  TalonFX m_climb = new TalonFX(Constants.c.k_climber);
+  TalonFX m_climbFollower = new TalonFX(Constants.c.k_climberFollower);
+  Solenoid m_rotater = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.c.k_rotaterPiston);
+  Solenoid m_break = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.c.k_breakerPiston);
+  private boolean rotated;
+  private boolean breaked;
   public ClimberSubsystem() {
-    stage = Stages.Extend;
-    m_winch.setNeutralMode(NeutralMode.Brake);
+    rotated = false;
+    breaked = false;
+    m_rotater.set(rotated);
+    m_break.set(breaked);
+    m_climb.setInverted(false);
+    m_climbFollower.setInverted(true);
+    m_climbFollower.follow(m_climb);
     // Shuffleboard.getTab("Drive Tab").addString("Climb Stage", () -> stage.toString()).withSize(2, 1).withPosition(6, 2);
   }
-
-  public void setWinchPower(double power) {
-    if(power > 0 && m_ratchet.get() == 0.5) m_winch.set(ControlMode.PercentOutput, 0);
-    else m_winch.set(ControlMode.PercentOutput, power);
-  }
-
-  public void setServo(double angle) {
-    m_ratchet.set(angle);
-  }
-
-  public void ratchet(boolean on) {
-    if(on) m_ratchet.set(0.5);
-    else m_ratchet.set(0.25);
-  }
-
-  public void climb() {
-    if(DriverStation.getMatchTime() <= 30) {
-      switch(stage) {
-        case Extend:
-          m_grabber.set(true);
-          ratchet(false);
-          m_piston.set(true);
-          stage = Stages.Grab;
-          break;
-        case Grab:
-          m_grabber.set(false);
-          stage = Stages.Pull;
-          break;
-        case Pull:
-          m_piston.set(false);
-          stage = Stages.Climbing;
-          break;
-        case Climbing:
-          ratchet(true);
-          m_grabber.set(true);
-          break;
-      }
-    } else {
+  public void setClimbPower(double power) {
+    if(DriverStation.getMatchTime() > 30) {
       System.out.println("BAD!!! CANNOT CLIMB YET");
+      return;
     }
+    m_climb.set(ControlMode.PercentOutput, power);
+  }
+
+  public void toggleRotate() {
+    if(DriverStation.getMatchTime() > 30) {
+      System.out.println("BAD!!! CANNOT CLIMB YET");
+      return;
+    }
+    rotated = !rotated;
+    m_rotater.set(rotated);
+  }
+
+  public void toggleBreak() {
+    if(DriverStation.getMatchTime() > 30) {
+      System.out.println("BAD!!! CANNOT CLIMB YET");
+      return;
+    }
+    breaked = !breaked;
+    m_break.set(breaked);
   }
 
   @Override

@@ -65,7 +65,6 @@ public class Robot extends TimedRobot {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     
     m_robotContainer.m_driveSubsystem.setBrakeMode(true);
-    m_robotContainer.m_climberSubsystem.ratchet(false);
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -88,7 +87,6 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     m_robotContainer.m_driveSubsystem.killPursuitThread();
-    m_robotContainer.m_climberSubsystem.ratchet(false);
 
   }
 

@@ -30,7 +30,7 @@ public class ServoThrottleCommand extends CommandBase {
   @Override
   public void execute() {
     double angle = (m_angle.getAsDouble() + 1)/2;
-    m_climberSubsystem.setServo(angle);
+    // m_climberSubsystem.setServo(angle);
     // SmartDashboard.putNumber("Ratchet Servo Angle", angle);
   }
 

@@ -52,7 +52,10 @@ public class Constants {
     public int k_backWheel = 6;
 
     // Climber FX
-    public int k_climber = 4;
+    public int k_climber = 3;
+    public int k_climberFollower = 4;
+    public int k_rotaterPiston = 0;
+    public int k_breakerPiston = 0;
     // Scotty (throat) FX
     public int k_scotty = 13;
     // Intake (spin) SRX
@@ -63,6 +66,11 @@ public class Constants {
     public int k_scotClose = 0;
     public int k_scotMid = 1;
     public int k_scotFar = 2;
+
+    public int k_magneticLeft;
+    public int k_magneticRight;
+    public int k_switchLeft;
+    public int k_switchRight;
 
     // Pneumatics
     // Climber
@@ -94,7 +102,8 @@ class ConstantsCompetition extends Constants {
         k_backWheel = 6;
  
         // Climber FX
-        k_climber = 4;
+        k_climber = 3;
+        k_climberFollower = 4;
         // Scotty (throat) FX
         k_scotty = 13;
         // Intake (spin) SRX
@@ -105,11 +114,17 @@ class ConstantsCompetition extends Constants {
         k_scotClose = 0;
         k_scotMid = 1;
         k_scotFar = 2;
+        // Magnetic
+        k_magneticLeft = 3;
+        k_magneticRight = 9;
+        // Physical
+        k_switchLeft = 8;
+        k_switchRight = 7;
 
     // Pneumatics
         // Climber
-        k_piston = 2;
-        k_claw = 0;
+        k_rotaterPiston = 0;
+        k_breakerPiston = 2;
         // Intake
         k_deploy = 1;
         // Hood

@@ -9,6 +9,7 @@ import java.sql.Driver;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.fasterxml.jackson.annotation.Nulls;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -42,6 +43,8 @@ public class ClimberSubsystem extends SubsystemBase {
     m_break.set(breaked);
     m_climb.setInverted(false);
     m_climbFollower.setInverted(true);
+    m_climb.setNeutralMode(NeutralMode.Brake);
+    m_climbFollower.setNeutralMode(NeutralMode.Brake);
     // m_climbFollower.follow(m_climb);
     // Shuffleboard.getTab("Drive Tab").addString("Climb Stage", () -> stage.toString()).withSize(2, 1).withPosition(6, 2);
   }
@@ -51,18 +54,21 @@ public class ClimberSubsystem extends SubsystemBase {
       return;
     }
 
-    boolean leftMag = false; //m_magnetLeft.get();
-    boolean rightMag = false; //m_magnetRight.get();
+    boolean leftMag = !m_magnetLeft.get();
+    boolean rightMag = !m_magnetRight.get();
     boolean leftSw = !m_switchLeft.get();
     boolean rightSw = !m_switchRight.get();
 
     if(power < 0) {
+      setBrake(true);
       m_climb.set(ControlMode.PercentOutput, !leftMag ? power : 0);
       m_climbFollower.set(ControlMode.PercentOutput, !rightMag ? power : 0);
     } else if(power > 0) {
+      setBrake(true);
       m_climb.set(ControlMode.PercentOutput, !leftSw ? power : 0);
       m_climbFollower.set(ControlMode.PercentOutput, !rightSw ? power : 0);
     } else {
+      setBrake(false);
       m_climb.set(ControlMode.PercentOutput, 0);
       m_climbFollower.set(ControlMode.PercentOutput, 0);
     }
@@ -75,6 +81,11 @@ public class ClimberSubsystem extends SubsystemBase {
     }
     rotated = !rotated;
     m_rotater.set(rotated);
+  }
+
+  public void setBrake(boolean on) {
+    m_break.set(on);
+    breaked = on;
   }
 
   public void toggleBreak() {
@@ -90,6 +101,8 @@ public class ClimberSubsystem extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putBoolean("Left Switch", !m_switchLeft.get());
     SmartDashboard.putBoolean("Right Switch", !m_switchRight.get());
+    SmartDashboard.putBoolean("Left Magnet", !m_magnetLeft.get());
+    SmartDashboard.putBoolean("Right Magnet", !m_magnetRight.get());
     // SmartDashboard.putString("Climber Stage", stage.toString());
     // Check if final climbing and motor is stalled
     // if(stage == Stages.Climbing && m_winch.getMotorOutputPercent() > 0.1 && m_winch.Velocity() < 100) {

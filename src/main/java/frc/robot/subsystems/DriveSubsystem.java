@@ -172,6 +172,9 @@ public class DriveSubsystem extends SubsystemBase {
   public void disablePositionTracker() {
     m_posTracker.stopPosUpdate();
   }
+  public void enablePositionTracker() {
+    m_posTracker.startPosUpdate();
+  }
 
   /*
    * This function ends the currently followed path (if any)

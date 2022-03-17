@@ -36,9 +36,9 @@ private static final double k_wheelbase = 1.812500;
 0, 10, 0
 3.3, 10, 0
 */
-final static Waypoint[] k_firstBall = { new Waypoint(-7.7, 2.25, Math.toRadians(180)), new Waypoint(-11.1, 2.25, Math.toRadians(180)) };
+final static Waypoint[] k_firstBall = { new Waypoint(-7.7, 2.25, Math.toRadians(180)), new Waypoint(-10.6, 2.25, Math.toRadians(180)) };
 
-final static Waypoint[] k_driveShoot = { new Waypoint(-11.1, 2.25, Math.toRadians(0)), new Waypoint(-4, 1, Math.toRadians(-30)) };
+final static Waypoint[] k_driveShoot = { new Waypoint(-10.6, 2.25, Math.toRadians(0)), new Waypoint(-4, 1, Math.toRadians(-30)) };
 
 private static final double k_longSpeed = 7;
 

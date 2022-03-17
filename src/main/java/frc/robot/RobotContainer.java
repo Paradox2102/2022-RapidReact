@@ -94,22 +94,23 @@ public class RobotContainer {
     m_camera.connect("10.21.2.12");
     DriverStation.silenceJoystickConnectionWarning(true);
     // SmartDashboard.putData(new PowerDistribution());
-    SmartDashboard.putData(m_driveSubsystem);
+    // SmartDashboard.putData(m_driveSubsystem);
     configureButtonBindings();
-    m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(), 
-        () -> m_stick.getY(), () -> m_stick.getThrottle()));
+
+    m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(), () -> m_stick.getY(), () -> m_stick.getThrottle()));
     m_scottySubsystem.setDefaultCommand(new DefaultScottyCommand(m_scottySubsystem, 0.3));
-    m_hoodSubsystem.setDefaultCommand(new HoodCommand(m_hoodSubsystem, () -> m_climbStick.getThrottle()));
+    // m_hoodSubsystem.setDefaultCommand(new HoodCommand(m_hoodSubsystem, () -> m_climbStick.getThrottle()));
 
     m_chooser.addOption("A2B31B (Four)", new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 5200, 0.35));
-    m_chooser.addOption("F4E (Two)", new F4E(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, 7100, 0.5));
-    m_chooser.addOption("ED (One)", new ED(m_driveSubsystem, m_scottySubsystem, m_shooterSubsystem, 7100, 0.5));
-    m_chooser.addOption("A2B3 (Three)", new A2B3(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 7100, 0.35));
+    m_chooser.addOption("F4E (Two)", new F4E(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, 5200, 0.5));
+    m_chooser.addOption("ED (One)", new ED(m_driveSubsystem, m_scottySubsystem, m_shooterSubsystem, 5200, 0.5));
+    m_chooser.addOption("A2B3 (Three)", new A2B3(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 5200, 0.35));
  
-    SmartDashboard.putData(m_chooser);
-    //Shuffleboard.getTab("Drive Tab").add(m_chooser).withSize(2, 1);
+    // SmartDashboard.putData(m_chooser);
+    // Shuffleboard.getTab("Drive Tab").add(m_chooser).withSize(2, 1);
 
     ShuffleboardTab driverTab = Shuffleboard.getTab("Drive Tab");
+    driverTab.add(m_chooser).withPosition(7, 0);
     driverTab.addCamera("Camera Viewer", "Front Camera", "http://10.21.2.2:1181/?action=stream").withSize(5, 4).withPosition(1, 1);
   }
   // m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(),

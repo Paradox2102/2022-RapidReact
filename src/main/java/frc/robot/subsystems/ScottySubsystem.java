@@ -59,9 +59,9 @@ public class ScottySubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // SmartDashboard.putBoolean("Top Sensor", getTopSensor());
-    // SmartDashboard.putBoolean("Mid Sensor", getMidSensor());
-    // SmartDashboard.putBoolean("Bot Sensor", getBotSensor());
-    // SmartDashboard.putString("Current State", m_state.toString());
+    SmartDashboard.putBoolean("Top Sensor", getTopSensor());
+    SmartDashboard.putBoolean("Mid Sensor", getMidSensor());
+    SmartDashboard.putBoolean("Bot Sensor", getBotSensor());
+    SmartDashboard.putString("Current State", m_state.toString());
   }
 }

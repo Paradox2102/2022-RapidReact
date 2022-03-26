@@ -69,7 +69,7 @@ private static final Waypoint[] k_driveShootLong = {
   public A2B3(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsytem, ScottySubsystem scottySubsystem, double intakePower, double shooterPower, double scottyPower) {
     addCommands(
       new IntakeCommand(intakeSubsystem, scottySubsystem, intakePower),
-      new SpinCommand(shooterSubsytem, shooterPower),
+      new SpinCommand(shooterSubsytem, shooterPower, false),
       new SequentialCommandGroup(
         new SetStateOneBall(scottySubsystem),
         new CreatePathCommand(driveSubsystem, k_firstBall, true, true, "Backwards get first ball", new PurePursuitData(k_maxSpeed)),

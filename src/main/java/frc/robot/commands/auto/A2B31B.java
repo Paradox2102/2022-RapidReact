@@ -47,9 +47,9 @@ final static Waypoint[] k_driveShoot = { new Waypoint(-10.6, 2.25, Math.toRadian
 private static final double k_longSpeed = 9;
 
 private static final Waypoint[] k_getTwoBalls = {
-    new Waypoint(-4,  1, Math.toRadians( 150)),
-    new Waypoint(-7.2,  10.4, Math.toRadians( 90)),
-    new Waypoint(-8.7,  21.2, Math.toRadians( 120))
+    new Waypoint(-4, 1, Math.toRadians( 150)),
+    new Waypoint(-7.2, 10.4, Math.toRadians( 90)),
+    new Waypoint(-8.7, 21.2, Math.toRadians( 120))
 };
 // private static final Waypoint[] k_getTwoBalls = {
 //   new Waypoint(-4,  1, Math.toRadians(-30)),
@@ -74,18 +74,18 @@ private static final Waypoint[] k_getTwoBalls = {
 //};
 /*
 -8.7,21.2,-60,4.785,6.88
--3.287,0.939, -20
+-3.209,1.33, -20
 */
 private static final Waypoint[] k_driveShootLong = {
     new Waypoint(-8.7, 21.2, Math.toRadians(-60), 4.785, 6.88),
-    new Waypoint(-3.287, 0.939, Math.toRadians( -20))
+    new Waypoint(-3.209, 1.33, Math.toRadians( -20))
 };
 
 
   public A2B31B(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsytem, ScottySubsystem scottySubsystem, double intakePower, double shooterPower, double scottyPower) {
     addCommands(
       new IntakeCommand(intakeSubsystem, scottySubsystem, intakePower),
-      new SpinCommand(shooterSubsytem, shooterPower),
+      new SpinCommand(shooterSubsytem, shooterPower, false),
       new SequentialCommandGroup(
         new SetStateOneBall(scottySubsystem),
         new CreatePathCommand(driveSubsystem, k_firstBall, true, true, "Backwards get first ball", new PurePursuitData(k_maxSpeed)),

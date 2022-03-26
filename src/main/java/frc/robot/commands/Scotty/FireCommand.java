@@ -13,7 +13,7 @@ public class FireCommand extends CommandBase {
   ScottySubsystem m_scottySubsystem;
   ShooterSubsystem m_shooterSubsystem;
   double m_power;
-  final double k_deadZone = 150;
+  final double k_deadZone = 100;
   public FireCommand(ScottySubsystem scottySubsystem, ShooterSubsystem shooterSubsystem, double scottyPower) {
     m_scottySubsystem = scottySubsystem;
     m_shooterSubsystem = shooterSubsystem;

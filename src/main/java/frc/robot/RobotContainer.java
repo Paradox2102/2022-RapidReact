@@ -74,21 +74,25 @@ public class RobotContainer {
   // JoystickButton m_climb = new JoystickButton(m_climbStick, 11);
   JoystickButton m_climb = new JoystickButton(m_climbStick, 3);
   JoystickButton m_rotate = new JoystickButton(m_climbStick, 4);
-  JoystickButton m_break = new JoystickButton(m_climbStick, 5);
+  //JoystickButton m_break = new JoystickButton(m_climbStick, 5);
+  JoystickButton m_ratchet = new JoystickButton(m_climbStick, 12);
   
   // JoystickButton m_deployIntake = new JoystickButton(m_climbStick, 3);
   JoystickButton m_fire = new JoystickButton(m_climbStick, 1);
   // JoystickButton m_reverseScotty = new JoystickButton(m_climbStick, 6);
   JoystickButton m_spinUp = new JoystickButton(m_climbStick, 2);
+  JoystickButton m_spinLow = new JoystickButton(m_climbStick, 5);
   // Calib
   // JoystickButton m_clibrateCamera = new JoystickButton(m_calibStick, 2);
   JoystickButton m_testTargeting = new JoystickButton(m_calibStick, 3);
   JoystickButton m_calibrateShooter = new JoystickButton(m_calibStick, 2);
   // JoystickButton m_testPath = new JoystickButton(m_calibStick, 2);
-  // JoystickButton m_calibRatchet = new JoystickButton(m_calibStick, 3);
+  //JoystickButton m_calibRatchet = new JoystickButton(m_calibStick, 3);
   // JoystickButton m_deployIntake = new JoystickButton(m_calibStick, 4);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
+
+  private final double shooterSpeed = 5500;
 
   public RobotContainer() {
     m_camera.connect("10.21.2.12");
@@ -99,19 +103,22 @@ public class RobotContainer {
 
     m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(), () -> m_stick.getY(), () -> m_stick.getThrottle()));
     m_scottySubsystem.setDefaultCommand(new DefaultScottyCommand(m_scottySubsystem, 0.3));
-    // m_hoodSubsystem.setDefaultCommand(new HoodCommand(m_hoodSubsystem, () -> m_climbStick.getThrottle()));
+    m_hoodSubsystem.setDefaultCommand(new HoodCommand(m_hoodSubsystem, () -> m_climbStick.getThrottle()));
+    // m_hoodSubsystem.setDefaultCommand(new HoodCommand(m_hoodSubsystem, () -> 0.222));
+  
 
-    m_chooser.addOption("A2B31B (Four)", new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 5200, 0.35));
-    m_chooser.addOption("F4E (Two)", new F4E(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, 5200, 0.5));
-    m_chooser.addOption("ED (One)", new ED(m_driveSubsystem, m_scottySubsystem, m_shooterSubsystem, 5200, 0.5));
-    m_chooser.addOption("A2B3 (Three)", new A2B3(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 5200, 0.35));
+    m_chooser.addOption("A2B31B (Four)", new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, shooterSpeed, 0.35));
+    m_chooser.addOption("F4E (Two)", new F4E(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, shooterSpeed, 0.5));
+    m_chooser.addOption("ED (One)", new ED(m_driveSubsystem, m_scottySubsystem, m_shooterSubsystem, shooterSpeed, 0.5));
+    m_chooser.addOption("A2B3 (Three)", new A2B3(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, shooterSpeed, 0.35));
  
     // SmartDashboard.putData(m_chooser);
     // Shuffleboard.getTab("Drive Tab").add(m_chooser).withSize(2, 1);
 
     ShuffleboardTab driverTab = Shuffleboard.getTab("Drive Tab");
-    driverTab.add(m_chooser).withPosition(7, 0);
-    driverTab.addCamera("Camera Viewer", "Front Camera", "http://10.21.2.2:1181/?action=stream").withSize(5, 4).withPosition(1, 1);
+    driverTab.add(m_chooser).withPosition(8, 1);
+    driverTab.addBoolean("Shooting Low", () -> m_shooterSubsystem.getLow()).withPosition(8, 2);
+    driverTab.addCamera("Camera Viewer", "Front Camera", "http://10.21.2.2:1181/?action=stream").withPosition(1, 1);
   }
   // m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(),
   //       () -> (-m_stick.getY() - m_velocityStick.getY()), () -> m_stick.getThrottle()));
@@ -126,7 +133,7 @@ public class RobotContainer {
     // m_climb.whenPressed(new ClimbCommand(m_climberSubsystem));
     m_climb.whileHeld(new ClimbCommand(m_climberSubsystem, () -> m_climbStick.getY()));
     m_rotate.whenPressed(new RotateCommand(m_climberSubsystem));
-    m_break.whenPressed(new BreakCommand(m_climberSubsystem));
+   // m_break.whenPressed(new BreakCommand(m_climberSubsystem));
     
     // m_fire.whileHeld(new ScottyPowerCommand(m_scottySubsystem, 0.4));
     m_fire.whileHeld(new FireCommand(m_scottySubsystem, m_shooterSubsystem, 0.3));
@@ -136,14 +143,15 @@ public class RobotContainer {
     m_rotate.whenPressed(new RotateCommand(m_climberSubsystem));
     // m_reverseScotty.whileHeld(new ScottyPowerCommand(m_scottySubsystem, -0.4));
     // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_climbStick.getThrottle()));
-    m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, 5200));
+    m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, shooterSpeed, false));
+    m_spinLow.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, shooterSpeed, true));
     // m_spinUp.toggleWhenPressed(new ShootByDistanceCommand(m_shooterSubsystem, m_camera, 7300));
     // Calib Driver
     // m_clibrateCamera.toggleWhenPressed(new CalibrateCameraCommand(m_camera, m_driveSubsystem, 1000));
     m_calibrateShooter.toggleWhenPressed(new CalibrateShooterSpeedCommand(m_shooterSubsystem, () -> m_calibStick.getThrottle()));
     m_testTargeting.toggleWhenPressed(new AimToTargetCommand(m_shooterSubsystem, m_driveSubsystem, m_camera, 1500));
     // m_testPath.toggleWhenPressed(new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 7100, 0.3));
-    // m_calibRatchet.toggleWhenPressed(new ServoThrottleCommand(m_climberSubsystem, () -> m_calibStick.getThrottle()));
+    //m_calibRatchet.toggleWhenPressed(new ServoThrottleCommand(m_climberSubsystem, () -> m_calibStick.getThrottle()));
     // m_deployIntake.toggleWhenPressed(new DeployIntakeCommand(m_intakeSubsystem));
     // m_testPath.toggleWhenPressed(new TwoBallAuto(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, 0.52, 0.6));
   }

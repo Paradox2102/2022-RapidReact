@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.Logger;
 import frc.robot.Constants;
 
 public class ClimberSubsystem extends SubsystemBase {
@@ -33,14 +34,18 @@ public class ClimberSubsystem extends SubsystemBase {
   
   Solenoid m_rotater = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.c.k_rotaterPiston);
   Solenoid m_break = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.c.k_breakerPiston);
+  Solenoid m_ratchet = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.c.k_ratchet);
   private boolean rotated;
   private boolean breaked;
+  private boolean ratchet;
 
   public ClimberSubsystem() {
     rotated = false;
     breaked = false;
+    ratchet = false;
     m_rotater.set(rotated);
     m_break.set(breaked);
+    m_ratchet.set(ratchet);
     m_climb.setInverted(false);
     m_climbFollower.setInverted(true);
     m_climb.setNeutralMode(NeutralMode.Brake);
@@ -50,7 +55,7 @@ public class ClimberSubsystem extends SubsystemBase {
   }
   public void setClimbPower(double power) {
     if(DriverStation.getMatchTime() > 30) {
-      System.out.println("BAD!!! CANNOT CLIMB YET");
+      Logger.Log("Climber Subsystem", 1, "BAD!!! CANNOT CLIMB YET");
       return;
     }
 
@@ -76,11 +81,25 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public void toggleRotate() {
     if(DriverStation.getMatchTime() > 30) {
-      System.out.println("BAD!!! CANNOT CLIMB YET");
+      Logger.Log("Climber Subsystem", 1, "BAD!!! CANNOT CLIMB YET");
       return;
     }
     rotated = !rotated;
     m_rotater.set(rotated);
+  }
+  
+  public void setRatchet(boolean on) {
+    m_ratchet.set(on);
+    ratchet = on;
+  }
+
+  public void toggleRatchet() {
+    if(DriverStation.getMatchTime() > 30) {
+      Logger.Log("Climber Subsystem", 1, "BAD!!! CANNOT CLIMB YET");
+      return;
+    }
+    ratchet = !ratchet;
+    m_ratchet.set(ratchet);
   }
 
   public void setBrake(boolean on) {
@@ -90,7 +109,7 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public void toggleBreak() {
     if(DriverStation.getMatchTime() > 30) {
-      System.out.println("BAD!!! CANNOT CLIMB YET");
+      Logger.Log("Climber Subsystem", 1, "BAD!!! CANNOT CLIMB YET");
       return;
     }
     breaked = !breaked;
@@ -106,7 +125,7 @@ public class ClimberSubsystem extends SubsystemBase {
     // SmartDashboard.putString("Climber Stage", stage.toString());
     // Check if final climbing and motor is stalled
     // if(stage == Stages.Climbing && m_winch.getMotorOutputPercent() > 0.1 && m_winch.Velocity() < 100) {
-    //   ratchet(true);
+    //  ratchet(true);
     // }
   }
 }

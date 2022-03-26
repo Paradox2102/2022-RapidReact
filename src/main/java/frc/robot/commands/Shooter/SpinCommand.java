@@ -6,6 +6,7 @@ package frc.robot.commands.Shooter;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.Logger;
@@ -15,10 +16,12 @@ public class SpinCommand extends CommandBase {
 
   ShooterSubsystem m_shooterSubsystem;
   double m_power;
+  boolean m_shootLow;
 
-  public SpinCommand(ShooterSubsystem shooterSubsytem, double power) {
+  public SpinCommand(ShooterSubsystem shooterSubsytem, double power, boolean shootLow) {
     m_shooterSubsystem = shooterSubsytem;
     m_power = power;
+    m_shootLow = shootLow;
 
     addRequirements(m_shooterSubsystem);
   }
@@ -27,7 +30,9 @@ public class SpinCommand extends CommandBase {
   @Override
   public void initialize() {
     Logger.Log("Spin Up Command", 1, "Initialized");
+    m_shooterSubsystem.setLow(m_shootLow);
     m_shooterSubsystem.setShooterSpeed(m_power);
+    m_shooterSubsystem.setBackWheelPower(m_shootLow ? 0.5 : -0.5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -41,6 +46,7 @@ public class SpinCommand extends CommandBase {
   public void end(boolean interrupted) {
     System.out.println("Spin Up Command End");
     m_shooterSubsystem.setShooterPower(0);
+    m_shooterSubsystem.setBackWheelPower(0);
   }
 
   // Returns true when the command should end.

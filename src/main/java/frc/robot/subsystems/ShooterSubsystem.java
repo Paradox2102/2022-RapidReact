@@ -31,7 +31,10 @@ public class ShooterSubsystem extends SubsystemBase {
   double m_shooterSetpoint = 0;
   SimpleWidget m_amplifier;
 
+  boolean m_isLow;
+
   public ShooterSubsystem() {
+    m_isLow = false;
     m_shooter.configFactoryDefault();
     m_shooterFollower.configFactoryDefault();
     m_shooter.setInverted(false);
@@ -62,15 +65,25 @@ public class ShooterSubsystem extends SubsystemBase {
     return m_shooterSetpoint;
   }
 
+  public void setLow(boolean isLow) {
+    m_isLow = isLow;
+  }
+  public boolean getLow() {
+    return m_isLow;
+  }
+
   public void setShooterPower(double power) {
     m_shooter.set(ControlMode.PercentOutput, power);
-    m_backWheel.set(ControlMode.PercentOutput, power == 0 ? 0 : -0.5);
+    m_backWheel.set(ControlMode.PercentOutput, power == 0 ? 0 : -0.5); //0.5
+    if(power == 0) m_shooterSetpoint = 0;
   }
 
   public void setShooterSpeed(double speed) {
     m_shooter.set(ControlMode.Velocity, speed);
-    m_backWheel.set(ControlMode.PercentOutput, speed == 0 ? 0 : -0.5);
     m_shooterSetpoint = speed;
+  }
+  public void setBackWheelPower(double power) {
+    m_backWheel.set(ControlMode.PercentOutput,  power);
   }
 
   @Override

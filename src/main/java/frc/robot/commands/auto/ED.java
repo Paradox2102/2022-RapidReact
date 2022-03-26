@@ -40,7 +40,7 @@ public class ED extends ParallelRaceGroup {
 
   public ED(DriveSubsystem driveSubsystem, ScottySubsystem scottySubsystem, ShooterSubsystem shooterSubsytem, double shooterPower, double scottyPower) {
     addCommands(
-      new SpinCommand(shooterSubsytem, shooterPower),
+      new SpinCommand(shooterSubsytem, shooterPower, false),
       new SequentialCommandGroup(
         new SetStateOneBall(scottySubsystem),
         new WaitCommand(1.5),

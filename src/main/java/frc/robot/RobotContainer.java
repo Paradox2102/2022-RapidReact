@@ -86,6 +86,7 @@ public class RobotContainer {
   // JoystickButton m_clibrateCamera = new JoystickButton(m_calibStick, 2);
   JoystickButton m_testTargeting = new JoystickButton(m_calibStick, 3);
   JoystickButton m_calibrateShooter = new JoystickButton(m_calibStick, 2);
+  JoystickButton m_autoClimb = new JoystickButton(m_calibStick, 4);
   // JoystickButton m_testPath = new JoystickButton(m_calibStick, 2);
   //JoystickButton m_calibRatchet = new JoystickButton(m_calibStick, 3);
   // JoystickButton m_deployIntake = new JoystickButton(m_calibStick, 4);

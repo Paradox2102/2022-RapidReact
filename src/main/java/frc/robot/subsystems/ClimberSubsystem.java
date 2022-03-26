@@ -34,7 +34,7 @@ public class ClimberSubsystem extends SubsystemBase {
   
   Solenoid m_rotater = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.c.k_rotaterPiston);
   Solenoid m_break = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.c.k_breakerPiston);
-  Solenoid m_ratchet = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.c.k_ratchet);
+  //Solenoid m_ratchet = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.c.k_ratchet); 
   private boolean rotated;
   private boolean breaked;
   private boolean ratchet;
@@ -45,7 +45,7 @@ public class ClimberSubsystem extends SubsystemBase {
     ratchet = false;
     m_rotater.set(rotated);
     m_break.set(breaked);
-    m_ratchet.set(ratchet);
+    //m_ratchet.set(ratchet);
     m_climb.setInverted(false);
     m_climbFollower.setInverted(true);
     m_climb.setNeutralMode(NeutralMode.Brake);
@@ -88,19 +88,19 @@ public class ClimberSubsystem extends SubsystemBase {
     m_rotater.set(rotated);
   }
   
-  public void setRatchet(boolean on) {
-    m_ratchet.set(on);
-    ratchet = on;
-  }
+  // public void setRatchet(boolean on) {
+  //   m_ratchet.set(on);
+  //   ratchet = on;
+  // }
 
-  public void toggleRatchet() {
-    if(DriverStation.getMatchTime() > 30) {
-      Logger.Log("Climber Subsystem", 1, "BAD!!! CANNOT CLIMB YET");
-      return;
-    }
-    ratchet = !ratchet;
-    m_ratchet.set(ratchet);
-  }
+  // public void toggleRatchet() {
+  //   if(DriverStation.getMatchTime() > 30) {
+  //     Logger.Log("Climber Subsystem", 1, "BAD!!! CANNOT CLIMB YET");
+  //     return;
+  //   }
+  //   ratchet = !ratchet;
+  //   m_ratchet.set(ratchet);
+  // }
 
   public void setBrake(boolean on) {
     m_break.set(on);

@@ -75,7 +75,7 @@ public class RobotContainer {
   JoystickButton m_climb = new JoystickButton(m_climbStick, 3);
   JoystickButton m_rotate = new JoystickButton(m_climbStick, 4);
   //JoystickButton m_break = new JoystickButton(m_climbStick, 5);
-  JoystickButton m_ratchet = new JoystickButton(m_climbStick, 12);
+  //JoystickButton m_ratchet = new JoystickButton(m_climbStick, 12);
   
   // JoystickButton m_deployIntake = new JoystickButton(m_climbStick, 3);
   JoystickButton m_fire = new JoystickButton(m_climbStick, 1);
@@ -140,7 +140,7 @@ public class RobotContainer {
     
     
 
-    m_rotate.whenPressed(new RotateCommand(m_climberSubsystem));
+  //  m_rotate.whenPressed(new RotateCommand(m_climberSubsystem));
     // m_reverseScotty.whileHeld(new ScottyPowerCommand(m_scottySubsystem, -0.4));
     // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_climbStick.getThrottle()));
     m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, shooterSpeed, false));

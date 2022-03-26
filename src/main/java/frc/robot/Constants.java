@@ -55,8 +55,8 @@ public class Constants {
     public int k_climber = 3;
     public int k_climberFollower = 4;
     public int k_rotaterPiston = 0;
-    public int k_breakerPiston = 0;
-    public int k_ratchet = 0;
+    public int k_breakerPiston = 2;
+    // public int k_ratchet = 0;
     // Scotty (throat) FX
     public int k_scotty = 13;
     // Intake (spin) SRX

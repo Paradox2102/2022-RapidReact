@@ -37,12 +37,12 @@ public class ClimberSubsystem extends SubsystemBase {
   //Solenoid m_ratchet = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.c.k_ratchet); 
   private boolean rotated;
   private boolean breaked;
-  private boolean ratchet;
+  // private boolean ratchet;
 
   public ClimberSubsystem() {
     rotated = false;
     breaked = false;
-    ratchet = false;
+    // ratchet = false;
     m_rotater.set(rotated);
     m_break.set(breaked);
     //m_ratchet.set(ratchet);
@@ -54,10 +54,10 @@ public class ClimberSubsystem extends SubsystemBase {
     // Shuffleboard.getTab("Drive Tab").addString("Climb Stage", () -> stage.toString()).withSize(2, 1).withPosition(6, 2);
   }
   public void setClimbPower(double power) {
-    if(DriverStation.getMatchTime() > 30) {
-      Logger.Log("Climber Subsystem", 1, "BAD!!! CANNOT CLIMB YET");
-      return;
-    }
+    // if(DriverStation.getMatchTime() > 30) {
+    //   Logger.Log("Climber Subsystem", 1, "BAD!!! CANNOT CLIMB YET");
+    //   return;
+    // }
 
     boolean leftMag = !m_magnetLeft.get();
     boolean rightMag = !m_magnetRight.get();
@@ -80,12 +80,23 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public void toggleRotate() {
-    if(DriverStation.getMatchTime() > 30) {
-      Logger.Log("Climber Subsystem", 1, "BAD!!! CANNOT CLIMB YET");
-      return;
-    }
+    // if(DriverStation.getMatchTime() > 30) {
+    //   Logger.Log("Climber Subsystem", 1, "BAD!!! CANNOT CLIMB YET");
+    //   return;
+    // }
     rotated = !rotated;
     m_rotater.set(rotated);
+  }
+  public void toggleRotate(boolean rotate) {
+    rotated = rotate;
+    m_rotater.set(rotate);
+  }
+
+  public boolean getBothTop() {
+    return m_magnetLeft.get() && m_magnetRight.get();
+  }
+  public boolean getBothBottom() {
+    return m_switchLeft.get() && m_switchRight.get();
   }
   
   // public void setRatchet(boolean on) {
@@ -108,10 +119,10 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public void toggleBreak() {
-    if(DriverStation.getMatchTime() > 30) {
-      Logger.Log("Climber Subsystem", 1, "BAD!!! CANNOT CLIMB YET");
-      return;
-    }
+  //   if(DriverStation.getMatchTime() > 30) {
+  //     Logger.Log("Climber Subsystem", 1, "BAD!!! CANNOT CLIMB YET");
+  //     return;
+  //   }
     breaked = !breaked;
     m_break.set(breaked);
   }

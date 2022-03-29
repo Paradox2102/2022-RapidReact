@@ -25,32 +25,35 @@ public class AutoClimbCommand extends SequentialCommandGroup {
 
       // TO HIGH BAR
       // Arms Up (a little bit)
-      new ParallelDeadlineGroup(new WaitCommand(0.5), new ClimbCommand(climberSubsystem, () -> {return -0.8;})),
+      new ParallelDeadlineGroup(new WaitCommand(0.25), new ClimbCommand(climberSubsystem, () -> {return -0.9;})),
       // Arms Back
       new RotateCommand(climberSubsystem),
-      new WaitCommand(0.75),
+      // new WaitCommand(0.25),
       // Arms up
-      new ParallelDeadlineGroup(new WaitCommand(2.5), new ClimbCommand(climberSubsystem, () -> {return -0.5;})),
+      new ParallelDeadlineGroup(new WaitCommand(1.75), new ClimbCommand(climberSubsystem, () -> {return -1;})),
       // Arms Foward
       new RotateCommand(climberSubsystem),
-      new WaitCommand(0.25),
-      // Arms Down
-      new ParallelDeadlineGroup(new WaitCommand(2.5), new ClimbCommand(climberSubsystem, () -> {return 0.5;})),
+      new WaitCommand(0.15),
+      // Arms Down (Fast)
+      new ParallelDeadlineGroup(new WaitCommand(6.5), new ClimbCommand(climberSubsystem, () -> {return 0.37;})),
+      // // Arms Down (Slow)
+      // new ParallelDeadlineGroup(new WaitCommand(9), new ClimbCommand(climberSubsystem, () -> {return 0.25;})),
 
-      new WaitCommand(2),
+      // new WaitCommand(2),
       // TO TRAVERSAL BAR
+      new ParallelDeadlineGroup(new WaitCommand(1), new ClimbCommand(climberSubsystem, () -> {return -0.3;})),
       // Arms Up (a little bit)
-      new ParallelDeadlineGroup(new WaitCommand(0.5), new ClimbCommand(climberSubsystem, () -> {return -0.8;})),
+      new ParallelDeadlineGroup(new WaitCommand(0.25), new ClimbCommand(climberSubsystem, () -> {return -0.9;})),
       // Arms Back
       new RotateCommand(climberSubsystem),
-      new WaitCommand(0.75),
+      // new WaitCommand(0.75),
       // Arms up
-      new ParallelDeadlineGroup(new WaitCommand(2.5), new ClimbCommand(climberSubsystem, () -> {return -0.5;})),
+      new ParallelDeadlineGroup(new WaitCommand(1.75), new ClimbCommand(climberSubsystem, () -> {return -1;})),
       // Arms Forward
       new RotateCommand(climberSubsystem),
-      new WaitCommand(0.25),
+      new WaitCommand(0.15),
       // Arms Down
-      new ParallelDeadlineGroup(new WaitCommand(2.5), new ClimbCommand(climberSubsystem, () -> {return 0.5;}))
+      new ParallelDeadlineGroup(new WaitCommand(1), new ClimbCommand(climberSubsystem, () -> {return 1;}))
     );
   }
 }

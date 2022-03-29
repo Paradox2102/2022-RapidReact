@@ -23,6 +23,7 @@ import frc.robot.commands.Shooter.HoodCommand;
 import frc.robot.commands.Shooter.ShootByDistanceCommand;
 import frc.robot.commands.Shooter.SpinCommand;
 import frc.robot.commands.auto.TestCommand;
+import frc.robot.commands.auto.Climb.AutoClimbCommand;
 import frc.robot.commands.auto.F4E;
 import frc.robot.commands.auto.ED;
 import frc.robot.commands.auto.A2B3;
@@ -149,6 +150,7 @@ public class RobotContainer {
     // m_spinUp.toggleWhenPressed(new ShootByDistanceCommand(m_shooterSubsystem, m_camera, 7300));
     // Calib Driver
     // m_clibrateCamera.toggleWhenPressed(new CalibrateCameraCommand(m_camera, m_driveSubsystem, 1000));
+    m_autoClimb.whenPressed(new AutoClimbCommand(m_climberSubsystem));
     m_calibrateShooter.toggleWhenPressed(new CalibrateShooterSpeedCommand(m_shooterSubsystem, () -> m_calibStick.getThrottle()));
     m_testTargeting.toggleWhenPressed(new AimToTargetCommand(m_shooterSubsystem, m_driveSubsystem, m_camera, 1500));
     // m_testPath.toggleWhenPressed(new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 7100, 0.3));

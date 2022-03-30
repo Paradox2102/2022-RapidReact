@@ -20,13 +20,13 @@
 
 * __Button 5__: spinLow: _toggleWhenPressed_: ```new SpinCommand(m_shooterSubsystem, shooterSpeed, true)```
 
+* __Button 6__: autoClimb: _whenPressed_: ```new AutoClimbLimitCommand(m_intakeSubsystem, m_climberSubsystem)```
+
 ## Joystick 5: calibStick
 
 * __Button 2__: calibrateShooter: _toggleWhenPressed_: ```new CalibrateShooterSpeedCommand(m_shooterSubsystem, () -> m_calibStick.getThrottle())```
 
 * __Button 3__: testTargeting: _toggleWhenPressed_: ```new AimToTargetCommand(m_shooterSubsystem, m_driveSubsystem, m_camera, 1500)```
 
-* __Button 4__: autoClimb: _whenPressed_: ```new AutoClimbCommand(m_climberSubsystem)```
-
-```commit 63367e4e05dda466673c9777f1d129c5b95e9f0c Author: Ryder Casazza <rydercasazza@gmail.com> Date:   Mon Mar 28 17:35:13 2022 -0700 Fixed auto lcimb ```
+```commit 28c5aec45b89ec1c7590c4a7f7422e95bfd9b30d Author: Ryder Casazza <rydercasazza@gmail.com> Date:   Tue Mar 29 18:50:21 2022 -0700 climb changes ```
 

@@ -93,10 +93,10 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public boolean getBothTop() {
-    return m_magnetLeft.get() && m_magnetRight.get();
+    return !m_magnetLeft.get() && !m_magnetRight.get();
   }
   public boolean getBothBottom() {
-    return m_switchLeft.get() && m_switchRight.get();
+    return !m_switchLeft.get() && !m_switchRight.get();
   }
   
   // public void setRatchet(boolean on) {

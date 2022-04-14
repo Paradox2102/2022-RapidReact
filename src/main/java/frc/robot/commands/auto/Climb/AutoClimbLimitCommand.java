@@ -22,7 +22,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 public class AutoClimbLimitCommand extends ParallelCommandGroup {
   public AutoClimbLimitCommand(IntakeSubsystem intakeSubsystem, ClimberSubsystem climberSubsystem) {
     addCommands(
-      new DeployIntakeCommand(intakeSubsystem),
+      // new DeployIntakeCommand(intakeSubsystem),
       new SequentialCommandGroup(
         // TO HIGH BAR
         // Arms Up (a little bit)
@@ -36,7 +36,7 @@ public class AutoClimbLimitCommand extends ParallelCommandGroup {
         new RotateCommand(climberSubsystem, false),
         new WaitCommand(0.15),
         // Arms Down (Fast)
-        new ParallelDeadlineGroup(new WaitBottomLimitCommand(climberSubsystem), new ClimbCommand(climberSubsystem, () -> {return 0.43;})),
+        new ParallelDeadlineGroup(new WaitBottomLimitCommand(climberSubsystem), new ClimbCommand(climberSubsystem, () -> {return 0.4;})),
         // // Arms Down (Slow)
 
         // TO TRAVERSAL BAR
@@ -49,8 +49,9 @@ public class AutoClimbLimitCommand extends ParallelCommandGroup {
         // Arms up
         new ParallelDeadlineGroup(new WaitTopLimitCommand(climberSubsystem), new ClimbCommand(climberSubsystem, () -> {return -1;})),
         // Arms Forward
+        new WaitCommand(0.32),
         new RotateCommand(climberSubsystem, false),
-        new WaitCommand(0.15),
+        new WaitCommand(0.1),
         // Arms Down
         new ParallelDeadlineGroup(new WaitCommand(1), new ClimbCommand(climberSubsystem, () -> {return 1;}))
       )

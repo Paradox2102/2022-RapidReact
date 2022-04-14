@@ -95,7 +95,8 @@ public class RobotContainer {
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-  private final double shooterSpeed = 5500;
+  private final double shooterSpeed = 5500;//5000;
+  private final double shooterLowSpeed = 5500;
 
   public RobotContainer() {
     m_camera.connect("10.21.2.12");
@@ -147,7 +148,7 @@ public class RobotContainer {
     // m_reverseScotty.whileHeld(new ScottyPowerCommand(m_scottySubsystem, -0.4));
     // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_climbStick.getThrottle()));
     m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, shooterSpeed, false));
-    m_spinLow.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, shooterSpeed, true));
+    m_spinLow.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, shooterLowSpeed, true));
     // m_spinUp.toggleWhenPressed(new ShootByDistanceCommand(m_shooterSubsystem, m_camera, 7300));
     // Calib Driver
     // m_clibrateCamera.toggleWhenPressed(new CalibrateCameraCommand(m_camera, m_driveSubsystem, 1000));

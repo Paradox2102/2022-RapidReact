@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
     CameraServer.startAutomaticCapture();
 
     new Trigger(this::isEnabled)
-    .negate()
+    .negate()  
     .debounce(3)
     .whenActive(()-> m_robotContainer.m_driveSubsystem.setBrakeMode(false)); 
   }

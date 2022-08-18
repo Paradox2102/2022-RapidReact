@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.Logger;
 import frc.robot.subsystems.HoodSubsystem;
 
-public class HoodCommand extends CommandBase {
+public class HoodCommand extends CommandBase { 
   HoodSubsystem m_hoodSubystem;
   DoubleSupplier m_angle;
   public HoodCommand(HoodSubsystem hoodSubsystem, DoubleSupplier angle) {
@@ -29,7 +29,7 @@ public class HoodCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // m_hoodSubystem.setHoodAngle((m_angle.getAsDouble()+1)/2);
+    m_hoodSubystem.setHoodAngle((m_angle.getAsDouble()+1)/2);
     // SmartDashboard.putNumber("Hood Value", (m_angle.getAsDouble()+1)/2);
     m_hoodSubystem.setHoodAngle(0.418);
   }

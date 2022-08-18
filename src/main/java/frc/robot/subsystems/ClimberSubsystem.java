@@ -46,8 +46,8 @@ public class ClimberSubsystem extends SubsystemBase {
     m_rotater.set(rotated);
     m_break.set(breaked);
     //m_ratchet.set(ratchet);
-    m_climb.setInverted(false);
-    m_climbFollower.setInverted(true);
+    m_climb.setInverted(true); //false
+    m_climbFollower.setInverted(false); //true 
     m_climb.setNeutralMode(NeutralMode.Brake);
     m_climbFollower.setNeutralMode(NeutralMode.Brake);
     // m_climbFollower.follow(m_climb);

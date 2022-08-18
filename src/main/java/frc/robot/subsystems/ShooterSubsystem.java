@@ -18,9 +18,10 @@ import frc.robot.Constants;
 
 public class ShooterSubsystem extends SubsystemBase {
 
-  TalonFX m_shooter = new TalonFX(Constants.c.k_shooter);
+  TalonFX m_shooter = new TalonFX(Constants.c.k_shooter); 
   TalonFX m_shooterFollower = new TalonFX(Constants.c.k_shooterFollower);
-  TalonSRX m_backWheel = new TalonSRX(Constants.c.k_backWheel);
+  // TalonSRX m_backWheel = new TalonSRX(Constants.c.k_backWheel);
+  TalonFX m_backWheel = new TalonFX(Constants.c.k_backWheel);
 
   double k_f = 0.061;
   double k_p = 0.25;

@@ -73,18 +73,18 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void setShooterPower(double power) {
-    // m_shooter.set(ControlMode.PercentOutput, power);
-    // m_backWheel.set(ControlMode.PercentOutput, power == 0 ? 0 : -0.5); //0.5
+    m_shooter.set(ControlMode.PercentOutput, power);
+    m_backWheel.set(ControlMode.PercentOutput, power == 0 ? 0 : -0.5); //0.5
     if(power == 0) m_shooterSetpoint = 0;
   }
 
   public void setShooterSpeed(double speed) {
-    // m_shooter.set(ControlMode.Velocity, speed);
+    m_shooter.set(ControlMode.Velocity, speed);
     System.out.println(String.format("speed=%f", speed));
-    // m_shooterSetpoint = speed;
+    m_shooterSetpoint = speed;
   }
   public void setBackWheelPower(double power) {
-    // m_backWheel.set(ControlMode.PercentOutput,  power);
+    m_backWheel.set(ControlMode.PercentOutput, -power);
   }
 
   @Override

@@ -34,7 +34,7 @@ public class SpinCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooterSubsystem.setShooterPower((m_power + 1) / 2); //.getAsDouble() 
+    // m_shooterSubsystem.setShooterPower((m_power + 1) / 2); //.getAsDouble() 
   }
 
   // Called once the command ends or is interrupted.

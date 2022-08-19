@@ -97,7 +97,7 @@ public class RobotContainer {
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-  private final double shooterSpeed = 1000; //original = 6000;   //5000;
+  private final double shooterSpeed = 3000; //original = 6000;  
   private final double shooterLowSpeed = 5500;
 
   public RobotContainer() {
@@ -111,7 +111,7 @@ public class RobotContainer {
     m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(), () -> m_stick.getY(), () -> m_stick.getThrottle()));
     
     m_scottySubsystem.setDefaultCommand(new DefaultScottyCommand(m_scottySubsystem, 0.3));
-    m_hoodSubsystem.setDefaultCommand(new HoodCommand(m_hoodSubsystem, () -> m_climbStick.getThrottle()));  
+    // m_hoodSubsystem.setDefaultCommand(new HoodCommand(m_hoodSubsystem, () -> m_climbStick.getThrottle()));  
     // m_hoodSubsystem.setDefaultCommand(new HoodCommand(m_hoodSubsystem, () -> 0.222));
   
 

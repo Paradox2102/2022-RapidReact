@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.Logger;
 import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
@@ -26,7 +27,9 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void runIntake(double power) {
+    Logger.Log("IntakeSubsystem", 1, String.format("power=%f", power));
     m_intake.set(ControlMode.PercentOutput, power);
+
   }
 
   @Override

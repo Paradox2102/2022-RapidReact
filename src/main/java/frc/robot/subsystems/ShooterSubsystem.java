@@ -18,7 +18,7 @@ import frc.robot.Constants;
 
 public class ShooterSubsystem extends SubsystemBase {
 
-  TalonFX m_shooter = new TalonFX(Constants.c.k_shooter);
+  TalonFX m_shooter = new TalonFX(Constants.c.k_shooter); 
   TalonFX m_shooterFollower = new TalonFX(Constants.c.k_shooterFollower);
   TalonSRX m_backWheel = new TalonSRX(Constants.c.k_backWheel);
 
@@ -80,10 +80,11 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void setShooterSpeed(double speed) {
     m_shooter.set(ControlMode.Velocity, speed);
+    System.out.println(String.format("speed=%f", speed));
     m_shooterSetpoint = speed;
   }
   public void setBackWheelPower(double power) {
-    m_backWheel.set(ControlMode.PercentOutput,  power);
+    m_backWheel.set(ControlMode.PercentOutput, -power);
   }
 
   @Override

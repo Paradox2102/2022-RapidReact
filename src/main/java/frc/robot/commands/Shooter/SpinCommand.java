@@ -10,7 +10,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 public class SpinCommand extends CommandBase {
 
-  ShooterSubsystem m_shooterSubsystem;
+  ShooterSubsystem m_shooterSubsystem; 
   double m_power;
   boolean m_shootLow;
 
@@ -34,7 +34,7 @@ public class SpinCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // m_shooterSubsystem.setShooterPower((m_power.getAsDouble() + 1) / 2);
+    // m_shooterSubsystem.setShooterPower((m_power + 1) / 2); //.getAsDouble() 
   }
 
   // Called once the command ends or is interrupted.

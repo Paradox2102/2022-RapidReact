@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.DoubleSupplier;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
@@ -32,6 +34,8 @@ public class ShooterSubsystem extends SubsystemBase {
   SimpleWidget m_amplifier;
 
   boolean m_isLow;
+
+  double m_adjustment; 
 
   public ShooterSubsystem() {
     m_isLow = false;
@@ -90,5 +94,9 @@ public class ShooterSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("ShooterSpeed", m_shooter.getSelectedSensorVelocity());
+  }
+
+  public void setAdjustment(double speed) {
+    m_shooter.set(ControlMode.Velocity, speed + m_adjustment);  
   }
 }

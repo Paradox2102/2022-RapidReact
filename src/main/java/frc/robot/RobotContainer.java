@@ -18,6 +18,7 @@ import frc.robot.commands.Intake.IntakeCommand;
 import frc.robot.commands.Scotty.DefaultScottyCommand;
 import frc.robot.commands.Scotty.FireCommand;
 import frc.robot.commands.Scotty.ScottyPowerCommand;
+import frc.robot.commands.Shooter.AdjustSpeed;
 import frc.robot.commands.Shooter.CalibrateShooterSpeedCommand;
 import frc.robot.commands.Shooter.HoodCommand;
 import frc.robot.commands.Shooter.ShootByDistanceCommand;
@@ -97,7 +98,7 @@ public class RobotContainer {
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-  private final double shooterSpeed = 5750; //original = 6000;  
+  // private final double shooterSpeed = 6500; //original = 6000;  
   private final double shooterLowSpeed = 5500;
 
   public RobotContainer() {
@@ -111,14 +112,16 @@ public class RobotContainer {
     m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(), () -> m_stick.getY(), () -> m_stick.getThrottle()));
     
     m_scottySubsystem.setDefaultCommand(new DefaultScottyCommand(m_scottySubsystem, 0.3));
-    m_hoodSubsystem.setDefaultCommand(new HoodCommand(m_hoodSubsystem, () -> m_climbStick.getThrottle()));  
-    // m_hoodSubsystem.setDefaultCommand(new HoodCommand(m_hoodSubsystem, () -> 0.222));
-  
+    // m_hoodSubsystem.setDefaultCommand(new HoodCommand(m_hoodSubsystem, () -> m_climbStick.getThrottle()));  
+    // m_hoodSubsystem.setDefaultCommand(new HoodCommand(m_hoodSubsystem, () -> 0.222));  
+    
+    //added at wings 
+    m_shooterSubsystem.setDefaultCommand(new AdjustSpeed(m_shooterSubsystem, () -> m_climbStick.getThrottle())); 
 
-    m_chooser.addOption("A2B31B (Four)", new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, shooterSpeed, 0.35));
-    m_chooser.addOption("F4E (Two)", new F4E(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, shooterSpeed, 0.5));
-    m_chooser.addOption("ED (One)", new ED(m_driveSubsystem, m_scottySubsystem, m_shooterSubsystem, shooterSpeed, 0.5));
-    m_chooser.addOption("A2B3 (Three)", new A2B3(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, shooterSpeed, 0.35));
+    // m_chooser.addOption("A2B31B (Four)", new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, shooterSpeed, 0.35));
+    // m_chooser.addOption("F4E (Two)", new F4E(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, shooterSpeed, 0.5));
+    // m_chooser.addOption("ED (One)", new ED(m_driveSubsystem, m_scottySubsystem, m_shooterSubsystem, shooterSpeed, 0.5));
+    // m_chooser.addOption("A2B3 (Three)", new A2B3(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, shooterSpeed, 0.35));
  
     // SmartDashboard.putData(m_chooser);
     // Shuffleboard.getTab("Drive Tab").add(m_chooser).withSize(2, 1);
@@ -151,7 +154,7 @@ public class RobotContainer {
   //  m_rotate.whenPressed(new RotateCommand(m_climberSubsystem));
     m_reverseScotty.whileHeld(new ScottyPowerCommand(m_scottySubsystem, -0.4));
     // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_climbStick.getThrottle()));
-    m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, shooterSpeed, false));
+    // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, shooterSpeed, false));
     // m_spinLow.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, shooterLowSpeed, true));
     // m_spinUp.toggleWhenPressed(new ShootByDistanceCommand(m_shooterSubsystem, m_camera, 7300));
     // Calib Driver

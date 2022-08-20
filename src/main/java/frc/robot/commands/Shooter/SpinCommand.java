@@ -22,7 +22,7 @@ public class SpinCommand extends CommandBase {
     addRequirements(m_shooterSubsystem);
   }
 
-  // Called when the command is initially scheduled.
+// Called when the command is initially scheduled.
   @Override
   public void initialize() {
     Logger.Log("Spin Up Command", 1, "Initialized");

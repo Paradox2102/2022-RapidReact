@@ -14,12 +14,11 @@ public class AdjustSpeed extends CommandBase {
   DoubleSupplier m_speed;
 
   DoubleSupplier m_throttle; 
-  double k_adjustmentRange; 
+  double k_adjustmentRange = 500; 
 
   public AdjustSpeed(ShooterSubsystem shooterSubsystem, DoubleSupplier speed) {
     m_shooterSubsystem = shooterSubsystem;
     m_speed = speed;
-    addRequirements(shooterSubsystem);
   }
 
   // Called when the command is initially scheduled.

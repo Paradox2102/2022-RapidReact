@@ -35,7 +35,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   boolean m_isLow;
 
-  double m_adjustment; 
+  double m_adjustment = 0;  
 
   public ShooterSubsystem() {
     m_isLow = false;
@@ -97,6 +97,6 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void setAdjustment(double speed) {
-    m_shooter.set(ControlMode.Velocity, speed + m_adjustment);  
+    m_adjustment = speed; 
   }
 }

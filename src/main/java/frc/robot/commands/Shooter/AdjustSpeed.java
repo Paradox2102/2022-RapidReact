@@ -19,6 +19,7 @@ public class AdjustSpeed extends CommandBase {
   public AdjustSpeed(ShooterSubsystem shooterSubsystem, DoubleSupplier speed) {
     m_shooterSubsystem = shooterSubsystem;
     m_speed = speed;
+    addRequirements(m_shooterSubsystem);
   }
 
   // Called when the command is initially scheduled.

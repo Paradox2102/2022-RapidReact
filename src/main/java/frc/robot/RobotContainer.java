@@ -98,11 +98,11 @@ public class RobotContainer {
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-  // private final double shooterSpeed = 6500; //original = 6000;  
+  private final double shooterSpeed = 6000;  
   private final double shooterLowSpeed = 5500;
 
   public RobotContainer() {
-    m_camera.connect("10.21.2.12");
+    // m_camera.connect("10.21.2.12");
     DriverStation.silenceJoystickConnectionWarning(true);
     // SmartDashboard.putData(new PowerDistribution());
     // SmartDashboard.putData(m_driveSubsystem);
@@ -116,7 +116,7 @@ public class RobotContainer {
     // m_hoodSubsystem.setDefaultCommand(new HoodCommand(m_hoodSubsystem, () -> 0.222));  
     
     //added at wings 
-    m_shooterSubsystem.setDefaultCommand(new AdjustSpeed(m_shooterSubsystem, () -> m_climbStick.getThrottle())); 
+    // m_shooterSubsystem.setDefaultCommand(new AdjustSpeed(m_shooterSubsystem, () -> m_climbStick.getThrottle())); 
 
     // m_chooser.addOption("A2B31B (Four)", new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, shooterSpeed, 0.35));
     // m_chooser.addOption("F4E (Two)", new F4E(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, shooterSpeed, 0.5));
@@ -154,7 +154,7 @@ public class RobotContainer {
   //  m_rotate.whenPressed(new RotateCommand(m_climberSubsystem));
     m_reverseScotty.whileHeld(new ScottyPowerCommand(m_scottySubsystem, -0.4));
     // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_climbStick.getThrottle()));
-    // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, shooterSpeed, false));
+    m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, shooterSpeed, false));
     // m_spinLow.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, shooterLowSpeed, true));
     // m_spinUp.toggleWhenPressed(new ShootByDistanceCommand(m_shooterSubsystem, m_camera, 7300));
     // Calib Driver

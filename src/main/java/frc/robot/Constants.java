@@ -119,8 +119,8 @@ class ConstantsCompetition extends Constants {
         k_magneticLeft = 3;
         k_magneticRight = 9;
         // Physical
-        k_switchLeft = 8;
-        k_switchRight = 7;
+        k_switchLeft = 5; // orig 8
+        k_switchRight = 6; // orig 7
 
     // Pneumatics
         // Climber

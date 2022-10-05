@@ -85,7 +85,7 @@ public class RobotContainer {
   // JoystickButton m_deployIntake = new JoystickButton(m_climbStick, 5);
 
   JoystickButton m_fire = new JoystickButton(m_climbStick, 1);
-  JoystickButton m_reverseScotty = new JoystickButton(m_climbStick, 6);
+  JoystickButton m_reverseScotty = new JoystickButton(m_climbStick, 8);
   JoystickButton m_spinUp = new JoystickButton(m_climbStick, 2);
   // JoystickButton m_spinLow = new JoystickButton(m_climbStick, 5);
   // Calib
@@ -98,7 +98,7 @@ public class RobotContainer {
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-  // private final double shooterSpeed = 6500; //original = 6000;  
+  private final double shooterSpeed = 4500; //original = 6000; //wings = 6500
   private final double shooterLowSpeed = 5500;
 
   public RobotContainer() {
@@ -154,7 +154,7 @@ public class RobotContainer {
   //  m_rotate.whenPressed(new RotateCommand(m_climberSubsystem));
     m_reverseScotty.whileHeld(new ScottyPowerCommand(m_scottySubsystem, -0.4));
     // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_climbStick.getThrottle()));
-    // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, shooterSpeed, false));
+    m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, shooterSpeed, false)); 
     // m_spinLow.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, shooterLowSpeed, true));
     // m_spinUp.toggleWhenPressed(new ShootByDistanceCommand(m_shooterSubsystem, m_camera, 7300));
     // Calib Driver

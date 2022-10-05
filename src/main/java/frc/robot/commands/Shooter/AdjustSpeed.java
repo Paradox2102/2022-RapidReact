@@ -13,12 +13,14 @@ public class AdjustSpeed extends CommandBase {
   ShooterSubsystem m_shooterSubsystem;
   DoubleSupplier m_speed;
 
-  DoubleSupplier m_throttle; 
-  double k_adjustmentRange = 500; 
+  // DoubleSupplier m_throttle; 
+  double k_adjustmentRange = 100; //500
 
   public AdjustSpeed(ShooterSubsystem shooterSubsystem, DoubleSupplier speed) {
     m_shooterSubsystem = shooterSubsystem;
     m_speed = speed;
+
+    addRequirements(m_shooterSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -28,7 +30,7 @@ public class AdjustSpeed extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooterSubsystem.setAdjustment(m_throttle.getAsDouble() * k_adjustmentRange);
+    m_shooterSubsystem.setAdjustment(m_speed.getAsDouble() * k_adjustmentRange);
   }
 
   // Called once the command ends or is interrupted.

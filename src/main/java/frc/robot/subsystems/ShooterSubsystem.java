@@ -97,6 +97,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void setAdjustment(double speed) {
+    // System.out.println(String.format("speed=%f", speed)); 
     m_adjustment = speed; 
   }
 }

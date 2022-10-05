@@ -133,6 +133,7 @@ public class ClimberSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("Right Switch", !m_switchRight.get());
     SmartDashboard.putBoolean("Left Magnet", !m_magnetLeft.get());
     SmartDashboard.putBoolean("Right Magnet", !m_magnetRight.get());
+    SmartDashboard.putString("MESSAGE TO THE DRIVERS", "Joseph sucks <3");
     // SmartDashboard.putString("Climber Stage", stage.toString());
     // Check if final climbing and motor is stalled
     // if(stage == Stages.Climbing && m_winch.getMotorOutputPercent() > 0.1 && m_winch.Velocity() < 100) {

@@ -124,7 +124,7 @@ public class RobotContainer {
     m_chooser.addOption("A2B3 (Three)", new A2B3(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, shooterSpeed, 0.35));
  
     SmartDashboard.putData(m_chooser);
-    Shuffleboard.getTab("Drive Tab").add(m_chooser).withSize(2, 1);
+    //Shuffleboard.getTab("Drive Tab").add(m_chooser).withSize(2, 1);
 
     ShuffleboardTab driverTab = Shuffleboard.getTab("Drive Tab");
     driverTab.add(m_chooser).withPosition(8, 1);

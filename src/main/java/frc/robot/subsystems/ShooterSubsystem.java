@@ -94,6 +94,7 @@ public class ShooterSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("ShooterSpeed", m_shooter.getSelectedSensorVelocity());
+    SmartDashboard.putNumber("BackWheelSpeed", m_backWheel.getSelectedSensorVelocity());
   }
 
   public void setAdjustment(double speed) {

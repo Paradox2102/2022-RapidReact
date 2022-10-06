@@ -127,7 +127,7 @@ public class RobotContainer {
     //Shuffleboard.getTab("Drive Tab").add(m_chooser).withSize(2, 1);
 
     ShuffleboardTab driverTab = Shuffleboard.getTab("Drive Tab");
-    driverTab.add(m_chooser).withPosition(8, 1);
+    driverTab.add(m_chooser).withPosition(8, 1).withSize(2, 1);
     driverTab.addBoolean("Shooting Low", () -> m_shooterSubsystem.getLow()).withPosition(8, 2);
     driverTab.addCamera("Camera Viewer", "Front Camera", "http://10.21.2.2:1181/?action=stream").withPosition(1, 1);
   }

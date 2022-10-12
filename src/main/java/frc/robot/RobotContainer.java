@@ -104,7 +104,7 @@ public class RobotContainer {
   private final double longShooterSpeed = 9000;
 
   public RobotContainer() {
-    m_camera.connect("10.21.2.12");
+    // m_camera.connect("10.21.2.12");
     DriverStation.silenceJoystickConnectionWarning(true);
     // SmartDashboard.putData(new PowerDistribution());
     // SmartDashboard.putData(m_driveSubsystem);
@@ -118,7 +118,7 @@ public class RobotContainer {
     // m_hoodSubsystem.setDefaultCommand(new HoodCommand(m_hoodSubsystem, () -> 0.222));  
     
     //added at wings 
-    m_shooterSubsystem.setDefaultCommand(new AdjustSpeed(m_shooterSubsystem, () -> m_climbStick.getThrottle())); 
+    // m_shooterSubsystem.setDefaultCommand(new AdjustSpeed(m_shooterSubsystem, () -> m_climbStick.getThrottle())); 
 
     // m_chooser.addOption("A2B31B (Four)", new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, shooterSpeed, 0.35));
     // m_chooser.addOption("F4E (Two)", new F4E(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, shooterSpeed, 0.5));

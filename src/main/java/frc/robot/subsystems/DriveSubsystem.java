@@ -54,6 +54,7 @@ public class DriveSubsystem extends SubsystemBase {
   private final double k_f = 0.051; 
   private final double k_iZone = 300; 
   private final int k_timeout = 30; 
+  private final double k_rampTimeSeconds = .25;
 
   public DriveSubsystem() {
     // m_gyro.setYaw(90);
@@ -79,8 +80,10 @@ public class DriveSubsystem extends SubsystemBase {
     
     m_leftDrive.setInverted(true);
     m_rightDrive.setInverted(false);
-    m_leftDrive.configOpenloopRamp(0);
-    m_rightDrive.configOpenloopRamp(0);
+    m_leftDrive.configOpenloopRamp(k_rampTimeSeconds);
+    m_rightDrive.configOpenloopRamp(k_rampTimeSeconds);
+    m_leftDrive.configClosedloopRamp(k_rampTimeSeconds);
+    m_rightDrive.configClosedloopRamp(k_rampTimeSeconds);
 
 
     m_sensors = new Sensor(() -> m_leftDrive.getSelectedSensorPosition(), () -> m_rightDrive.getSelectedSensorPosition(), () -> m_leftDrive.getSelectedSensorVelocity(), () -> m_rightDrive.getSelectedSensorVelocity(), m_gyro);

@@ -12,12 +12,12 @@ public class SpinCommand extends CommandBase {
 
   ShooterSubsystem m_shooterSubsystem; 
   double m_power;
-  boolean m_shootLow;
+  double m_backPower;
 
-  public SpinCommand(ShooterSubsystem shooterSubsytem, double power, boolean shootLow) {
+  public SpinCommand(ShooterSubsystem shooterSubsytem, double power, double backPower) {
     m_shooterSubsystem = shooterSubsytem;
     m_power = power;
-    m_shootLow = shootLow;
+    m_backPower = backPower;
 
     addRequirements(m_shooterSubsystem);
   }
@@ -26,9 +26,9 @@ public class SpinCommand extends CommandBase {
   @Override
   public void initialize() {
     Logger.Log("Spin Up Command", 1, "Initialized");
-    m_shooterSubsystem.setLow(m_shootLow);
+    // m_shooterSubsystem.setLow(m_shootLow);
     m_shooterSubsystem.setShooterSpeed(m_power);
-    m_shooterSubsystem.setBackWheelPower(m_shootLow ? 0.5 : -0.5);
+    m_shooterSubsystem.setBackWheelPower(m_backPower); // if low .5 if not low -.5
   }
 
   // Called every time the scheduler runs while the command is scheduled.

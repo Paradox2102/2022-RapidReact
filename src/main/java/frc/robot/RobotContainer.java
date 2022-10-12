@@ -99,9 +99,13 @@ public class RobotContainer {
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
+
   private final double closeShooterSpeed = 4500; //original = 6000; //wings = 6500
   private final double closeShooterLowSpeed = 5500;
   private final double longShooterSpeed = 9000;
+
+  private final double shooterSpeed = 6000;  
+  private final double shooterLowSpeed = 5500;
 
   public RobotContainer() {
     // m_camera.connect("10.21.2.12");

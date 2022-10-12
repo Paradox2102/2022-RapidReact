@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.Drive.SetCoastModeCommand;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -37,7 +38,7 @@ public class Robot extends TimedRobot {
     new Trigger(this::isEnabled)
     .negate()  
     .debounce(3)
-    .whenActive(()-> m_robotContainer.m_driveSubsystem.setBrakeMode(false)); 
+    .whenActive(new SetCoastModeCommand(m_robotContainer.m_driveSubsystem)); 
   }
 
   /**
@@ -58,9 +59,7 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {
-    m_robotContainer.m_driveSubsystem.setBrakeMode(false);
-  }
+  public void disabledInit() {}
 
   @Override
   public void disabledPeriodic() {}

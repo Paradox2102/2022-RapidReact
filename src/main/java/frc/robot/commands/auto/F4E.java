@@ -49,7 +49,7 @@ private static final Waypoint[] k_driveShoot = {
   public F4E(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, ScottySubsystem scottySubsystem, ShooterSubsystem shooterSubsytem, double intakePower, double shooterPower, double scottyPower) {
     addCommands(
       new IntakeCommand(intakeSubsystem, scottySubsystem, intakePower),
-      new SpinCommand(shooterSubsytem, shooterPower, false),
+      new SpinCommand(shooterSubsytem, shooterPower, -.5),
       new SequentialCommandGroup(
         new CreatePathCommand(driveSubsystem, k_firstBall, true, true, "Drive to first ball", new PurePursuitData(k_maxSpeed)),
         new CreatePathCommand(driveSubsystem, k_driveShoot, false, false, "Drive to hub", new PurePursuitData(k_maxSpeed)),

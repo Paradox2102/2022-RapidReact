@@ -4,6 +4,8 @@
 
 package frc.robot.commands.Shooter;
 
+import java.util.function.BooleanSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.Logger;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -11,13 +13,21 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class SpinCommand extends CommandBase {
 
   ShooterSubsystem m_shooterSubsystem; 
-  double m_power;
-  double m_backPower;
+  final double k_nearPower = 6000;
+  final double k_nearBackPower = -.5;
 
-  public SpinCommand(ShooterSubsystem shooterSubsytem, double power, double backPower) {
-    m_shooterSubsystem = shooterSubsytem;
-    m_power = power;
-    m_backPower = backPower;
+  final double k_farPower = 9000; // 10000
+  final double k_farBackPower= 1; // 1
+
+  BooleanSupplier m_farShot;
+
+  public SpinCommand(ShooterSubsystem shooterSubsytem, double frontPower, double backPower) {
+    this(shooterSubsytem, () -> false);
+  }
+
+  public SpinCommand(ShooterSubsystem shooterSubsystem, BooleanSupplier farShot){
+    m_shooterSubsystem = shooterSubsystem;
+    m_farShot = farShot;
 
     addRequirements(m_shooterSubsystem);
   }
@@ -27,14 +37,15 @@ public class SpinCommand extends CommandBase {
   public void initialize() {
     Logger.Log("Spin Up Command", 1, "Initialized");
     // m_shooterSubsystem.setLow(m_shootLow);
-    m_shooterSubsystem.setShooterSpeed(m_power);
-    m_shooterSubsystem.setBackWheelPower(m_backPower); // if low .5 if not low -.5
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    boolean farShot = m_farShot.getAsBoolean();
     // m_shooterSubsystem.setShooterPower((m_power + 1) / 2); //.getAsDouble() 
+    m_shooterSubsystem.setShooterSpeed(farShot ? k_farPower : k_nearPower);
+    m_shooterSubsystem.setBackWheelPower(farShot ? k_farBackPower : k_nearBackPower); // if low .5 if not low -.5
   }
 
   // Called once the command ends or is interrupted.

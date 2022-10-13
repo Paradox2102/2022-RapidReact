@@ -36,6 +36,9 @@ import frc.robot.subsystems.HoodSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ScottySubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+
+import java.util.function.BooleanSupplier;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
@@ -160,7 +163,8 @@ public class RobotContainer {
   //  m_rotate.whenPressed(new RotateCommand(m_climberSubsystem));
     m_reverseScotty.whileHeld(new ScottyPowerCommand(m_scottySubsystem, -0.4));
     // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_climbStick.getThrottle()));
-    m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, closeShooterSpeed, -.5)); // if low .5 if not low -.5
+    BooleanSupplier shootFar = () -> (m_climbStick.getThrottle() > 0);
+    m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, shootFar)); // if low .5 if not low -.5
     m_spinUpDistance.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, longShooterSpeed, -.5));
     // m_spinLow.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, closeShooterLowSpeed, true));
     // m_spinUp.toggleWhenPressed(new ShootByDistanceCommand(m_shooterSubsystem, m_camera, 7300));

@@ -82,7 +82,7 @@ public class RobotContainer {
   //JoystickButton m_break = new JoystickButton(m_climbStick, 5); 
   //JoystickButton m_ratchet = new JoystickButton(m_climbStick, 12);
   
-  // JoystickButton m_deployIntake = new JoystickButton(m_climbStick, 5);
+  JoystickButton m_deployIntake = new JoystickButton(m_climbStick, 5);
 
   JoystickButton m_fire = new JoystickButton(m_climbStick, 1);
   JoystickButton m_reverseScotty = new JoystickButton(m_climbStick, 8);
@@ -171,7 +171,7 @@ public class RobotContainer {
     // m_testTargeting.toggleWhenPressed(new AimToTargetCommand(m_shooterSubsystem, m_driveSubsystem, m_camera, 1500));
     // m_testPath.toggleWhenPressed(new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, 7100, 0.3));
     //m_calibRatchet.toggleWhenPressed(new ServoThrottleCommand(m_climberSubsystem, () -> m_calibStick.getThrottle()));
-    // m_deployIntake.toggleWhenPressed(new DeployIntakeCommand(m_intakeSubsystem));
+    m_deployIntake.toggleWhenPressed(new DeployIntakeCommand(m_intakeSubsystem));
     // m_testPath.toggleWhenPressed(new TwoBallAuto(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, 0.52, 0.6));
   }
 

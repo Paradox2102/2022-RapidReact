@@ -85,7 +85,7 @@ public class RobotContainer {
   //JoystickButton m_break = new JoystickButton(m_climbStick, 5); 
   //JoystickButton m_ratchet = new JoystickButton(m_climbStick, 12);
   
-  JoystickButton m_deployIntake = new JoystickButton(m_climbStick, 5);
+  JoystickButton m_deployIntake = new JoystickButton(m_climbStick, 7);
 
   JoystickButton m_fire = new JoystickButton(m_climbStick, 1);
   JoystickButton m_reverseScotty = new JoystickButton(m_climbStick, 8);

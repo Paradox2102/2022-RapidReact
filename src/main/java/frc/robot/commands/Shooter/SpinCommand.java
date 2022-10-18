@@ -35,17 +35,19 @@ public class SpinCommand extends CommandBase {
 // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Logger.Log("Spin Up Command", 1, "Initialized");
+    Logger.Log("Spin Up Commandxx", 1, "Initialized");
     // m_shooterSubsystem.setLow(m_shootLow);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println("SpinCommand Execute");
     boolean farShot = m_farShot.getAsBoolean();
     // m_shooterSubsystem.setShooterPower((m_power + 1) / 2); //.getAsDouble() 
-    m_shooterSubsystem.setShooterSpeed(farShot ? k_farPower : k_nearPower);
-    m_shooterSubsystem.setBackWheelPower(farShot ? k_farBackPower : k_nearBackPower); // if low .5 if not low -.5
+    //m_shooterSubsystem.setShooterSpeed(farShot ? k_farPower : k_nearPower);
+    //m_shooterSubsystem.setBackWheelPower(farShot ? k_farBackPower : k_nearBackPower); // if low .5 if not low -.5
+    m_shooterSubsystem.setBackWheelSpeed(1000);
   }
 
   // Called once the command ends or is interrupted.

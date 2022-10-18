@@ -24,11 +24,19 @@ public class ShooterSubsystem extends SubsystemBase {
   TalonFX m_shooterFollower = new TalonFX(Constants.c.k_shooterFollower);
   TalonSRX m_backWheel = new TalonSRX(Constants.c.k_backWheel);
 
+  // front wheels
   double k_f = 0.061;
   double k_p = 0.25;
   double k_i = 0.001;
   double k_iZone = 100;
   int k_timeout = 30;
+
+  // back wheels
+  double k_BMaxSpeed = 22300;
+  double k_Bf = .00/k_BMaxSpeed;
+  double k_Bp = 0;
+  double k_Bi = 0;
+  double k_BiZone = 100;
 
   double m_shooterSetpoint = 0;
   SimpleWidget m_amplifier;
@@ -47,6 +55,8 @@ public class ShooterSubsystem extends SubsystemBase {
     m_shooter.setNeutralMode(NeutralMode.Coast);
     m_shooterFollower.setNeutralMode(NeutralMode.Coast);
 
+    m_backWheel.configFactoryDefault();
+
     m_shooterFollower.setStatusFramePeriod(StatusFrame.Status_1_General, 255);
     m_shooterFollower.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 255);
 
@@ -54,6 +64,11 @@ public class ShooterSubsystem extends SubsystemBase {
     m_shooter.config_kP(0, k_p, k_timeout);
     m_shooter.config_kI(0, k_i, k_timeout);
     m_shooter.config_IntegralZone(0, k_iZone, k_timeout);
+
+    m_backWheel.config_kF(0, k_Bf, k_timeout);
+    m_backWheel.config_kP(0, k_Bp, k_timeout);
+    m_backWheel.config_kI(0, k_Bi, k_timeout);
+    m_backWheel.config_IntegralZone(0, k_BiZone, k_timeout);
 
     // m_amplifier = Shuffleboard.getTab("Drive Tab")
     //   .add("Shooter Amplifier", 0)
@@ -63,6 +78,10 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public double getShooterSpeed() {
     return m_shooter.getSelectedSensorVelocity();
+  }
+
+  public double getBackSpeed() {
+    return m_backWheel.getSelectedSensorVelocity();
   }
 
   public double getShooterSetpoint() {
@@ -88,7 +107,12 @@ public class ShooterSubsystem extends SubsystemBase {
     m_shooterSetpoint = speed;
   }
   public void setBackWheelPower(double power) {
-    m_backWheel.set(ControlMode.PercentOutput, -power);
+    //m_backWheel.set(ControlMode.PercentOutput, -power);
+  }
+
+  public void setBackWheelSpeed(double speed) {
+    m_backWheel.set(ControlMode.Velocity, speed);
+    System.out.println(String.format("backSpeed=%f", speed));
   }
 
   @Override

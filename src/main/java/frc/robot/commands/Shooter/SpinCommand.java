@@ -42,12 +42,12 @@ public class SpinCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println("SpinCommand Execute");
+    // System.out.println("SpinCommand Execute");
     boolean farShot = m_farShot.getAsBoolean();
     // m_shooterSubsystem.setShooterPower((m_power + 1) / 2); //.getAsDouble() 
     //m_shooterSubsystem.setShooterSpeed(farShot ? k_farPower : k_nearPower);
     //m_shooterSubsystem.setBackWheelPower(farShot ? k_farBackPower : k_nearBackPower); // if low .5 if not low -.5
-    m_shooterSubsystem.setBackWheelSpeed(1000);
+    m_shooterSubsystem.setBackWheelSpeed(15000);
   }
 
   // Called once the command ends or is interrupted.

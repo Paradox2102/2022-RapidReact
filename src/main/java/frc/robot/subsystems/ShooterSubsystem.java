@@ -33,9 +33,9 @@ public class ShooterSubsystem extends SubsystemBase {
 
   // back wheels
   double k_BMaxSpeed = 22300;
-  double k_Bf = .00/k_BMaxSpeed;
-  double k_Bp = 0;
-  double k_Bi = 0;
+  double k_Bf = .045;//102300.0/k_BMaxSpeed;
+  double k_Bp = .01;
+  double k_Bi = .001;
   double k_BiZone = 100;
 
   double m_shooterSetpoint = 0;

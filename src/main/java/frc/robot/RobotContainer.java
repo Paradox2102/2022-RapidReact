@@ -28,6 +28,7 @@ import frc.robot.commands.auto.Climb.AutoClimbCommand;
 import frc.robot.commands.auto.Climb.AutoClimbLimitCommand;
 import frc.robot.commands.auto.F4E;
 import frc.robot.commands.auto.ED;
+import frc.robot.commands.auto.A2B;
 import frc.robot.commands.auto.A2B3;
 import frc.robot.commands.auto.A2B31B;
 import frc.robot.subsystems.ClimberSubsystem;
@@ -131,7 +132,8 @@ public class RobotContainer {
     m_chooser.addOption("F4E (Two)", new F4E(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, shooterSpeed, 0.5));
     m_chooser.addOption("ED (One)", new ED(m_driveSubsystem, m_scottySubsystem, m_shooterSubsystem, shooterSpeed, 0.5));
     m_chooser.addOption("A2B3 (Three)", new A2B3(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, shooterSpeed, 0.35));
- 
+    m_chooser.addOption("A2B (Two)", new A2B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, shooterSpeed, 0.35));
+
     SmartDashboard.putData(m_chooser);
     //Shuffleboard.getTab("Drive Tab").add(m_chooser).withSize(2, 1);
 
@@ -139,6 +141,7 @@ public class RobotContainer {
     driverTab.add(m_chooser).withPosition(8, 1).withSize(2, 1);
     driverTab.addBoolean("Shooting Low", () -> m_shooterSubsystem.getLow()).withPosition(8, 2);
     driverTab.addCamera("Camera Viewer", "Front Camera", "http://10.21.2.2:1181/?action=stream").withPosition(1, 1);
+    driverTab.add("Shot Distance", "");
   }
   // m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(),
   //       () -> (-m_stick.getY() - m_velocityStick.getY()), () -> m_stick.getThrottle()));

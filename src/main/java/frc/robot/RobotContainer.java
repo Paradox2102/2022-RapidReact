@@ -20,7 +20,6 @@ import frc.robot.commands.Scotty.FireCommand;
 import frc.robot.commands.Scotty.ScottyPowerCommand;
 import frc.robot.commands.Shooter.AdjustSpeed;
 import frc.robot.commands.Shooter.CalibrateShooterSpeedCommand;
-import frc.robot.commands.Shooter.HoodCommand;
 import frc.robot.commands.Shooter.ShootByDistanceCommand;
 import frc.robot.commands.Shooter.SpinCommand;
 import frc.robot.commands.auto.TestCommand;
@@ -33,7 +32,6 @@ import frc.robot.commands.auto.A2B3;
 import frc.robot.commands.auto.A2B31B;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.HoodSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ScottySubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -68,7 +66,6 @@ public class RobotContainer {
   ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
   ScottySubsystem m_scottySubsystem = new ScottySubsystem();
   IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
-  HoodSubsystem m_hoodSubsystem = new HoodSubsystem();
 
   Joystick m_stick = new Joystick(0);
   Joystick m_climbStick = new Joystick(1);
@@ -122,8 +119,6 @@ public class RobotContainer {
     m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(), () -> m_stick.getY(), () -> m_stick.getThrottle()));
     
     m_scottySubsystem.setDefaultCommand(new DefaultScottyCommand(m_scottySubsystem, 0.3));
-    // m_hoodSubsystem.setDefaultCommand(new HoodCommand(m_hoodSubsystem, () -> m_climbStick.getThrottle()));  
-    // m_hoodSubsystem.setDefaultCommand(new HoodCommand(m_hoodSubsystem, () -> 0.222));  
     
     //added at wings 
     // m_shooterSubsystem.setDefaultCommand(new AdjustSpeed(m_shooterSubsystem, () -> m_climbStick.getThrottle())); 

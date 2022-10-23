@@ -17,8 +17,8 @@ public class SpinCommand extends CommandBase {
   final double k_nearPower = 6000;
   final double k_nearBackPower = 12000;
 
-  final double k_farPower = 9000;
-  final double k_farBackPower = 12500; 
+  final double k_farPower = 7000;
+  final double k_farBackPower = 12000; 
 
   BooleanSupplier m_farShot;
 
@@ -48,6 +48,7 @@ public class SpinCommand extends CommandBase {
     SmartDashboard.putString("Shot Distance", farShot ? "far" : "near");
     m_shooterSubsystem.setShooterSpeed(farShot ? k_farPower : k_nearPower);
     m_shooterSubsystem.setBackWheelSpeed(farShot ? k_farBackPower : k_nearBackPower);
+   
   }
 
   // Called once the command ends or is interrupted.

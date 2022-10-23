@@ -26,9 +26,9 @@ public class ShooterSubsystem extends SubsystemBase {
 
   // front wheels
   double k_f = 0.061;
-  double k_p = 0.25;
+  double k_p = 1.5; //0.25
   double k_i = 0.001;
-  double k_iZone = 100;
+  double k_iZone = 500;
   int k_timeout = 30;
 
   // back wheels
@@ -36,7 +36,7 @@ public class ShooterSubsystem extends SubsystemBase {
   double k_Bf = .045;//102300.0/k_BMaxSpeed;
   double k_Bp = .01;
   double k_Bi = .001;
-  double k_BiZone = 100;
+  double k_BiZone = 2000;
 
   double m_shooterSetpoint = 0;
   SimpleWidget m_amplifier;
@@ -103,7 +103,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void setShooterSpeed(double speed) {
     m_shooter.set(ControlMode.Velocity, speed);
-    System.out.println(String.format("speed=%f", speed));
+    // System.out.println(String.format("speed=%f", speed));
     m_shooterSetpoint = speed;
   }
   public void setBackWheelPower(double power) {
@@ -112,7 +112,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void setBackWheelSpeed(double speed) {
     m_backWheel.set(ControlMode.Velocity, speed);
-    System.out.println(String.format("backSpeed=%f", speed));
+    // System.out.println(String.format("backSpeed=%f", speed));
   }
 
   @Override

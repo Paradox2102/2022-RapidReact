@@ -87,6 +87,10 @@ public class Constants {
 
     // Conversions
     public double k_feetPerTick = 12.58 / 188529;
+
+    //Autos
+    public static int k_threeBallTime = 1500;  
+    public static int k_twoBallTime = 1000;  
 }
 
 class ConstantsCompetition extends Constants {

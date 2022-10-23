@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.PiCamera.Logger;
 import frc.lib.Camera;
 import frc.robot.commands.ServoThrottleCommand;
 import frc.robot.commands.Climber.ClimbCommand;
@@ -123,7 +124,7 @@ public class RobotContainer {
     //added at wings 
     // m_shooterSubsystem.setDefaultCommand(new AdjustSpeed(m_shooterSubsystem, () -> m_climbStick.getThrottle())); 
 
-    m_chooser.addOption("A2B31B (Four)", new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, shooterSpeed, 0.35));
+    m_chooser.addOption("A2B31B (Four)", new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, shooterSpeed, 0.3));
     m_chooser.addOption("F4E (Two)", new F4E(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, shooterSpeed, 0.5));
     m_chooser.addOption("ED (One)", new ED(m_driveSubsystem, m_scottySubsystem, m_shooterSubsystem, shooterSpeed, 0.5));
     m_chooser.addOption("A2B3 (Three)", new A2B3(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, shooterSpeed, 0.35));
@@ -153,7 +154,7 @@ public class RobotContainer {
     m_rotate.whenPressed(new RotateCommand(m_climberSubsystem));
    // m_break.whenPressed(new BreakCommand(m_climberSubsystem));
     
-    m_fire.whileHeld(new ScottyPowerCommand(m_scottySubsystem, 0.4));
+    m_fire.whileHeld(new ScottyPowerCommand(m_scottySubsystem, 0.3));
     //m_fire.whileHeld(new FireCommand(m_scottySubsystem, m_shooterSubsystem, 0.4\][]));
     
     
@@ -161,7 +162,8 @@ public class RobotContainer {
   //  m_rotate.whenPressed(new RotateCommand(m_climberSubsystem));
     m_reverseScotty.whileHeld(new ScottyPowerCommand(m_scottySubsystem, -0.4));
     // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_climbStick.getThrottle()));
-    BooleanSupplier shootFar = () -> (m_climbStick.getThrottle() > 0);
+    BooleanSupplier shootFar = () -> (m_climbStick.getThrottle() < 0);
+    // Logger.Log("RobotContainer", 1, String.format("Throttle=%f", m_climbStick.getThrottle())); 
     m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, shootFar)); // if low .5 if not low -.5
     m_spinUpDistance.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, longShooterSpeed, -.5));
     // m_spinLow.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, closeShooterLowSpeed, true));

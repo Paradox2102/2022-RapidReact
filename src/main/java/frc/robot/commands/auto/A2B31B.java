@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.ProxyScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.pathfinder.Pathfinder.Waypoint;
+import frc.robot.Constants;
 import frc.robot.States;
 import frc.robot.commands.DisablePositionTrackerCommand;
 import frc.robot.commands.SetStateOneBall;
@@ -27,9 +28,9 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class A2B31B extends ParallelRaceGroup {
   private static final int k_nPoints = 1000;
 private static final double k_dt = 0.020000;
-private static final double k_maxSpeed = 4.500000;
-private static final double k_maxAccel = 7.000000;
-private static final double k_maxDecl = 7.000000;
+private static final double k_maxSpeed = 7.000000; //4.5
+private static final double k_maxAccel = 11.000000; //7
+private static final double k_maxDecl = 11.000000; //7 
 private static final double k_maxJerk = 100.000000;
 private static final double k_wheelbase = 1.812500;
 /*
@@ -38,13 +39,21 @@ private static final double k_wheelbase = 1.812500;
 */
 final static Waypoint[] k_firstBall = { new Waypoint(-7.7, 2.25, Math.toRadians(180)), new Waypoint(-10.6, 2.25, Math.toRadians(180)) };
 
-final static Waypoint[] k_driveShoot = { new Waypoint(-10.6, 2.25, Math.toRadians(0)), new Waypoint(-4, 1, Math.toRadians(-30)) };
+// final static Waypoint[] k_driveShoot = { new Waypoint(-10.6, 2.25, Math.toRadians(0)), new Waypoint(-4, 1, Math.toRadians(-30)) }; //-30
+/*
+-10.6, 2.25,2.706,2.072,2.197
+-4.03,1.722, -30
+*/
+private static final Waypoint[] k_driveShoot= {
+    new Waypoint(-10.6,  2.25, Math.toRadians(0), 2.072, 2.197),
+    new Waypoint(-4.03, 1.722, Math.toRadians( -30))
+};
 /*
 -4, 1, 150
 -7.2, 10.4, 90
 -8.7,21.2, 120
 */
-private static final double k_longSpeed = 9;
+private static final double k_longSpeed = 10; //9
 
 private static final Waypoint[] k_getTwoBalls = {
     new Waypoint(-4, 1, Math.toRadians( 150)),
@@ -85,15 +94,15 @@ private static final Waypoint[] k_driveShootLong = {
   public A2B31B(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsytem, ScottySubsystem scottySubsystem, double intakePower, double shooterPower, double scottyPower) {
     addCommands(
       new IntakeCommand(intakeSubsystem, scottySubsystem, intakePower),
-      new SpinCommand(shooterSubsytem, shooterPower, -.5),
+      new SpinCommand(shooterSubsytem, () -> false),
       new SequentialCommandGroup(
         new SetStateOneBall(scottySubsystem),
         new CreatePathCommand(driveSubsystem, k_firstBall, true, true, "Backwards get first ball", new PurePursuitData(k_maxSpeed)),
         new CreatePathCommand(driveSubsystem, k_driveShoot, false, false, "Drive up and shoot", new PurePursuitData(k_maxSpeed)),
-        new ProxyScheduleCommand(new ScottyPowerCommand(scottySubsystem, scottyPower, 1000)),
+        new ProxyScheduleCommand(new ScottyPowerCommand(scottySubsystem, scottyPower, Constants.k_threeBallTime)), //1000
         new CreatePathCommand(driveSubsystem, k_getTwoBalls, false, true, "Pickup two balls", new PurePursuitData(k_longSpeed), 0.3),
         new CreatePathCommand(driveSubsystem, k_driveShootLong, false, false, "Drive Long and Shoot", new PurePursuitData(k_longSpeed), 0.3),
-        new ProxyScheduleCommand(new ScottyPowerCommand(scottySubsystem, scottyPower, 1000)),
+        new ProxyScheduleCommand(new ScottyPowerCommand(scottySubsystem, scottyPower, Constants.k_twoBallTime)),
         new DisablePositionTrackerCommand(driveSubsystem)
       )
     );

@@ -6,6 +6,7 @@ package frc.robot.commands.Shooter;
 
 import java.util.function.BooleanSupplier;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.lib.Logger;
@@ -14,8 +15,8 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class SpinCommand extends CommandBase {
 
   ShooterSubsystem m_shooterSubsystem; 
-  final double k_nearPower = 6000;
-  final double k_nearBackPower = 12000;
+  final double k_nearPower = 7500;
+  final double k_nearBackPower = 11000;
 
   final double k_farPower = 7000;
   final double k_farBackPower = 12000; 
@@ -45,7 +46,6 @@ public class SpinCommand extends CommandBase {
   public void execute() {
     boolean farShot 
     = m_farShot.getAsBoolean();
-    SmartDashboard.putString("Shot Distance", farShot ? "far" : "near");
     m_shooterSubsystem.setShooterSpeed(farShot ? k_farPower : k_nearPower);
     m_shooterSubsystem.setBackWheelSpeed(farShot ? k_farBackPower : k_nearBackPower);
    

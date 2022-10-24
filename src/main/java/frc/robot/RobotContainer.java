@@ -68,6 +68,8 @@ public class RobotContainer {
   ScottySubsystem m_scottySubsystem = new ScottySubsystem();
   IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
 
+  BooleanSupplier m_shootFar;
+
   Joystick m_stick = new Joystick(0);
   Joystick m_climbStick = new Joystick(1);
   Joystick m_calibStick = new Joystick(5);
@@ -129,15 +131,16 @@ public class RobotContainer {
     m_chooser.addOption("ED (One)", new ED(m_driveSubsystem, m_scottySubsystem, m_shooterSubsystem, shooterSpeed, 0.5));
     m_chooser.addOption("A2B3 (Three)", new A2B3(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, shooterSpeed, 0.35));
     m_chooser.addOption("A2B (Two)", new A2B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, shooterSpeed, 0.35));
+    // m_chooser.addOption("None", null);
 
     SmartDashboard.putData(m_chooser);
     //Shuffleboard.getTab("Drive Tab").add(m_chooser).withSize(2, 1);
 
     ShuffleboardTab driverTab = Shuffleboard.getTab("Drive Tab");
-    driverTab.add(m_chooser).withPosition(8, 1).withSize(2, 1);
-    driverTab.addBoolean("Shooting Low", () -> m_shooterSubsystem.getLow()).withPosition(8, 2);
+    driverTab.add(m_chooser).withPosition(2, 1).withSize(2, 1);
+    // driverTab.addBoolean("Shooting Low", () -> m_shooterSubsystem.getLow()).withPosition(8, 2);
     driverTab.addCamera("Camera Viewer", "Front Camera", "http://10.21.2.2:1181/?action=stream").withPosition(1, 1);
-    driverTab.add("Shot Distance", "");
+    driverTab.addString("Shot Distance", () -> (m_shootFar.getAsBoolean() ? "far" : "near")).withPosition(4, 5);
   }
   // m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(),
   //       () -> (-m_stick.getY() - m_velocityStick.getY()), () -> m_stick.getThrottle()));
@@ -162,9 +165,9 @@ public class RobotContainer {
   //  m_rotate.whenPressed(new RotateCommand(m_climberSubsystem));
     m_reverseScotty.whileHeld(new ScottyPowerCommand(m_scottySubsystem, -0.4));
     // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_climbStick.getThrottle()));
-    BooleanSupplier shootFar = () -> (m_climbStick.getThrottle() < 0);
+    m_shootFar = () -> (m_climbStick.getThrottle() < 0);
     // Logger.Log("RobotContainer", 1, String.format("Throttle=%f", m_climbStick.getThrottle())); 
-    m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, shootFar)); // if low .5 if not low -.5
+    m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, m_shootFar)); // if low .5 if not low -.5
     m_spinUpDistance.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, longShooterSpeed, -.5));
     // m_spinLow.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, closeShooterLowSpeed, true));
     // m_spinUp.toggleWhenPressed(new ShootByDistanceCommand(m_shooterSubsystem, m_camera, 7300));

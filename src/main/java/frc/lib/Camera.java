@@ -66,6 +66,20 @@ public class Camera {
             return false;
         }
 
+        public PiCameraRegion getTopMostRegion() {
+            int numRegion = m_regions.GetRegionCount();
+            PiCameraRegion topRegion = null;
+            for (int i=1; i<numRegion; i++){
+                PiCameraRegion region = m_regions.GetRegion(i);
+                if (topRegion == null){
+                    topRegion = region;
+                } else if (region.m_bounds.m_top < topRegion.m_bounds.m_top){
+                    topRegion = region;
+                }
+            }
+            return topRegion;
+        }
+
         public double centerX() {
             PiCameraRegion region = m_regions.GetRegion(0);
             PiCameraRect bounds = region.m_bounds;

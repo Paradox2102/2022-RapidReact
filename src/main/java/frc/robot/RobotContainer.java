@@ -14,6 +14,7 @@ import frc.robot.commands.Drive.AimToTargetCommand;
 import frc.robot.commands.Drive.ArcadeDriveCommand;
 import frc.robot.commands.Drive.CalibrateCameraCommand;
 import frc.robot.commands.Drive.MeasureSpeedCommand;
+import frc.robot.commands.Drive.TurnToTarget;
 import frc.robot.commands.Intake.DeployIntakeCommand;
 import frc.robot.commands.Intake.IntakeCommand;
 import frc.robot.commands.Scotty.DefaultScottyCommand;
@@ -92,6 +93,8 @@ public class RobotContainer {
   JoystickButton m_reverseScotty = new JoystickButton(m_climbStick, 8);
   JoystickButton m_spinUp = new JoystickButton(m_climbStick, 2);
   JoystickButton m_spinUpDistance = new JoystickButton(m_climbStick, 11);
+
+  JoystickButton m_turnToTarget = new JoystickButton(m_climbStick, 10);
   // JoystickButton m_spinLow = new JoystickButton(m_climbStick, 5);
   // Calib
   // JoystickButton m_calibrateCamera = new JoystickButton(m_calibStick, 2);
@@ -112,7 +115,7 @@ public class RobotContainer {
   private final double shooterLowSpeed = 5500;
 
   public RobotContainer() {
-    // m_camera.connect("10.21.2.12");
+    m_camera.connect("10.21.2.12");
     DriverStation.silenceJoystickConnectionWarning(true);
     // SmartDashboard.putData(new PowerDistribution());
     // SmartDashboard.putData(m_driveSubsystem);
@@ -159,6 +162,8 @@ public class RobotContainer {
     
     m_fire.whileHeld(new ScottyPowerCommand(m_scottySubsystem, 0.3));
     //m_fire.whileHeld(new FireCommand(m_scottySubsystem, m_shooterSubsystem, 0.4\][]));
+
+    m_turnToTarget.whenPressed(new TurnToTarget(m_driveSubsystem, m_camera));
     
     
 

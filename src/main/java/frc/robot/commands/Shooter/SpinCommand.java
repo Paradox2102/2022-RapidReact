@@ -15,8 +15,8 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class SpinCommand extends CommandBase {
 
   ShooterSubsystem m_shooterSubsystem; 
-  final double k_nearPower = 7500;
-  final double k_nearBackPower = 11000;
+  final double k_nearPower = 8000;
+  final double k_nearBackPower = 10000;
 
   final double k_farPower = 7000;
   final double k_farBackPower = 12000; 

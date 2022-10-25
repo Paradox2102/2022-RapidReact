@@ -94,7 +94,7 @@ public class RobotContainer {
   JoystickButton m_spinUp = new JoystickButton(m_climbStick, 2);
   JoystickButton m_spinUpDistance = new JoystickButton(m_climbStick, 11);
 
-  JoystickButton m_turnToTarget = new JoystickButton(m_climbStick, 10);
+  JoystickButton m_turnToTarget = new JoystickButton(m_stick, 10);
   // JoystickButton m_spinLow = new JoystickButton(m_climbStick, 5);
   // Calib
   // JoystickButton m_calibrateCamera = new JoystickButton(m_calibStick, 2);
@@ -163,7 +163,7 @@ public class RobotContainer {
     m_fire.whileHeld(new ScottyPowerCommand(m_scottySubsystem, 0.3));
     //m_fire.whileHeld(new FireCommand(m_scottySubsystem, m_shooterSubsystem, 0.4\][]));
 
-    m_turnToTarget.whenPressed(new TurnToTarget(m_driveSubsystem, m_camera));
+    m_turnToTarget.whileHeld(new TurnToTarget(m_driveSubsystem, m_camera));
     
     
 

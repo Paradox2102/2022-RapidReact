@@ -15,10 +15,14 @@ public class TurnToTarget extends CommandBase {
   DriveSubsystem m_subsystem;
   Camera m_camera;
   private final double k_p = .0004;
+  private final double k_deadzone = 50;
+  private final double k_minPower = 0.1;
+  private double m_distanceFromCenter = 1000;
   /** Creates a new TurnToTarget. */
   public TurnToTarget(DriveSubsystem driveSubsystem, Camera camera) {
     m_subsystem = driveSubsystem;
     m_camera = camera;
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_subsystem);
   }
@@ -38,13 +42,13 @@ public class TurnToTarget extends CommandBase {
       PiCameraRegion topRegion = m_cameraData.getTopMostRegion();
       double center = (topRegion.m_bounds.m_left + topRegion.m_bounds.m_right) / 2.0;
       double centerLine = m_cameraData.centerLine();
-      double power = (centerLine - center) * k_p;
+      m_distanceFromCenter = centerLine - center;
+      double power = (m_distanceFromCenter) * k_p;
+      Logger.Log("TurnToTarget", 1, String.format("power=%f, centerline=%f, center=%f", power, centerLine, center));
+      if (Math.abs(power) < k_minPower){
+        power = k_minPower * Math.signum(power);
+      }
       m_subsystem.setPower(-power, power);
-      // if (center < centerLine){
-      //   m_subsystem.setPower(-power, power);
-      // } else if (center > centerLine){
-      //   m_subsystem.setPower(power, -power);
-      // }
     }
   }
 
@@ -59,6 +63,7 @@ public class TurnToTarget extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    Logger.Log("TurnToTarget", 1, String.format("distanceFromCenter=%f", m_distanceFromCenter));
+    return (Math.abs(m_distanceFromCenter) < k_deadzone);
   }
 }

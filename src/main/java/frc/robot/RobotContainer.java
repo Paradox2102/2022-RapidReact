@@ -163,7 +163,7 @@ public class RobotContainer {
     m_fire.whileHeld(new ScottyPowerCommand(m_scottySubsystem, 0.3));
     //m_fire.whileHeld(new FireCommand(m_scottySubsystem, m_shooterSubsystem, 0.4\][]));
 
-    m_turnToTarget.whileHeld(new TurnToTarget(m_driveSubsystem, m_camera));
+    m_turnToTarget.whenPressed(new TurnToTarget(m_driveSubsystem, m_camera));
     
     
 

@@ -15,8 +15,8 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class SpinCommand extends CommandBase {
 
   ShooterSubsystem m_shooterSubsystem; 
-  final double k_nearPower = 8000;
-  final double k_nearBackPower = 10000;
+  final double k_nearPower = 7000;
+  final double k_nearBackPower = 2000;
 
   final double k_farPower = 7000;
   final double k_farBackPower = 12000; 
@@ -48,7 +48,6 @@ public class SpinCommand extends CommandBase {
     = m_farShot.getAsBoolean();
     m_shooterSubsystem.setShooterSpeed(farShot ? k_farPower : k_nearPower);
     m_shooterSubsystem.setBackWheelSpeed(farShot ? k_farBackPower : k_nearBackPower);
-   
   }
 
   // Called once the command ends or is interrupted.

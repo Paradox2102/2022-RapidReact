@@ -120,6 +120,7 @@ public class ShooterSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("ShooterSpeed", m_shooter.getSelectedSensorVelocity());
     SmartDashboard.putNumber("BackWheelSpeed", m_backWheel.getSelectedSensorVelocity());
     SmartDashboard.putNumber("Shooter Tempurature", m_shooter.getTemperature());
+    SmartDashboard.putNumber("Shooter Follow Tempurature", m_shooterFollower.getTemperature());
   }
 
   public void setAdjustment(double speed) {

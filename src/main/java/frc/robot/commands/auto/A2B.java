@@ -5,7 +5,9 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ProxyScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.pathfinder.Pathfinder.Waypoint;
 import frc.robot.commands.DisablePositionTrackerCommand;
 import frc.robot.commands.Intake.IntakeCommand;
@@ -22,9 +24,9 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class A2B extends ParallelCommandGroup {
   private static final int k_nPoints = 1000;
   private static final double k_dt = 0.020000;
-  private static final double k_maxSpeed = 4.500000;
-  private static final double k_maxAccel = 7.000000;
-  private static final double k_maxDecl = 7.000000;
+  private static final double k_maxSpeed = 7.000000;
+  private static final double k_maxAccel = 11.000000;
+  private static final double k_maxDecl = 11.000000;
   private static final double k_maxJerk = 100.000000;
   private static final double k_wheelbase = 1.812500;
   /*
@@ -45,8 +47,12 @@ public class A2B extends ParallelCommandGroup {
       new SpinCommand(shooterSubsytem, shooterPower, -.5),
       new SequentialCommandGroup(
         new CreatePathCommand(driveSubsystem, k_firstBall, true, true, "Backwards get first ball", new PurePursuitData(k_maxSpeed)),
-        new CreatePathCommand(driveSubsystem, k_driveShoot, false, false, "Drive up and shoot", new PurePursuitData(k_maxSpeed)),
-        new ScottyPowerCommand(scottySubsystem, scottyPower),
+        new ParallelCommandGroup(
+          new CreatePathCommand(driveSubsystem, k_driveShoot, false, false, "Drive up and shoot", new PurePursuitData(k_maxSpeed)),
+          new WaitCommand(1.9).andThen(
+            new ProxyScheduleCommand(new ScottyPowerCommand(scottySubsystem, scottyPower))
+          )
+        ),
         new DisablePositionTrackerCommand(driveSubsystem)
       )
     );

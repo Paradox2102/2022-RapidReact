@@ -4,13 +4,19 @@
 
 package frc.robot.commands.Drive;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.PiCamera.Logger;
+import frc.PiCamera.PiCamera.PiCameraRegion;
+import frc.lib.Camera;
 import frc.lib.DriveHelper;
 import frc.lib.DriveSignal;
+import frc.lib.Camera.CameraData;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveSubsystem;
 
@@ -21,7 +27,15 @@ public class ArcadeDriveCommand extends CommandBase {
   DoubleSupplier m_getX;
   DoubleSupplier m_getY;
 
+  BooleanSupplier m_aimIsOn;
+
   DoubleSupplier m_getThrottle;
+
+  Camera m_camera;
+  private final double k_p = .0004;
+  private final double k_deadzone = 50;
+  private final double k_minPower = 0.1;
+  private double m_distanceFromCenter = 1000;
 
   private static final double k_maxSpeed = 19000;
   private DriveHelper m_driveHelper = new DriveHelper();
@@ -31,11 +45,14 @@ public class ArcadeDriveCommand extends CommandBase {
   }
   private SendableChooser<driveTypes> m_chooser = new SendableChooser<>();
 
-  public ArcadeDriveCommand(DriveSubsystem driveSubsystem, DoubleSupplier joystickX, DoubleSupplier joystickY, DoubleSupplier getThrottle) {
+  public ArcadeDriveCommand(DriveSubsystem driveSubsystem, DoubleSupplier joystickX, DoubleSupplier joystickY, DoubleSupplier getThrottle, BooleanSupplier aimIsOn, Camera camera) {
     m_subsystem = driveSubsystem;
+    m_camera = camera;
 
     m_getX = joystickX;
     m_getY = joystickY;
+
+    m_aimIsOn = aimIsOn;
 
     m_getThrottle = getThrottle;
 
@@ -50,9 +67,57 @@ public class ArcadeDriveCommand extends CommandBase {
     SmartDashboard.putData("drive mode", m_chooser);
   }
 
+  public double aim() {
+    CameraData m_cameraData = m_camera.createData();
+    if (m_cameraData.canSee()) {
+      PiCameraRegion topRegion = m_cameraData.getTopMostRegion();
+      double center = (topRegion.m_bounds.m_left + topRegion.m_bounds.m_right) / 2.0;
+      double centerLine = m_cameraData.centerLine();
+      m_distanceFromCenter = centerLine - center;
+      if (Math.abs(m_distanceFromCenter) < k_deadzone) {
+        SmartDashboard.putBoolean("Is Aimed", true);
+        return 0;
+      }
+      double power = (m_distanceFromCenter) * k_p;
+      Logger.Log("TurnToTarget", 1, String.format("power=%f, centerline=%f, center=%f", power, centerLine, center));
+      SmartDashboard.putNumber("Camera Top", topRegion.m_bounds.m_top);
+      if (Math.abs(power) < k_minPower){
+        power = k_minPower * Math.signum(power);
+      }
+      SmartDashboard.putBoolean("Is Aimed", true);
+      return power;
+  }
+  SmartDashboard.putBoolean("Is Aimed", true);
+  return 0;
+}
+
+public boolean aimCheck() {
+  CameraData m_cameraData = m_camera.createData();
+  if (m_cameraData.canSee()) {
+    int top = 492;
+    PiCameraRegion topRegion = m_cameraData.getTopMostRegion();
+    double center = (topRegion.m_bounds.m_left + topRegion.m_bounds.m_right) / 2.0;
+    // double top = topRegion.m_bounds.m_top;
+    double centerLine = m_cameraData.centerLine();
+    m_distanceFromCenter = centerLine - center;
+    //m_distanceFromTop = 
+    System.out.println(top - topRegion.m_bounds.m_top);
+    if ((Math.abs(m_distanceFromCenter) < k_deadzone) && (Math.abs(top - topRegion.m_bounds.m_top) < 50)) {
+      System.out.println(true);
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+    }
+}
+
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    //SmartDashboard.putBoolean("Is Aim", false);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -60,7 +125,16 @@ public class ArcadeDriveCommand extends CommandBase {
     double x = m_getX.getAsDouble();
     double y = m_getY.getAsDouble();
 
-    x = x * x * x / 2;
+    if (m_aimIsOn.getAsBoolean()){
+      m_camera.toggleLights(true);
+      x = -aim();
+    } else {
+      m_camera.toggleLights(false);
+      x = x * x * x / 2;
+    }
+
+    SmartDashboard.putBoolean("Is Aim", aimCheck());
+
     y = y * y * y;
     y *= -1;
 
@@ -124,7 +198,9 @@ public class ArcadeDriveCommand extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_camera.toggleLights(false);
+  }
 
   // Returns true when the command should end.
   @Override

@@ -68,12 +68,10 @@ public class Camera {
 
         public PiCameraRegion getTopMostRegion() {
             int numRegion = m_regions.GetRegionCount();
-            PiCameraRegion topRegion = null;
+            PiCameraRegion topRegion = m_regions.GetRegion(0);
             for (int i=1; i<numRegion; i++){
                 PiCameraRegion region = m_regions.GetRegion(i);
-                if (topRegion == null){
-                    topRegion = region;
-                } else if (region.m_bounds.m_top < topRegion.m_bounds.m_top){
+                if (region.m_bounds.m_top < topRegion.m_bounds.m_top){
                     topRegion = region;
                 }
             }

@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.pathfinder.Pathfinder.Waypoint;
+import frc.robot.Constants;
 import frc.robot.commands.DisablePositionTrackerCommand;
 import frc.robot.commands.SetStateOneBall;
 import frc.robot.commands.Drive.TurnToHeadingCommand;
@@ -24,9 +25,9 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class ED extends ParallelRaceGroup {
   private static final int k_nPoints = 1000;
   private static final double k_dt = 0.020000;
-  private static final double k_maxSpeed = 8.000000;
-  private static final double k_maxAccel = 8.000000;
-  private static final double k_maxDecl = 8.000000;
+  private static final double k_maxSpeed = 7.000000;
+  private static final double k_maxAccel = 11.000000;
+  private static final double k_maxDecl = 11.000000;
   private static final double k_maxJerk = 100.000000;
   private static final double k_wheelbase = 1.812500;
 
@@ -45,7 +46,7 @@ public class ED extends ParallelRaceGroup {
         new SetStateOneBall(scottySubsystem),
         new WaitCommand(1.5),
         new ParallelDeadlineGroup(new WaitCommand(2),
-          new ScottyPowerCommand(scottySubsystem, scottyPower)),
+          new ScottyPowerCommand(scottySubsystem, scottyPower, Constants.k_twoBallTime)),
         new CreatePathCommand(driveSubsystem, k_path, true, true, "ED", new PurePursuitData(k_maxSpeed), 0.3),
         new TurnToHeadingCommand(driveSubsystem, 90, 0.6),
         new DisablePositionTrackerCommand(driveSubsystem)

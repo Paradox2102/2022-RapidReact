@@ -78,6 +78,8 @@ public class RobotContainer {
   // Driver 1
   JoystickButton m_intake = new JoystickButton(m_stick, 1);
   JoystickButton m_outake = new JoystickButton(m_stick, 2);
+
+  JoystickButton m_turnToTarget = new JoystickButton(m_stick, 3);
   // JoystickButton m_testSpeed = new JoystickButton(m_stick, 10); 
   // Driver 2
   // JoystickButton m_climb = new JoystickButton(m_climbStick, 11); 
@@ -93,8 +95,6 @@ public class RobotContainer {
   JoystickButton m_reverseScotty = new JoystickButton(m_climbStick, 8);
   JoystickButton m_spinUp = new JoystickButton(m_climbStick, 2);
   JoystickButton m_spinUpDistance = new JoystickButton(m_climbStick, 11);
-
-  JoystickButton m_turnToTarget = new JoystickButton(m_stick, 10);
   // JoystickButton m_spinLow = new JoystickButton(m_climbStick, 5);
   // Calib
   // JoystickButton m_calibrateCamera = new JoystickButton(m_calibStick, 2);
@@ -114,6 +114,8 @@ public class RobotContainer {
   private final double shooterSpeed = 6000;  
   private final double shooterLowSpeed = 5500;
 
+  BooleanSupplier m_aimIsOn;
+
   public RobotContainer() {
     m_camera.connect("10.21.2.12");
     DriverStation.silenceJoystickConnectionWarning(true);
@@ -122,7 +124,7 @@ public class RobotContainer {
 
     configureButtonBindings();
 
-    m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(), () -> m_stick.getY(), () -> m_stick.getThrottle()));
+    m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(), () -> m_stick.getY(), () -> m_stick.getThrottle(), m_aimIsOn, m_camera));
     
     m_scottySubsystem.setDefaultCommand(new DefaultScottyCommand(m_scottySubsystem, 0.3));
     
@@ -132,7 +134,7 @@ public class RobotContainer {
     m_chooser.addOption("A2B31B (Four)", new A2B31B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, shooterSpeed, 0.3));
     m_chooser.addOption("F4E (Two)", new F4E(m_driveSubsystem, m_intakeSubsystem, m_scottySubsystem, m_shooterSubsystem, 0.7, shooterSpeed, 0.5));
     m_chooser.addOption("ED (One)", new ED(m_driveSubsystem, m_scottySubsystem, m_shooterSubsystem, shooterSpeed, 0.5));
-    m_chooser.addOption("A2B3 (Three)", new A2B3(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, shooterSpeed, 0.35));
+    m_chooser.addOption("A2B3B (Three)", new A2B3(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, shooterSpeed, 0.35));
     m_chooser.addOption("A2B (Two)", new A2B(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_scottySubsystem, 0.7, shooterSpeed, 0.35));
     // m_chooser.addOption("None", null);
 
@@ -163,7 +165,8 @@ public class RobotContainer {
     m_fire.whileHeld(new ScottyPowerCommand(m_scottySubsystem, 0.3));
     //m_fire.whileHeld(new FireCommand(m_scottySubsystem, m_shooterSubsystem, 0.4\][]));
 
-    m_turnToTarget.whenPressed(new TurnToTarget(m_driveSubsystem, m_camera));
+    // m_turnToTarget.whenPressed(new TurnToTarget(m_driveSubsystem, m_camera));
+    m_aimIsOn = () -> (m_turnToTarget.get());
     
     
 
@@ -171,6 +174,7 @@ public class RobotContainer {
     m_reverseScotty.whileHeld(new ScottyPowerCommand(m_scottySubsystem, -0.4));
     // m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, () -> m_climbStick.getThrottle()));
     m_shootFar = () -> (m_climbStick.getThrottle() < 0);
+
     // Logger.Log("RobotContainer", 1, String.format("Throttle=%f", m_climbStick.getThrottle())); 
     m_spinUp.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, m_shootFar)); // if low .5 if not low -.5
     m_spinUpDistance.toggleWhenPressed(new SpinCommand(m_shooterSubsystem, longShooterSpeed, -.5));

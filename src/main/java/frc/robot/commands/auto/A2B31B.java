@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.ProxyScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.pathfinder.Pathfinder.Waypoint;
 import frc.robot.Constants;
 import frc.robot.States;
@@ -98,8 +99,12 @@ private static final Waypoint[] k_driveShootLong = {
       new SequentialCommandGroup(
         new SetStateOneBall(scottySubsystem),
         new CreatePathCommand(driveSubsystem, k_firstBall, true, true, "Backwards get first ball", new PurePursuitData(k_maxSpeed)),
-        new CreatePathCommand(driveSubsystem, k_driveShoot, false, false, "Drive up and shoot", new PurePursuitData(k_maxSpeed)),
-        new ProxyScheduleCommand(new ScottyPowerCommand(scottySubsystem, scottyPower, Constants.k_threeBallTime)), //1000
+        new ParallelCommandGroup(
+          new CreatePathCommand(driveSubsystem, k_driveShoot, false, false, "Drive up and shoot", new PurePursuitData(k_maxSpeed)),
+          new WaitCommand(1.9).andThen(
+            new ProxyScheduleCommand(new ScottyPowerCommand(scottySubsystem, scottyPower, Constants.k_threeBallTime))
+          )
+        ),        
         new CreatePathCommand(driveSubsystem, k_getTwoBalls, false, true, "Pickup two balls", new PurePursuitData(k_longSpeed), 0.3),
         new CreatePathCommand(driveSubsystem, k_driveShootLong, false, false, "Drive Long and Shoot", new PurePursuitData(k_longSpeed), 0.3),
         new ProxyScheduleCommand(new ScottyPowerCommand(scottySubsystem, scottyPower, Constants.k_twoBallTime)),

@@ -4,6 +4,7 @@
 
 package frc.robot.commands.Drive;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.PiCamera.Logger;
 import frc.PiCamera.PiCamera.PiCameraRegion;
@@ -45,6 +46,7 @@ public class TurnToTarget extends CommandBase {
       m_distanceFromCenter = centerLine - center;
       double power = (m_distanceFromCenter) * k_p;
       Logger.Log("TurnToTarget", 1, String.format("power=%f, centerline=%f, center=%f", power, centerLine, center));
+      SmartDashboard.putNumber("Camera Top", topRegion.m_bounds.m_top);
       if (Math.abs(power) < k_minPower){
         power = k_minPower * Math.signum(power);
       }

@@ -124,7 +124,8 @@ public class RobotContainer {
 
     configureButtonBindings();
 
-    m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(), () -> m_stick.getY(), () -> m_stick.getThrottle(), m_aimIsOn, m_camera));
+    ArcadeDriveCommand m_arcadeDrive = new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(), () -> m_stick.getY(), () -> m_stick.getThrottle(), m_aimIsOn, m_camera);
+    m_driveSubsystem.setDefaultCommand(m_arcadeDrive);
     
     m_scottySubsystem.setDefaultCommand(new DefaultScottyCommand(m_scottySubsystem, 0.3));
     
@@ -145,7 +146,8 @@ public class RobotContainer {
     driverTab.add(m_chooser).withPosition(2, 1).withSize(2, 1);
     // driverTab.addBoolean("Shooting Low", () -> m_shooterSubsystem.getLow()).withPosition(8, 2);
     driverTab.addCamera("Camera Viewer", "Front Camera", "http://10.21.2.2:1181/?action=stream").withPosition(1, 1);
-    driverTab.addString("Shot Distance", () -> (m_shootFar.getAsBoolean() ? "far" : "near")).withPosition(4, 5);
+    driverTab.addString("Shot Distance", () -> (m_shootFar.getAsBoolean() ? "far" : "near")).withPosition(2, 2);
+    driverTab.addBoolean("Is Aim", () -> (m_arcadeDrive.aimCheck())).withPosition(0, 0);
   }
   // m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem, () -> m_stick.getX(),
   //       () -> (-m_stick.getY() - m_velocityStick.getY()), () -> m_stick.getThrottle()));

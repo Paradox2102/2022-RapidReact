@@ -47,12 +47,8 @@ public class A2B extends ParallelCommandGroup {
       new SpinCommand(shooterSubsytem, shooterPower, -.5),
       new SequentialCommandGroup(
         new CreatePathCommand(driveSubsystem, k_firstBall, true, true, "Backwards get first ball", new PurePursuitData(k_maxSpeed)),
-        new ParallelCommandGroup(
-          new CreatePathCommand(driveSubsystem, k_driveShoot, false, false, "Drive up and shoot", new PurePursuitData(k_maxSpeed)),
-          new WaitCommand(1.9).andThen(
-            new ProxyScheduleCommand(new ScottyPowerCommand(scottySubsystem, scottyPower))
-          )
-        ),
+        new CreatePathCommand(driveSubsystem, k_driveShoot, false, false, "Drive up and shoot", new PurePursuitData(k_maxSpeed)),
+        new ProxyScheduleCommand(new ScottyPowerCommand(scottySubsystem, scottyPower)),
         new DisablePositionTrackerCommand(driveSubsystem)
       )
     );

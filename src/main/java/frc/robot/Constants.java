@@ -25,18 +25,19 @@ public class Constants {
     public static Constants getInstance() {
         if (c == null)
         {
-            File f = new File("/home/lvuser/Competition");
+            // File f = new File("/home/lvuser/Competition");
     
-            // Checking if the specified file exists or not
-            if (f.exists())
-            {
-                c = new ConstantsCompetition();
-                SmartDashboard.putString("RobotType", "competition"); 
-            }
-            else {
-                c = new Constants(); 
-                SmartDashboard.putString("RobotType", "practice"); 
-            }
+            // // Checking if the specified file exists or not
+            // if (f.exists())
+            // {
+            //     c = new ConstantsCompetition();
+            //     SmartDashboard.putString("RobotType", "competition"); 
+            // }
+            // else {
+            //     c = new Constants(); 
+            //     SmartDashboard.putString("RobotType", "practice"); 
+            // }
+            c = new ConstantsCompetition();
         }
 
         return c;

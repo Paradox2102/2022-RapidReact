@@ -28,6 +28,7 @@ import frc.robot.commands.auto.TestCommand;
 import frc.robot.commands.auto.Climb.AutoClimbCommand;
 import frc.robot.commands.auto.Climb.AutoClimbLimitCommand;
 import frc.robot.commands.auto.F4E;
+import frc.robot.commands.auto.FullTestRun2023;
 import frc.robot.commands.auto.ED;
 import frc.robot.commands.auto.A2B;
 import frc.robot.commands.auto.A2B3;
@@ -80,6 +81,8 @@ public class RobotContainer {
   JoystickButton m_outake = new JoystickButton(m_stick, 2);
 
   JoystickButton m_turnToTarget = new JoystickButton(m_stick, 3);
+  JoystickButton m_test2023 = new JoystickButton(m_stick, 4);
+
   // JoystickButton m_testSpeed = new JoystickButton(m_stick, 10); 
   // Driver 2
   // JoystickButton m_climb = new JoystickButton(m_climbStick, 11); 
@@ -169,7 +172,7 @@ public class RobotContainer {
 
     // m_turnToTarget.whenPressed(new TurnToTarget(m_driveSubsystem, m_camera));
     m_aimIsOn = () -> (m_turnToTarget.get());
-    
+    m_test2023.whenPressed(new FullTestRun2023(m_driveSubsystem));
     
 
   //  m_rotate.whenPressed(new RotateCommand(m_climberSubsystem));

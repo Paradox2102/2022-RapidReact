@@ -50,7 +50,9 @@ public class CSVWriter {
 		m_timer.start();
 
 		try {
-			m_writer = new PrintWriter(String.format("%s/%s - %s.csv", k_logPath, m_title, new Date()));
+			String path = String.format("%s/%s - %s.csv", k_logPath, m_title, new Date());
+			System.out.println(String.format("log file = %s", path));
+			m_writer = new PrintWriter(path);
 			m_writer.println(m_header);
 		} catch (final FileNotFoundException e) {
 			DriverStation.reportError(String.format("Failed to log \"%s\"", m_title), e.getStackTrace());
